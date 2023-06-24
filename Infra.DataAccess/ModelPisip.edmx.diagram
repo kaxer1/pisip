@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ca9e3865f55e40e1b3df824551d8146a" Name="Diagram1">
+        <EntityTypeShape EntityType="pisipModel.TGENCANALES" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pisipModel.TGENCOMPANIA" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pisipModel.TSEGPOLITICA" Width="1.5" PointX="3.375" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pisipModel.TSEGUSUARIO" Width="1.5" PointX="3.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="pisipModel.TSEGUSUARIODETALLE" Width="1.5" PointX="8.375" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="pisipModel.TSEGUSUARIODETALLEHIST" Width="1.5" PointX="10.875" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pisipModel.TSEGUSUARIOSESSION" Width="1.5" PointX="6.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pisipModel.TSEGUSUARIOSESSIONHISTORIA" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="pisipModel.FKTSEGPOLITICATGENCANALES" ManuallyRouted="false" />
+        <AssociationConnector Association="pisipModel.FKTSEGPOLITICATGENCOMPANIA" ManuallyRouted="false" />
+        <AssociationConnector Association="pisipModel.FKTSEGUSUARIOTGENCOMPANIA" ManuallyRouted="false" />
+        <AssociationConnector Association="pisipModel.FKTSEGUSUARIODETALLETSEGUSUARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="pisipModel.FKTSEGUSUARIOSESSIONTSEGUSUARIO" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
