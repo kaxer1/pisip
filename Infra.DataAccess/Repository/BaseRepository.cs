@@ -31,6 +31,7 @@ namespace Infra.DataAccess.Repository
 
         public void Modify(TEntity entity)
         {
+            // nuevo
             throw new NotImplementedException();
         }
 
