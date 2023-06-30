@@ -18,5 +18,6 @@ namespace Dominio.Model.Abstractions
         IEnumerable<TEntity> GetAll();
         // Buscar por ID
         TEntity Get(int id);
+        //Prueba Push
     }
 }
