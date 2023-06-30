@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AplicationController\TGENCanalesController.cs" />
     <Compile Include="Form\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +55,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\TGENCanalesViewModel.cs" />
+    <Compile Include="ViewModel\TSEGPoliticaViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -76,9 +79,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="AplicationController\" />
-    <Folder Include="ViewModel\" />
+    <ProjectReference Include="..\Aplicacion.AplicacionDTO\Aplicacion.AplicacionDTO.csproj">
+      <Project>{109bd39d-f4ec-41da-bc87-480406b59e49}</Project>
+      <Name>Aplicacion.AplicacionDTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aplicacion.Aplicacion\Aplicacion.Aplicacion.csproj">
+      <Project>{25a500bd-7748-4ca8-8ddc-c6f1df8d14ae}</Project>
+      <Name>Aplicacion.Aplicacion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dominio.Model\Dominio.Model.csproj">
+      <Project>{b8aff2e4-e214-4cd8-a860-2afdedd9271d}</Project>
+      <Name>Dominio.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dominio.Services\Dominio.Services.csproj">
+      <Project>{1a5e1592-c785-444c-bf7c-3ef0b6360183}</Project>
+      <Name>Dominio.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

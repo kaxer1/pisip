@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\IBaseRepository.cs" />
+    <Compile Include="Abstractions\ITGENCanalesRespository.cs" />
+    <Compile Include="Abstractions\ITSEGPoliticaRepository.cs" />
     <Compile Include="Entities\ModelPisip.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,28 +12,96 @@ namespace Infra.DataAccess.Repository
     {
         public void Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var context = new pisipEntities())
+                {
+                    context.Set<TEntity>().Add(entity);
+                    context.SaveChanges();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al insertar registros: " + ex.Message, ex);
+            }
         }
 
-        public void Delete(TEntity entity)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var context = new pisipEntities())
+                {
+                    var entity = context.Set<TEntity>().Find(id);
+                    context.Set<TEntity>().Remove(entity);
+                    context.SaveChanges();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar registros: " + ex.Message, ex);
+            }
+
         }
 
         public TEntity Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var context = new pisipEntities())
+                {
+
+                    return context.Set<TEntity>().Find(id);
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar registros: " + ex.Message, ex);
+            }
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var context = new pisipEntities())
+                {
+
+                    return context.Set<TEntity>().ToList();
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar registros: " + ex.Message, ex);
+            }
         }
 
         public void Modify(TEntity entity)
         {
-            // nuevo
-            throw new NotImplementedException();
+            try
+            {
+                using (var context = new pisipEntities())
+                {
+                    context.Entry(entity).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al modificar registros: " + ex.Message, ex);
+            }
         }
 
         public void Dispose()
