@@ -14,10 +14,13 @@ namespace Dominio.Model.Abstractions
         void Modify(TEntity entity);
         // eliminar
         void Delete(int id);
+        // eliminar por entidad
+        void Delete(TEntity entity);
         // select * from
         IEnumerable<TEntity> GetAll();
         // Buscar por ID
         TEntity Get(int id);
-        //Prueba Push
+        // Buscar por ID compuesto
+        TEntity Get(object idCompuesto);
     }
 }
