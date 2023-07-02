@@ -20,7 +20,6 @@ namespace Infra.DataAccess.Repository
                     context.SaveChanges();
                 }
 
-
             }
             catch (Exception ex)
             {
