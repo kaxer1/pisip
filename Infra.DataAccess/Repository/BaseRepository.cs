@@ -20,7 +20,6 @@ namespace Infra.DataAccess.Repository
                     context.SaveChanges();
                 }
 
-
             }
             catch (Exception ex)
             {
@@ -48,18 +47,45 @@ namespace Infra.DataAccess.Repository
 
         }
 
+        public void Delete(TEntity entity)
+        {
+            try
+            {
+                using (var context = new pisipEntities())
+                {
+                    context.Set<TEntity>().Remove(entity);
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar registros: " + ex.Message, ex);
+            }
+        }
+
         public TEntity Get(int id)
         {
             try
             {
                 using (var context = new pisipEntities())
                 {
-
                     return context.Set<TEntity>().Find(id);
-
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar registros: " + ex.Message, ex);
+            }
+        }
 
-
+        public TEntity Get(object idcompuesto)
+        {
+            try
+            {
+                using (var context = new pisipEntities())
+                {
+                    return context.Set<TEntity>().Find(idcompuesto);
+                }
             }
             catch (Exception ex)
             {
