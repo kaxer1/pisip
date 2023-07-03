@@ -1,0 +1,300 @@
+
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
+-- --------------------------------------------------
+-- Date Created: 07/02/2023 18:26:03
+-- Generated from EDMX file: E:\VSProyectos\pisip\Infra.DataAccess\ModelPisip.edmx
+-- --------------------------------------------------
+
+SET QUOTED_IDENTIFIER OFF;
+GO
+USE [pisip];
+GO
+IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
+GO
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- --------------------------------------------------
+
+IF OBJECT_ID(N'[dbo].[FK_FKTSEGPOLITICATGENCANALES]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TSEGPOLITICA] DROP CONSTRAINT [FK_FKTSEGPOLITICATGENCANALES];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FKTSEGPOLITICATGENCOMPANIA]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TSEGPOLITICA] DROP CONSTRAINT [FK_FKTSEGPOLITICATGENCOMPANIA];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FKTSEGUSUARIODETALLETSEGUSUARIO]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TSEGUSUARIODETALLE] DROP CONSTRAINT [FK_FKTSEGUSUARIODETALLETSEGUSUARIO];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FKTSEGUSUARIOSESSIONTSEGUSUARIO]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TSEGUSUARIOSESSION] DROP CONSTRAINT [FK_FKTSEGUSUARIOSESSIONTSEGUSUARIO];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FKTSEGUSUARIOTGENCOMPANIA]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TSEGUSUARIO] DROP CONSTRAINT [FK_FKTSEGUSUARIOTGENCOMPANIA];
+GO
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- --------------------------------------------------
+
+IF OBJECT_ID(N'[dbo].[TGENCANALES]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TGENCANALES];
+GO
+IF OBJECT_ID(N'[dbo].[TGENCOMPANIA]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TGENCOMPANIA];
+GO
+IF OBJECT_ID(N'[dbo].[TSEGPOLITICA]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TSEGPOLITICA];
+GO
+IF OBJECT_ID(N'[dbo].[TSEGUSUARIO]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TSEGUSUARIO];
+GO
+IF OBJECT_ID(N'[dbo].[TSEGUSUARIODETALLE]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TSEGUSUARIODETALLE];
+GO
+IF OBJECT_ID(N'[dbo].[TSEGUSUARIODETALLEHIST]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TSEGUSUARIODETALLEHIST];
+GO
+IF OBJECT_ID(N'[dbo].[TSEGUSUARIOSESSION]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TSEGUSUARIOSESSION];
+GO
+IF OBJECT_ID(N'[dbo].[TSEGUSUARIOSESSIONHISTORIA]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TSEGUSUARIOSESSIONHISTORIA];
+GO
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'TGENCANALES'
+CREATE TABLE [dbo].[TGENCANALES] (
+    [CCANAL] varchar(3)  NOT NULL,
+    [OPTLOCK] decimal(18,0)  NULL,
+    [NOMBRE] varchar(60)  NULL
+);
+GO
+
+-- Creating table 'TGENCOMPANIA'
+CREATE TABLE [dbo].[TGENCOMPANIA] (
+    [CCOMPANIA] decimal(4,0)  NOT NULL,
+    [OPTLOCK] decimal(18,0)  NULL,
+    [NOMBRECOMPANIA] varchar(100)  NULL,
+    [ESLOGANCLIENTE] varchar(100)  NULL,
+    [ESLOGANCORE] varchar(100)  NULL,
+    [NOMBRECORTO] varchar(100)  NULL
+);
+GO
+
+-- Creating table 'TSEGPOLITICA'
+CREATE TABLE [dbo].[TSEGPOLITICA] (
+    [CCOMPANIA] decimal(4,0)  NOT NULL,
+    [CCANAL] varchar(3)  NOT NULL,
+    [LONGITUD] decimal(2,0)  NULL,
+    [DIASVALIDEZ] decimal(4,0)  NULL,
+    [DIASMENSAJEDEINVALIDEZ] decimal(2,0)  NULL,
+    [INTENTOS] decimal(2,0)  NULL,
+    [REPETICIONES] decimal(3,0)  NULL,
+    [NUMEROS] decimal(2,0)  NULL,
+    [ESPECIALES] decimal(2,0)  NULL,
+    [MINUSCULAS] decimal(2,0)  NULL,
+    [MAYUSCULAS] decimal(2,0)  NULL,
+    [TIEMPOSESION] decimal(3,0)  NULL
+);
+GO
+
+-- Creating table 'TSEGUSUARIO'
+CREATE TABLE [dbo].[TSEGUSUARIO] (
+    [CUSUARIO] varchar(20)  NOT NULL,
+    [CCOMPANIA] decimal(4,0)  NOT NULL,
+    [CINTERNO] decimal(6,0)  NULL
+);
+GO
+
+-- Creating table 'TSEGUSUARIODETALLE'
+CREATE TABLE [dbo].[TSEGUSUARIODETALLE] (
+    [CUSUARIO] varchar(20)  NOT NULL,
+    [CCOMPANIA] decimal(4,0)  NOT NULL,
+    [OPTLOCK] decimal(18,0)  NULL,
+    [CUSUARIOING] varchar(20)  NULL,
+    [CUSUARIOMOD] varchar(20)  NULL,
+    [FINGRESO] datetime  NULL,
+    [FMODIFICACION] datetime  NULL,
+    [ESTATUS] decimal(1,0)  NULL,
+    [CCANAL] varchar(3)  NULL,
+    [SOBRENOMBRE] varchar(30)  NULL,
+    [PASSWORD] varchar(70)  NULL,
+    [CAMBIOPASSWORD] varchar(1)  NULL,
+    [OBSERVACION] varchar(100)  NULL
+);
+GO
+
+-- Creating table 'TSEGUSUARIODETALLEHIST'
+CREATE TABLE [dbo].[TSEGUSUARIODETALLEHIST] (
+    [CUSUARIO] varchar(20)  NOT NULL,
+    [CCOMPANIA] decimal(4,0)  NOT NULL,
+    [FHISTORIA] binary(8)  NOT NULL,
+    [OPTLOCK] decimal(18,0)  NULL,
+    [CUSUARIOING] varchar(20)  NULL,
+    [CUSUARIOMOD] varchar(20)  NULL,
+    [FINGRESO] datetime  NULL,
+    [FMODIFICACION] datetime  NULL,
+    [ESTATUS] decimal(1,0)  NULL,
+    [CCANAL] varchar(3)  NULL,
+    [SOBRENOMBRE] varchar(30)  NULL,
+    [PASSWORD] varchar(70)  NULL,
+    [CAMBIOPASSWORD] varchar(1)  NULL,
+    [OBSERVACION] varchar(100)  NULL
+);
+GO
+
+-- Creating table 'TSEGUSUARIOSESSION'
+CREATE TABLE [dbo].[TSEGUSUARIOSESSION] (
+    [CUSUARIO] varchar(20)  NOT NULL,
+    [CCOMPANIA] decimal(4,0)  NOT NULL,
+    [NUMEROINTENTOS] decimal(2,0)  NULL,
+    [IDSESSION] varchar(70)  NULL,
+    [FINICIO] datetime  NULL,
+    [FSALIDA] datetime  NULL,
+    [ACTIVO] varchar(1)  NULL,
+    [TIEMPOSESION] decimal(3,0)  NULL,
+    [FULTIMAACCION] datetime  NULL,
+    [CESTADO] varchar(1)  NULL,
+    [USERAGENT] varchar(200)  NULL,
+    [CTERMINALREMOTO] varchar(19)  NULL
+);
+GO
+
+-- Creating table 'TSEGUSUARIOSESSIONHISTORIA'
+CREATE TABLE [dbo].[TSEGUSUARIOSESSIONHISTORIA] (
+    [CUSUARIO] varchar(20)  NOT NULL,
+    [CCOMPANIA] decimal(4,0)  NOT NULL,
+    [FCREACION] datetime  NOT NULL,
+    [NUMEROINTENTOS] decimal(2,0)  NULL,
+    [IDSESSION] varchar(70)  NULL,
+    [FINICIO] datetime  NULL,
+    [FSALIDA] datetime  NULL,
+    [ACTIVO] varchar(1)  NULL,
+    [TIEMPOSESION] decimal(3,0)  NULL,
+    [FULTIMAACCION] datetime  NULL,
+    [CESTADO] varchar(1)  NULL,
+    [USERAGENT] varchar(200)  NULL,
+    [CTERMINALREMOTO] varchar(19)  NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [CCANAL] in table 'TGENCANALES'
+ALTER TABLE [dbo].[TGENCANALES]
+ADD CONSTRAINT [PK_TGENCANALES]
+    PRIMARY KEY CLUSTERED ([CCANAL] ASC);
+GO
+
+-- Creating primary key on [CCOMPANIA] in table 'TGENCOMPANIA'
+ALTER TABLE [dbo].[TGENCOMPANIA]
+ADD CONSTRAINT [PK_TGENCOMPANIA]
+    PRIMARY KEY CLUSTERED ([CCOMPANIA] ASC);
+GO
+
+-- Creating primary key on [CCOMPANIA], [CCANAL] in table 'TSEGPOLITICA'
+ALTER TABLE [dbo].[TSEGPOLITICA]
+ADD CONSTRAINT [PK_TSEGPOLITICA]
+    PRIMARY KEY CLUSTERED ([CCOMPANIA], [CCANAL] ASC);
+GO
+
+-- Creating primary key on [CUSUARIO], [CCOMPANIA] in table 'TSEGUSUARIO'
+ALTER TABLE [dbo].[TSEGUSUARIO]
+ADD CONSTRAINT [PK_TSEGUSUARIO]
+    PRIMARY KEY CLUSTERED ([CUSUARIO], [CCOMPANIA] ASC);
+GO
+
+-- Creating primary key on [CUSUARIO], [CCOMPANIA] in table 'TSEGUSUARIODETALLE'
+ALTER TABLE [dbo].[TSEGUSUARIODETALLE]
+ADD CONSTRAINT [PK_TSEGUSUARIODETALLE]
+    PRIMARY KEY CLUSTERED ([CUSUARIO], [CCOMPANIA] ASC);
+GO
+
+-- Creating primary key on [CUSUARIO], [CCOMPANIA], [FHISTORIA] in table 'TSEGUSUARIODETALLEHIST'
+ALTER TABLE [dbo].[TSEGUSUARIODETALLEHIST]
+ADD CONSTRAINT [PK_TSEGUSUARIODETALLEHIST]
+    PRIMARY KEY CLUSTERED ([CUSUARIO], [CCOMPANIA], [FHISTORIA] ASC);
+GO
+
+-- Creating primary key on [CUSUARIO], [CCOMPANIA] in table 'TSEGUSUARIOSESSION'
+ALTER TABLE [dbo].[TSEGUSUARIOSESSION]
+ADD CONSTRAINT [PK_TSEGUSUARIOSESSION]
+    PRIMARY KEY CLUSTERED ([CUSUARIO], [CCOMPANIA] ASC);
+GO
+
+-- Creating primary key on [CUSUARIO], [CCOMPANIA], [FCREACION] in table 'TSEGUSUARIOSESSIONHISTORIA'
+ALTER TABLE [dbo].[TSEGUSUARIOSESSIONHISTORIA]
+ADD CONSTRAINT [PK_TSEGUSUARIOSESSIONHISTORIA]
+    PRIMARY KEY CLUSTERED ([CUSUARIO], [CCOMPANIA], [FCREACION] ASC);
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [CCANAL] in table 'TSEGPOLITICA'
+ALTER TABLE [dbo].[TSEGPOLITICA]
+ADD CONSTRAINT [FK_FKTSEGPOLITICATGENCANALES]
+    FOREIGN KEY ([CCANAL])
+    REFERENCES [dbo].[TGENCANALES]
+        ([CCANAL])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_FKTSEGPOLITICATGENCANALES'
+CREATE INDEX [IX_FK_FKTSEGPOLITICATGENCANALES]
+ON [dbo].[TSEGPOLITICA]
+    ([CCANAL]);
+GO
+
+-- Creating foreign key on [CCOMPANIA] in table 'TSEGPOLITICA'
+ALTER TABLE [dbo].[TSEGPOLITICA]
+ADD CONSTRAINT [FK_FKTSEGPOLITICATGENCOMPANIA]
+    FOREIGN KEY ([CCOMPANIA])
+    REFERENCES [dbo].[TGENCOMPANIA]
+        ([CCOMPANIA])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [CCOMPANIA] in table 'TSEGUSUARIO'
+ALTER TABLE [dbo].[TSEGUSUARIO]
+ADD CONSTRAINT [FK_FKTSEGUSUARIOTGENCOMPANIA]
+    FOREIGN KEY ([CCOMPANIA])
+    REFERENCES [dbo].[TGENCOMPANIA]
+        ([CCOMPANIA])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_FKTSEGUSUARIOTGENCOMPANIA'
+CREATE INDEX [IX_FK_FKTSEGUSUARIOTGENCOMPANIA]
+ON [dbo].[TSEGUSUARIO]
+    ([CCOMPANIA]);
+GO
+
+-- Creating foreign key on [CUSUARIO], [CCOMPANIA] in table 'TSEGUSUARIODETALLE'
+ALTER TABLE [dbo].[TSEGUSUARIODETALLE]
+ADD CONSTRAINT [FK_FKTSEGUSUARIODETALLETSEGUSUARIO]
+    FOREIGN KEY ([CUSUARIO], [CCOMPANIA])
+    REFERENCES [dbo].[TSEGUSUARIO]
+        ([CUSUARIO], [CCOMPANIA])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [CUSUARIO], [CCOMPANIA] in table 'TSEGUSUARIOSESSION'
+ALTER TABLE [dbo].[TSEGUSUARIOSESSION]
+ADD CONSTRAINT [FK_FKTSEGUSUARIOSESSIONTSEGUSUARIO]
+    FOREIGN KEY ([CUSUARIO], [CCOMPANIA])
+    REFERENCES [dbo].[TSEGUSUARIO]
+        ([CUSUARIO], [CCOMPANIA])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------

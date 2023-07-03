@@ -44,6 +44,8 @@
     <Compile Include="Abstractions\IBaseRepository.cs" />
     <Compile Include="Abstractions\ITGENCanalesRespository.cs" />
     <Compile Include="Abstractions\ITSEGPoliticaRepository.cs" />
+    <Compile Include="Abstractions\ITSEGUSUARIOSESSIONHISTORIAREPOSITORY.cs" />  
+    <Compile Include="Abstractions\ITSEGUSUARIOSESSIONHISTORIAREPOSITORY.cs" />
     <Compile Include="Abstractions\ITgenCompaniaRepository.cs" />
     <Compile Include="Abstractions\ITsegUsuarioDetalleRepository.cs" />
     <Compile Include="Abstractions\ITsegUsuarioRepository.cs" />
