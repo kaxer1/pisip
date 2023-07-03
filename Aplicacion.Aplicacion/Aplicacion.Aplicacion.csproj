@@ -44,6 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\TGENCanalesServices.cs" />
     <Compile Include="Services\TSEGPoliticaServices.cs" />
+    <Compile Include="Services\TSEGUsuarioSessionHistoriaServices.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

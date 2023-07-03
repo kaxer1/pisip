@@ -64,6 +64,7 @@
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\TGENCanalesRepository.cs" />
     <Compile Include="Repository\TSEGPoliticaRepository.cs" />
+    <Compile Include="Repository\TSEGUSUARIOHISTORIAREPOSITORY.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -85,6 +86,7 @@
       <LastGenOutput>ModelPisip.Context.cs</LastGenOutput>
       <DependentUpon>ModelPisip.edmx</DependentUpon>
     </Content>
+    <Content Include="ModelPisip.edmx.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
