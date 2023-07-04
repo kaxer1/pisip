@@ -27,8 +27,9 @@ namespace UI.Windows.AplicationController
             TGENCANALES nuevoCanal = new TGENCANALES();
             try
             {
-                nuevoCanal.NOMBRE = nuevoCanalViewModel.NOMBRE;
                 nuevoCanal.CCANAL = nuevoCanalViewModel.CCANAL;
+                nuevoCanal.NOMBRE = nuevoCanalViewModel.NOMBRE;
+                nuevoCanal.OPTLOCK = nuevoCanalViewModel.OPTLOCK;
 
                 _servicesCanales.InsertarCanales(nuevoCanal);
                 return true;
@@ -63,19 +64,20 @@ namespace UI.Windows.AplicationController
         }
 
 
-        public IEnumerable<TGENCanalesViewModel> ListarEmpleado()
+        public IEnumerable<TGENCanalesViewModel> ListarCanales()
         {
-            var empeladoList = _servicesCanales.GetCanales();
+            var canalList = _servicesCanales.GetCanales();
             List<TGENCanalesViewModel> listaCanalesViewModel = new List<TGENCanalesViewModel>();
 
             try
             {
-                foreach (var item in empeladoList)
+                foreach (var item in canalList)
                 {
                     listaCanalesViewModel.Add(new TGENCanalesViewModel
                     {
-                        NOMBRE = item.NOMBRE,
                         CCANAL = item.CCANAL,
+                        NOMBRE = item.NOMBRE,
+                        OPTLOCK= item.OPTLOCK
                        
                     });
                 }
@@ -83,7 +85,7 @@ namespace UI.Windows.AplicationController
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener Empleados " + ex.Message);
+                throw new Exception("Error al obtener Canales " + ex.Message);
             }
 
 
