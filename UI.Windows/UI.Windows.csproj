@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+	  </Compile>
 
     <Compile Include="AplicationController\TgenCompaniaController.cs" />
     <Compile Include="AplicationController\TsegUsuarioController.cs" />
@@ -115,6 +116,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+	  </EmbeddedResource>
 
     <Compile Include="ViewModel\TsegUsuarioDetalleViewModel.cs" />
     <Compile Include="ViewModel\TsegUsuarioViewModel.cs" />
