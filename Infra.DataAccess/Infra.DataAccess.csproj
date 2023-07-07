@@ -65,6 +65,7 @@
     <Compile Include="Repository\TGENCanalesRepository.cs" />
     <Compile Include="Repository\TgenCompaniaRepository.cs" />
     <Compile Include="Repository\TSEGPoliticaRepository.cs" />
+    <Compile Include="Repository\TsegUsuarioDetalleHistRepository.cs" />
     <Compile Include="Repository\TsegUsuarioHistoriaRepository.cs" />
     <Compile Include="Repository\TsegUsuarioDetalleRepository.cs" />
     <Compile Include="Repository\TsegUsuarioRepository.cs" />

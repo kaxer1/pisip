@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="AplicationController\BaseController.cs" />
     <Compile Include="AplicationController\TGENCanalesController.cs" />
+    <Compile Include="AplicationController\TsegUsuarioDetalleHistController.cs" />
     <Compile Include="AplicationController\TsegUsuarioSessionController.cs" />
     <Compile Include="AplicationController\TSEGUsuarioSessionHistoriaController.cs" />
     <Compile Include="Forms\FormBase.cs">
@@ -107,6 +108,7 @@
     <Compile Include="ViewModel\TGENCanalesViewModel.cs" />
     <Compile Include="ViewModel\TgenCompaniaViewModel.cs" />
     <Compile Include="ViewModel\TSEGPoliticaViewModel.cs" />
+    <Compile Include="ViewModel\TsegUsuarioDetalleHistViewModel.cs" />
     <Compile Include="ViewModel\TsegUsuarioSessionHistoriaViewModel.cs" />
     <EmbeddedResource Include="Forms\frmr_Canales.resx">
       <DependentUpon>frmr_Canales.cs</DependentUpon>

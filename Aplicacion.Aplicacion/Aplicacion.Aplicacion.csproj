@@ -45,6 +45,7 @@
     <Compile Include="Services\TGENCanalesServices.cs" />
     <Compile Include="Services\TgenCompaniaServices.cs" />
     <Compile Include="Services\TSEGPoliticaServices.cs" />
+    <Compile Include="Services\TsegUsuarioDetalleHistServices.cs" />
     <Compile Include="Services\TsegUsuarioSessionHistoriaServices.cs" />
     <Compile Include="Services\TsegUsuarioDetalleServices.cs" />
     <Compile Include="Services\TsegUsuarioServices.cs" />
