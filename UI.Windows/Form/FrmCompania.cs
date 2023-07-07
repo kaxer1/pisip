@@ -80,5 +80,10 @@ namespace UI.Windows
         {
             ListarCompanias();
         }
+
+        private void dgvListaCompania_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
