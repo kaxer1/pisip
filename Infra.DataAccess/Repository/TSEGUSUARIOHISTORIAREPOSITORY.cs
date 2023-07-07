@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infra.DataAccess.Repository
 {
-    public class TSEGUSUARIOHISTORIAREPOSITORY : BaseRepository<TSEGUSUARIOSESSIONHISTORIA>, ITSEGUSUARIOSESSIONHISTORIAREPOSITORY
+    public class TsegUsuarioHistoriaRepository : BaseRepository<TSEGUSUARIOSESSIONHISTORIA>, ITsegUsuarioSessionHistoriaRepository
     {
        
     }

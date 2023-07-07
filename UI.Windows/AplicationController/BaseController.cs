@@ -16,8 +16,12 @@ namespace UI.Windows.AplicationController
     {
 
         // Metodo que mapea los datos del ViewModel y los setea en la entidad
-        public TEntity mapearEntidad(TEntity entidad, T viewModel)
+        public TEntity mapearViewModelToEntidad(TEntity entidad, T viewModel)
         {
+            if (viewModel == null)
+            {
+                return null;
+            }
             // Estrae los campos del View Model
             PropertyInfo[] camposViewModel = typeof(T).GetProperties();
 
@@ -36,22 +40,25 @@ namespace UI.Windows.AplicationController
         }
 
         // Metodo que mapea la lista del que devuelve el servicio y devuelve con el tipo de dato del View Model
-        public List<T> mapearLista(IEnumerable<TEntity> lista)
+        public List<T> mapearIEnumerableToLista(IEnumerable<TEntity> lista)
         {
 
             List<T> resultadoViewModel = new List<T>();
-
             
             foreach (TEntity item in lista)
             {
-                resultadoViewModel.Add(mapearViewModel(item, (T)Activator.CreateInstance(typeof(T)) ) );
+                resultadoViewModel.Add(mapearEntityToViewModel(item, (T)Activator.CreateInstance(typeof(T)) ) );
             }
             return resultadoViewModel;
         }
 
         // Metodo que mapea los datos la entidad y los setea en el viewModel
-        public T mapearViewModel(TEntity entidad, T viewModel)
+        public T mapearEntityToViewModel(TEntity entidad, T viewModel)
         {
+            if (entidad == null)
+            {
+                return default(T);
+            }
             // Estrae los campos de la entidad
             PropertyInfo[] camposEntidad = typeof(TEntity).GetProperties();
 
@@ -71,28 +78,6 @@ namespace UI.Windows.AplicationController
                 }
             }
             return viewModel;
-        }
-
-        public void validarSoloNumerosTextBox(TextBox textBox)
-        {
-            textBox.KeyPress += (sender, e) =>
-            {
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                {
-                    e.Handled = true;  // Ignorar el carácter ingresado
-                }
-            };
-        }
-
-        private void validarSoloLetrasTextBox(TextBox textBox)
-        {
-            textBox.KeyPress += (sender, e) =>
-            {
-                if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
-                {
-                    e.Handled = true;  // Ignorar el carácter ingresado
-                }
-            };
         }
 
         public string EncryptPassword(string password)

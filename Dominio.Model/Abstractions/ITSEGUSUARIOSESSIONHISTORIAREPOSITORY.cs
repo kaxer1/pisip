@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio.Model.Abstractions
 {
-    public  interface ITSEGUSUARIOSESSIONHISTORIAREPOSITORY : IBaseRepository<TSEGUSUARIOSESSIONHISTORIA>
+    public  interface ITsegUsuarioSessionHistoriaRepository : IBaseRepository<TSEGUSUARIOSESSIONHISTORIA>
     {
     }
 }

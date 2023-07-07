@@ -58,30 +58,31 @@
   <ItemGroup>
     <Compile Include="AplicationController\BaseController.cs" />
     <Compile Include="AplicationController\TGENCanalesController.cs" />
-
+    <Compile Include="AplicationController\TsegUsuarioSessionController.cs" />
     <Compile Include="AplicationController\TSEGUsuarioSessionHistoriaController.cs" />
-    <Compile Include="Forms\Form1.cs">
+    <Compile Include="Forms\FormBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-	  </Compile>
-
+    <Compile Include="Forms\Frm_UsuarioSession.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frm_UsuarioSession.Designer.cs">
+      <DependentUpon>Frm_UsuarioSession.cs</DependentUpon>
+    </Compile>
     <Compile Include="AplicationController\TgenCompaniaController.cs" />
     <Compile Include="AplicationController\TsegUsuarioController.cs" />
     <Compile Include="AplicationController\TsegUsuarioDetalleController.cs" />
-    <Compile Include="Form\FrmUsuario.cs">
+    <Compile Include="Forms\FrmUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FrmUsuario.Designer.cs">
+    <Compile Include="Forms\FrmUsuario.Designer.cs">
       <DependentUpon>FrmUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\FrmCompania.cs">
+    <Compile Include="Forms\FrmCompania.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form\FrmCompania.Designer.cs">
+    <Compile Include="Forms\FrmCompania.Designer.cs">
       <DependentUpon>FrmCompania.cs</DependentUpon>
-
     </Compile>
     <Compile Include="Forms\frmr_Canales.cs">
       <SubType>Form</SubType>
@@ -106,26 +107,27 @@
     <Compile Include="ViewModel\TGENCanalesViewModel.cs" />
     <Compile Include="ViewModel\TgenCompaniaViewModel.cs" />
     <Compile Include="ViewModel\TSEGPoliticaViewModel.cs" />
-
-    <Compile Include="ViewModel\TSEGUsuarioSessionHistoriaViewModel.cs" />
+    <Compile Include="ViewModel\TsegUsuarioSessionHistoriaViewModel.cs" />
     <EmbeddedResource Include="Forms\frmr_Canales.resx">
       <DependentUpon>frmr_Canales.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Frm_CambiarClave.resx">
       <DependentUpon>Frm_CambiarClave.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frm_UsuarioSession.resx">
+      <DependentUpon>Frm_UsuarioSession.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
-	  </EmbeddedResource>
-
+    </EmbeddedResource>
     <Compile Include="ViewModel\TsegUsuarioDetalleViewModel.cs" />
+    <Compile Include="ViewModel\TsegUsuarioSessionViewModel.cs" />
     <Compile Include="ViewModel\TsegUsuarioViewModel.cs" />
-    <EmbeddedResource Include="Form\FrmCompania.resx">
+    <EmbeddedResource Include="Forms\FrmCompania.resx">
       <DependentUpon>FrmCompania.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form\FrmUsuario.resx">
+    <EmbeddedResource Include="Forms\FrmUsuario.resx">
       <DependentUpon>FrmUsuario.cs</DependentUpon>
-
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
