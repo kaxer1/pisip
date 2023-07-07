@@ -37,5 +37,10 @@ namespace Aplicacion.Aplicacion.Services
         {
             tsegUsuarioDetalleRepository.Delete(usuarioDetalle);
         }
+
+        public TSEGUSUARIODETALLE IniciarSession(string usuario, string contrasenia)
+        {
+            return tsegUsuarioDetalleRepository.IniciarSesion(usuario, contrasenia);
+        }
     }
 }

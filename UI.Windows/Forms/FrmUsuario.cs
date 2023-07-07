@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UI.Windows.AplicationController;
+using UI.Windows.Forms;
 using UI.Windows.ViewModel;
 
 namespace UI.Windows
 {
-    public partial class FrmUsuario : Form
+    public partial class FrmUsuario : FormBase
     {
         private TsegUsuarioController controllerUsuario;
         private TsegUsuarioViewModel viewModelUsuario;
@@ -20,7 +21,7 @@ namespace UI.Windows
         private TsegUsuarioDetalleController controllerUsuarioDetalle;
         private TsegUsuarioDetalleViewModel viewModelUsuarioDetalle;
 
-        public FrmUsuario()
+        public FrmUsuario() : base()
         {
             InitializeComponent();
             controllerUsuario = new TsegUsuarioController();
@@ -115,12 +116,12 @@ namespace UI.Windows
 
         private void txtCcompania_KeyPress(object sender, KeyPressEventArgs e)
         {
-            controllerUsuario.validarSoloNumerosTextBox(txtCcompania);
+            this.validarSoloNumerosTextBox(txtCcompania);
         }
 
         private void txtCinterno_KeyPress(object sender, KeyPressEventArgs e)
         {
-            controllerUsuario.validarSoloNumerosTextBox(txtCinterno);
+            this.validarSoloNumerosTextBox(txtCinterno);
         }
     }
 }

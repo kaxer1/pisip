@@ -21,6 +21,6 @@ namespace Dominio.Model.Abstractions
         // Buscar por ID
         TEntity Get(int id);
         // Buscar por ID compuesto
-        TEntity Get(object idCompuesto);
+        TEntity GetEntidadPk(Dictionary<string, object> idCompuesto);
     }
 }

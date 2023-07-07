@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Aplicacion.Aplicacion.Services
 {
-    public class TSEGUsuarioSessionHistoriaServices
+    public class TsegUsuarioSessionHistoriaServices
     {
-        readonly TSEGUSUARIOHISTORIAREPOSITORY _TSEGUSUARIOHISTORIAREPOSITORY;
-        public TSEGUsuarioSessionHistoriaServices()
+        readonly TsegUsuarioHistoriaRepository _TSEGUSUARIOHISTORIAREPOSITORY;
+        public TsegUsuarioSessionHistoriaServices()
         {
-            _TSEGUSUARIOHISTORIAREPOSITORY = new TSEGUSUARIOHISTORIAREPOSITORY();
+            _TSEGUSUARIOHISTORIAREPOSITORY = new TsegUsuarioHistoriaRepository();
 
         }
 

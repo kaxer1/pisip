@@ -21,7 +21,7 @@ namespace UI.Windows.AplicationController
         {
             try
             {
-                TSEGUSUARIO nuevo = mapearEntidad(new TSEGUSUARIO(), nuevoUsuarioViewModel);
+                TSEGUSUARIO nuevo = mapearViewModelToEntidad(new TSEGUSUARIO(), nuevoUsuarioViewModel);
                 serviceUsuario.InsertarUsuario(nuevo);
                 return true;
             }
@@ -35,7 +35,7 @@ namespace UI.Windows.AplicationController
         {
             try
             {
-                TSEGUSUARIO nuevo = mapearEntidad(new TSEGUSUARIO(), nuevoUsuarioViewModel);
+                TSEGUSUARIO nuevo = mapearViewModelToEntidad(new TSEGUSUARIO(), nuevoUsuarioViewModel);
                 serviceUsuario.ActualizarUsuario(nuevo);
                 return true;
             }
@@ -49,7 +49,7 @@ namespace UI.Windows.AplicationController
         {
             try
             {
-                return mapearLista(serviceUsuario.ListarUsuario());
+                return mapearIEnumerableToLista(serviceUsuario.ListarUsuario());
             }
             catch (Exception ex)
             {

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace UI.Windows.ViewModel
 {
-    public class TsegUsuarioSessionHistoriaViewModel
+    public class TsegUsuarioSessionViewModel
     {
         public string CUSUARIO { get; set; }
         public decimal CCOMPANIA { get; set; }
-        public System.DateTime FCREACION { get; set; }
         public Nullable<decimal> NUMEROINTENTOS { get; set; }
         public string IDSESSION { get; set; }
         public Nullable<System.DateTime> FINICIO { get; set; }
@@ -21,5 +20,6 @@ namespace UI.Windows.ViewModel
         public string CESTADO { get; set; }
         public string USERAGENT { get; set; }
         public string CTERMINALREMOTO { get; set; }
+
     }
 }

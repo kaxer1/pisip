@@ -11,90 +11,79 @@ namespace UI.Windows.AplicationController
 {
     public class TSEGUsuarioSessionHistoriaController
     {
-        private TSEGUsuarioSessionHistoriaServices _TSEGUsuarioSessionHistoriaServices;
+        private TsegUsuarioSessionHistoriaServices _TsegUsuarioSessionHistoriaServices;
         public TSEGUsuarioSessionHistoriaController()
         {
-            _TSEGUsuarioSessionHistoriaServices = new TSEGUsuarioSessionHistoriaServices();
+            _TsegUsuarioSessionHistoriaServices = new TsegUsuarioSessionHistoriaServices();
         }
 
-
-
-
-
-
-        public bool InsertarCanal(TSEGUsuarioSessionHistoriaViewModel nuevoCanalViewModel)
+        public bool InsertarUsuarioSessionHistoria(TsegUsuarioSessionHistoriaViewModel nuevoSessionHistoriaViewModel)
         {
             TSEGUSUARIOSESSIONHISTORIA nuevo = new TSEGUSUARIOSESSIONHISTORIA();
             try
             {
-                nuevo.CUSUARIO = nuevoCanalViewModel.CUSUARIO;
-                nuevo.CCOMPANIA = nuevoCanalViewModel.CCOMPANIA;
-                nuevo.FCREACION = nuevoCanalViewModel.FCREACION;
-                nuevo.NUMEROINTENTOS = nuevoCanalViewModel.NUMEROINTENTOS;
-                nuevo.IDSESSION = nuevoCanalViewModel.IDSESSION;
-                nuevo.FINICIO = nuevoCanalViewModel.FINICIO;
-                nuevo.FSALIDA = nuevoCanalViewModel.FSALIDA;
-                nuevo.ACTIVO = nuevoCanalViewModel.ACTIVO;
-                nuevo.TIEMPOSESION = nuevoCanalViewModel.TIEMPOSESION;
-                nuevo.FULTIMAACCION = nuevoCanalViewModel.FULTIMAACCION;
-                nuevo.CESTADO = nuevoCanalViewModel.CESTADO;
-                nuevo.USERAGENT = nuevoCanalViewModel.USERAGENT;
-                nuevo.CTERMINALREMOTO = nuevoCanalViewModel.CTERMINALREMOTO;
+                nuevo.CUSUARIO = nuevoSessionHistoriaViewModel.CUSUARIO;
+                nuevo.CCOMPANIA = nuevoSessionHistoriaViewModel.CCOMPANIA;
+                nuevo.FCREACION = nuevoSessionHistoriaViewModel.FCREACION;
+                nuevo.NUMEROINTENTOS = nuevoSessionHistoriaViewModel.NUMEROINTENTOS;
+                nuevo.IDSESSION = nuevoSessionHistoriaViewModel.IDSESSION;
+                nuevo.FINICIO = nuevoSessionHistoriaViewModel.FINICIO;
+                nuevo.FSALIDA = nuevoSessionHistoriaViewModel.FSALIDA;
+                nuevo.ACTIVO = nuevoSessionHistoriaViewModel.ACTIVO;
+                nuevo.TIEMPOSESION = nuevoSessionHistoriaViewModel.TIEMPOSESION;
+                nuevo.FULTIMAACCION = nuevoSessionHistoriaViewModel.FULTIMAACCION;
+                nuevo.CESTADO = nuevoSessionHistoriaViewModel.CESTADO;
+                nuevo.USERAGENT = nuevoSessionHistoriaViewModel.USERAGENT;
+                nuevo.CTERMINALREMOTO = nuevoSessionHistoriaViewModel.CTERMINALREMOTO;
 
-                _TSEGUsuarioSessionHistoriaServices.InsertarUsuarioSessionHistory(nuevo);
+                _TsegUsuarioSessionHistoriaServices.InsertarUsuarioSessionHistory(nuevo);
                 return true;
-
-
-
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al insertar Canal" + ex.Message);
+                throw new Exception("Error al insertar Usuario Session Historia" + ex.Message);
             }
         }
 
-        public bool ModificarCanal(TSEGUsuarioSessionHistoriaViewModel nuevoCanalViewModel)
+        public bool ModificarUsuarioSessionHistoria(TsegUsuarioSessionHistoriaViewModel nuevoSessionHistoriaViewModel)
         {
             TSEGUSUARIOSESSIONHISTORIA nuevo = new TSEGUSUARIOSESSIONHISTORIA();
             try
             {
 
-                nuevo.CUSUARIO = nuevoCanalViewModel.CUSUARIO;
-                nuevo.CCOMPANIA = nuevoCanalViewModel.CCOMPANIA;
-                nuevo.FCREACION = nuevoCanalViewModel.FCREACION;
-                nuevo.NUMEROINTENTOS = nuevoCanalViewModel.NUMEROINTENTOS;
-                nuevo.IDSESSION = nuevoCanalViewModel.IDSESSION;
-                nuevo.FINICIO = nuevoCanalViewModel.FINICIO;
-                nuevo.FSALIDA = nuevoCanalViewModel.FSALIDA;
-                nuevo.ACTIVO = nuevoCanalViewModel.ACTIVO;
-                nuevo.TIEMPOSESION = nuevoCanalViewModel.TIEMPOSESION;
-                nuevo.FULTIMAACCION = nuevoCanalViewModel.FULTIMAACCION;
-                nuevo.CESTADO = nuevoCanalViewModel.CESTADO;
-                nuevo.USERAGENT = nuevoCanalViewModel.USERAGENT;
-                nuevo.CTERMINALREMOTO = nuevoCanalViewModel.CTERMINALREMOTO;
-                _TSEGUsuarioSessionHistoriaServices.ActualizarUsuarioSessionHistory(nuevo);
+                nuevo.CUSUARIO = nuevoSessionHistoriaViewModel.CUSUARIO;
+                nuevo.CCOMPANIA = nuevoSessionHistoriaViewModel.CCOMPANIA;
+                nuevo.FCREACION = nuevoSessionHistoriaViewModel.FCREACION;
+                nuevo.NUMEROINTENTOS = nuevoSessionHistoriaViewModel.NUMEROINTENTOS;
+                nuevo.IDSESSION = nuevoSessionHistoriaViewModel.IDSESSION;
+                nuevo.FINICIO = nuevoSessionHistoriaViewModel.FINICIO;
+                nuevo.FSALIDA = nuevoSessionHistoriaViewModel.FSALIDA;
+                nuevo.ACTIVO = nuevoSessionHistoriaViewModel.ACTIVO;
+                nuevo.TIEMPOSESION = nuevoSessionHistoriaViewModel.TIEMPOSESION;
+                nuevo.FULTIMAACCION = nuevoSessionHistoriaViewModel.FULTIMAACCION;
+                nuevo.CESTADO = nuevoSessionHistoriaViewModel.CESTADO;
+                nuevo.USERAGENT = nuevoSessionHistoriaViewModel.USERAGENT;
+                nuevo.CTERMINALREMOTO = nuevoSessionHistoriaViewModel.CTERMINALREMOTO;
+                _TsegUsuarioSessionHistoriaServices.ActualizarUsuarioSessionHistory(nuevo);
                 return true;
-
-
-
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al actualizar Canal" + ex.Message);
+                throw new Exception("Error al actualizar Usuario Session Historia" + ex.Message);
             }
         }
 
 
-        public IEnumerable<TSEGUsuarioSessionHistoriaViewModel> ListarCanales()
+        public IEnumerable<TsegUsuarioSessionHistoriaViewModel> ListarUsuarioSessionHistoria()
         {
-            var canalList = _TSEGUsuarioSessionHistoriaServices.GetUsuarioSessionHistory();
-            List<TSEGUsuarioSessionHistoriaViewModel> listaCanalesViewModel = new List<TSEGUsuarioSessionHistoriaViewModel>();
+            var canalList = _TsegUsuarioSessionHistoriaServices.GetUsuarioSessionHistory();
+            List<TsegUsuarioSessionHistoriaViewModel> listaCanalesViewModel = new List<TsegUsuarioSessionHistoriaViewModel>();
 
             try
             {
                 foreach (var item in canalList)
                 {
-                    listaCanalesViewModel.Add(new TSEGUsuarioSessionHistoriaViewModel
+                    listaCanalesViewModel.Add(new TsegUsuarioSessionHistoriaViewModel
                     {
                     CUSUARIO = item.CUSUARIO,
                     CCOMPANIA = item.CCOMPANIA,
@@ -116,15 +105,8 @@ namespace UI.Windows.AplicationController
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al obtener Canales " + ex.Message);
+                throw new Exception("Error al obtener Usuario Session Historia " + ex.Message);
             }
-
-
-
-
         }
-
-
-
     }
 }

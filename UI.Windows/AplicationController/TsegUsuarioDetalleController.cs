@@ -21,7 +21,7 @@ namespace UI.Windows.AplicationController
         {
             try
             {
-                TSEGUSUARIODETALLE nuevo = mapearEntidad(new TSEGUSUARIODETALLE(), nuevoUsuarioDetalleViewModel);
+                TSEGUSUARIODETALLE nuevo = mapearViewModelToEntidad(new TSEGUSUARIODETALLE(), nuevoUsuarioDetalleViewModel);
                 nuevo.OPTLOCK = 0; // valor por defecto al insertar
                 nuevo.CAMBIOPASSWORD = "0"; // por defecto no hace cambios de password cuando ingresa
                 nuevo.FINGRESO = DateTime.Now;
@@ -38,7 +38,7 @@ namespace UI.Windows.AplicationController
         {
             try
             {
-                TSEGUSUARIODETALLE nuevo = mapearEntidad(new TSEGUSUARIODETALLE(), nuevoUsuarioDetalleViewModel);
+                TSEGUSUARIODETALLE nuevo = mapearViewModelToEntidad(new TSEGUSUARIODETALLE(), nuevoUsuarioDetalleViewModel);
                 nuevo.FMODIFICACION = DateTime.Now;
                 serviceUsuarioDetalle.ActualizarUsuarioDetalle(nuevo);
                 return true;
@@ -53,12 +53,17 @@ namespace UI.Windows.AplicationController
         {
             try
             {
-                return mapearLista(serviceUsuarioDetalle.ListarUsuarioDetalle());
+                return mapearIEnumerableToLista(serviceUsuarioDetalle.ListarUsuarioDetalle());
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al listar los Usuarios Detalles" + ex.Message);
             }
+        }
+
+        public TsegUsuarioDetalleViewModel Login(string usuario, string contrasenia)
+        {
+            return mapearEntityToViewModel( serviceUsuarioDetalle.IniciarSession(usuario, contrasenia), new TsegUsuarioDetalleViewModel() );
         }
     }
 }
