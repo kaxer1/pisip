@@ -12,16 +12,16 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.Forms
 {
-    public partial class frmr_Canales : Form
+    public partial class FrmCanales : FormBase
     {
 
-        private TGENCanalesController _canalesController;
-        private TGENCanalesViewModel _canalesViewModel;
+        private TgenCanalesController _canalesController;
+        private TgenCanalesViewModel _canalesViewModel;
 
-        public frmr_Canales()
+        public FrmCanales()
         {
             InitializeComponent();
-            _canalesController = new TGENCanalesController();
+            _canalesController = new TgenCanalesController();
         }
         public void InsertarCanal()
         {
@@ -56,7 +56,7 @@ namespace UI.Windows.Forms
         private void btn_guardar_Click(object sender, EventArgs e)
         {
 
-            _canalesViewModel = new TGENCanalesViewModel();
+            _canalesViewModel = new TgenCanalesViewModel();
             _canalesViewModel.NOMBRE = txt_nombre.Text;
             _canalesViewModel.OPTLOCK = decimal.Parse(txt_opt.Text);
 

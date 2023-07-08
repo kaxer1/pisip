@@ -4,23 +4,25 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dominio.Model.Entities;
 using UI.Windows.AplicationController;
+using UI.Windows.Forms.FormsFuncionario;
 using UI.Windows.ViewModel;
 
 namespace UI.Windows.Forms
 {
-    public partial class Login : FormBase
+    public partial class FrmLogin : FormBase
     {
         TsegUsuarioDetalleController controllerUsuarioDetalle;
         TsegUsuarioDetalleViewModel viewModelUsuarioDetalle;
         TsegUsuarioSessionController controllerUsuarioSession;
         TsegUsuarioSessionViewModel viewModelUsuarioSession;
 
-        public Login() : base()
+        public FrmLogin() : base()
         {
             InitializeComponent();
             controllerUsuarioDetalle = new TsegUsuarioDetalleController();
@@ -44,9 +46,10 @@ namespace UI.Windows.Forms
                     { "CUSUARIO", viewModelUsuarioDetalle.CUSUARIO }, 
                     { "CCOMPANIA", viewModelUsuarioDetalle.CCOMPANIA }  
                 };
-                TsegUsuarioSessionViewModel registro = controllerUsuarioSession.ObtenerRegistroPorPk(pkUsuarioSession);
+
+                viewModelUsuarioSession = controllerUsuarioSession.ObtenerRegistroPorPk(pkUsuarioSession);
                 
-                if(registro == null)
+                if(viewModelUsuarioSession == null)
                 {
                     viewModelUsuarioSession = new TsegUsuarioSessionViewModel();
                     viewModelUsuarioSession.CUSUARIO = viewModelUsuarioDetalle.CUSUARIO;
@@ -58,17 +61,25 @@ namespace UI.Windows.Forms
                     controllerUsuarioSession.InsertarUsuarioSession(viewModelUsuarioSession);
                 } else
                 {
-                    registro.CESTADO = "I";
-                    registro.FINICIO = DateTime.Now;
-                    registro.ACTIVO = "1";
-                    controllerUsuarioSession.ActualizarUsuarioSession(registro);
+                    controllerUsuarioSession.InsertarHistorial(viewModelUsuarioSession);
+                    viewModelUsuarioSession.CESTADO = "I";
+                    viewModelUsuarioSession.FINICIO = DateTime.Now;
+                    viewModelUsuarioSession.ACTIVO = "1";
+                    controllerUsuarioSession.ActualizarUsuarioSession(viewModelUsuarioSession);
                 }
-                MessageBox.Show("Login correcto");
+
+
+                // TODO validacion de ventanas.
+                MDIAdministrador formAdministrador = new MDIAdministrador();
+                //MDIFuncionario formFuncionario = new MDIFuncionario();
+                formAdministrador.Show();
+                
+                this.Hide();
             }
 
         }
 
-        private void txtUsuario_TextChanged(object sender, EventArgs e)
+        private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.validarSinCaracteresEspecialesTextBox(txtUsuario);
         }

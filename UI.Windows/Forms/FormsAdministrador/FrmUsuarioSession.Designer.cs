@@ -1,7 +1,7 @@
 ﻿
 namespace UI.Windows
 {
-    partial class Frm_UsuarioSession
+    partial class FrmUsuarioSession
     {
         /// <summary>
         /// Required designer variable.

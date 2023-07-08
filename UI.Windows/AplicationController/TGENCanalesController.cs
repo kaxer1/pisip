@@ -9,12 +9,12 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.AplicationController
 {
-    class TGENCanalesController
+    class TgenCanalesController
     {
-        private TGENCanalesServices _servicesCanales;
-        public TGENCanalesController()
+        private TgenCanalesServices _servicesCanales;
+        public TgenCanalesController()
         {
-            _servicesCanales = new TGENCanalesServices();
+            _servicesCanales = new TgenCanalesServices();
         }
 
 
@@ -22,7 +22,7 @@ namespace UI.Windows.AplicationController
 
 
 
-        public bool InsertarCanal(TGENCanalesViewModel nuevoCanalViewModel)
+        public bool InsertarCanal(TgenCanalesViewModel nuevoCanalViewModel)
         {
             TGENCANALES nuevoCanal = new TGENCANALES();
             try
@@ -43,7 +43,7 @@ namespace UI.Windows.AplicationController
             }
         }
 
-        public bool ModificarCanal(TGENCanalesViewModel nuevoCanalViewModel)
+        public bool ModificarCanal(TgenCanalesViewModel nuevoCanalViewModel)
         {
             TGENCANALES nuevoCanal = new TGENCANALES();
             try
@@ -64,16 +64,16 @@ namespace UI.Windows.AplicationController
         }
 
 
-        public IEnumerable<TGENCanalesViewModel> ListarCanales()
+        public IEnumerable<TgenCanalesViewModel> ListarCanales()
         {
             var canalList = _servicesCanales.GetCanales();
-            List<TGENCanalesViewModel> listaCanalesViewModel = new List<TGENCanalesViewModel>();
+            List<TgenCanalesViewModel> listaCanalesViewModel = new List<TgenCanalesViewModel>();
 
             try
             {
                 foreach (var item in canalList)
                 {
-                    listaCanalesViewModel.Add(new TGENCanalesViewModel
+                    listaCanalesViewModel.Add(new TgenCanalesViewModel
                     {
                         CCANAL = item.CCANAL,
                         NOMBRE = item.NOMBRE,

@@ -26,7 +26,6 @@ namespace Aplicacion.Aplicacion.Services
         public void InsertarUsuarioSessionHistory(TSEGUSUARIOSESSIONHISTORIA TSEGUSUARIOSESSIONHISTORIA)
         {
             _TSEGUSUARIOHISTORIAREPOSITORY.Add(TSEGUSUARIOSESSIONHISTORIA);
-
         }
 
         public void ActualizarUsuarioSessionHistory(TSEGUSUARIOSESSIONHISTORIA TSEGUSUARIOSESSIONHISTORIA)

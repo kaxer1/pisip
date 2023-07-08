@@ -22,5 +22,7 @@ namespace Dominio.Model.Abstractions
         TEntity Get(int id);
         // Buscar por ID compuesto
         TEntity GetEntidadPk(Dictionary<string, object> idCompuesto);
+        // Busqueda por filtros de diccionario.
+        IEnumerable<TEntity> GetPorFiltros(Dictionary<string, object> filtros);
     }
 }

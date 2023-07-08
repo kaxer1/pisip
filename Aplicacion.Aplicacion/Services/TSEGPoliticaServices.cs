@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Aplicacion.Aplicacion.Services
 {
-    public class TSEGPoliticaServices
+    public class TsegPoliticaServices
     {
-        readonly TSEGPoliticaRepository _TSEGPoliticaRepository;
-        public TSEGPoliticaServices()
+        readonly TsegPoliticaRepository _TSEGPoliticaRepository;
+        public TsegPoliticaServices()
         {
-            _TSEGPoliticaRepository = new TSEGPoliticaRepository();
+            _TSEGPoliticaRepository = new TsegPoliticaRepository();
 
         }
 

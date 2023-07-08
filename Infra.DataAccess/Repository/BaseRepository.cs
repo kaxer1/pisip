@@ -146,5 +146,38 @@ namespace Infra.DataAccess.Repository
                 return entity;
             }
         }
+
+        public IEnumerable<TEntity> GetPorFiltros(Dictionary<string, object> filtros)
+        {
+            List<TEntity> lregistros = null;
+            try
+            {
+                using (var context = new pisipEntities())
+                {
+                    var query = context.Set<TEntity>().AsQueryable();
+
+                    foreach (var propiedad in filtros)
+                    {
+                        string nombrePropiedad = propiedad.Key;
+                        object valorPropiedad = propiedad.Value;
+
+
+                        var parameter = Expression.Parameter(typeof(TEntity));
+                        var property = Expression.Property(parameter, nombrePropiedad);
+                        var constant = Expression.Constant(valorPropiedad);
+                        var equal = Expression.Equal(property, constant);
+                        var lambda = Expression.Lambda<Func<TEntity, bool>>(equal, parameter);
+
+                        query = query.Where(lambda);
+                    }
+                    lregistros = query.ToList();
+                    return lregistros;
+                }
+            }
+            catch (Exception ex)
+            {
+                return lregistros;
+            }
+        }
     }
 }

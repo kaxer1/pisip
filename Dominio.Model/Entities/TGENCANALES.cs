@@ -18,6 +18,7 @@ namespace Dominio.Model.Entities
         public TGENCANALES()
         {
             this.TSEGPOLITICA = new HashSet<TSEGPOLITICA>();
+            this.TSEGROL = new HashSet<TSEGROL>();
         }
     
         public string CCANAL { get; set; }
@@ -26,5 +27,7 @@ namespace Dominio.Model.Entities
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSEGPOLITICA> TSEGPOLITICA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TSEGROL> TSEGROL { get; set; }
     }
 }

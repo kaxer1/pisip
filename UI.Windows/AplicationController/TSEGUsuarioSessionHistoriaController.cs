@@ -9,10 +9,10 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.AplicationController
 {
-    public class TSEGUsuarioSessionHistoriaController
+    public class TsegUsuarioSessionHistoriaController
     {
         private TsegUsuarioSessionHistoriaServices _TsegUsuarioSessionHistoriaServices;
-        public TSEGUsuarioSessionHistoriaController()
+        public TsegUsuarioSessionHistoriaController()
         {
             _TsegUsuarioSessionHistoriaServices = new TsegUsuarioSessionHistoriaServices();
         }

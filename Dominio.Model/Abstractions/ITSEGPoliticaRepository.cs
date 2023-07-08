@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio.Model.Abstractions
 {
-    public interface ITSEGPoliticaRepository: IBaseRepository<TSEGPOLITICA>
+    public interface ITsegPoliticaRepository: IBaseRepository<TSEGPOLITICA>
     {
 
     }

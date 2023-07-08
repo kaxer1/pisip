@@ -12,9 +12,11 @@ namespace UI.Windows.AplicationController
     public class TsegUsuarioSessionController : BaseController<TSEGUSUARIOSESSION, TsegUsuarioSessionViewModel>
     {
         private TsegUsuarioSessionServices serviceUsuarioSession;
+        private TsegUsuarioSessionHistoriaServices serviceUsuarioSessionHistoria;
         public TsegUsuarioSessionController()
         {
             serviceUsuarioSession = new TsegUsuarioSessionServices();
+            serviceUsuarioSessionHistoria = new TsegUsuarioSessionHistoriaServices();
         }
 
         public bool InsertarUsuarioSession(TsegUsuarioSessionViewModel nuevoUsuarioSessionViewModel)
@@ -81,6 +83,14 @@ namespace UI.Windows.AplicationController
             {
                 throw new Exception("Error al listar las Sessiones de Usuario" + ex.Message);
             }
+        }
+
+        public void InsertarHistorial (TsegUsuarioSessionViewModel registro)
+        {
+            TSEGUSUARIOSESSION original = mapearViewModelToEntidad(new TSEGUSUARIOSESSION(), registro);
+            TSEGUSUARIOSESSIONHISTORIA historia = (TSEGUSUARIOSESSIONHISTORIA) mapearEntityToEntityHistoria(original, typeof(TSEGUSUARIOSESSIONHISTORIA) );
+            historia.FCREACION = DateTime.Now;
+            serviceUsuarioSessionHistoria.InsertarUsuarioSessionHistory(historia);
         }
     }
 }

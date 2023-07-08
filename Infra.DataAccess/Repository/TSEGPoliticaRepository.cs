@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infra.DataAccess.Repository
 {
-    public class TSEGPoliticaRepository: BaseRepository<TSEGPOLITICA>, ITSEGPoliticaRepository
+    public class TsegPoliticaRepository: BaseRepository<TSEGPOLITICA>, ITsegPoliticaRepository
     {
 
     }

@@ -9,11 +9,11 @@
 
 namespace Infra.DataAccess
 {
-    using Dominio.Model.Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using Dominio.Model.Entities;
+
     public partial class pisipEntities : DbContext
     {
         public pisipEntities()
@@ -34,5 +34,7 @@ namespace Infra.DataAccess
         public virtual DbSet<TSEGUSUARIODETALLEHIST> TSEGUSUARIODETALLEHIST { get; set; }
         public virtual DbSet<TSEGUSUARIOSESSION> TSEGUSUARIOSESSION { get; set; }
         public virtual DbSet<TSEGUSUARIOSESSIONHISTORIA> TSEGUSUARIOSESSIONHISTORIA { get; set; }
+        public virtual DbSet<TSEGROL> TSEGROL { get; set; }
+        public virtual DbSet<TSEGUSUARIOROL> TSEGUSUARIOROL { get; set; }
     }
 }

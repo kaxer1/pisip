@@ -12,21 +12,25 @@ namespace Dominio.Model.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class TSEGUSUARIO
+    public partial class TSEGROL
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TSEGUSUARIO()
+        public TSEGROL()
         {
             this.TSEGUSUARIOROL = new HashSet<TSEGUSUARIOROL>();
         }
     
-        public string CUSUARIO { get; set; }
+        public decimal CROL { get; set; }
         public decimal CCOMPANIA { get; set; }
-        public Nullable<decimal> CINTERNO { get; set; }
+        public string CCANAL { get; set; }
+        public Nullable<decimal> OPTLOCK { get; set; }
+        public string NOMBRE { get; set; }
+        public Nullable<decimal> ACTIVO { get; set; }
+        public string ICONO { get; set; }
+        public string COLOR { get; set; }
     
+        public virtual TGENCANALES TGENCANALES { get; set; }
         public virtual TGENCOMPANIA TGENCOMPANIA { get; set; }
-        public virtual TSEGUSUARIODETALLE TSEGUSUARIODETALLE { get; set; }
-        public virtual TSEGUSUARIOSESSION TSEGUSUARIOSESSION { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSEGUSUARIOROL> TSEGUSUARIOROL { get; set; }
     }

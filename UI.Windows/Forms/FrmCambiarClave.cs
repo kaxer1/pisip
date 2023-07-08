@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UI.Windows.Forms
 {
-    public partial class Frm_CambiarClave : Form
+    public partial class FrmCambiarClave : FormBase
     {
-        public Frm_CambiarClave()
+        public FrmCambiarClave()
         {
             InitializeComponent();
         }

@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UI.Windows.AplicationController;
+using UI.Windows.Forms;
 using UI.Windows.ViewModel;
 
 namespace UI.Windows
 {
-    public partial class FrmCompania : Form
+    public partial class FrmCompania : FormBase
     {
         private TgenCompaniaController controllerCompania;
         private TgenCompaniaViewModel viewModelCompania;

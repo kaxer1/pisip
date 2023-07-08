@@ -19,6 +19,7 @@ namespace Dominio.Model.Entities
         {
             this.TSEGPOLITICA = new HashSet<TSEGPOLITICA>();
             this.TSEGUSUARIO = new HashSet<TSEGUSUARIO>();
+            this.TSEGROL = new HashSet<TSEGROL>();
         }
     
         public decimal CCOMPANIA { get; set; }
@@ -32,5 +33,7 @@ namespace Dominio.Model.Entities
         public virtual ICollection<TSEGPOLITICA> TSEGPOLITICA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSEGUSUARIO> TSEGUSUARIO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TSEGROL> TSEGROL { get; set; }
     }
 }

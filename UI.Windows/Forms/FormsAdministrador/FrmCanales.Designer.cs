@@ -1,7 +1,7 @@
 ﻿
 namespace UI.Windows.Forms
 {
-    partial class frmr_Canales
+    partial class FrmCanales
     {
         /// <summary>
         /// Required designer variable.

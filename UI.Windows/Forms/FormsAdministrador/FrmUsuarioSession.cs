@@ -8,16 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UI.Windows.AplicationController;
+using UI.Windows.Forms;
 using UI.Windows.ViewModel;
 
 namespace UI.Windows
 {
-    public partial class Frm_UsuarioSession : Form
+    public partial class FrmUsuarioSession : FormBase
     {
         private TsegUsuarioSessionController controllerSessiones;
         private TsegUsuarioSessionViewModel viewModelSessiones;
 
-        public Frm_UsuarioSession()
+        public FrmUsuarioSession()
         {
             InitializeComponent();
             controllerSessiones = new TsegUsuarioSessionController();

@@ -80,6 +80,37 @@ namespace UI.Windows.AplicationController
             return viewModel;
         }
 
+        // Metodo que mapea los datos la entidad y los setea en la entidad de historia de su tabla
+        public object mapearEntityToEntityHistoria(TEntity entidad, Type entidadHistoria)
+        {
+            if (entidad == null)
+            {
+                return null;
+            }
+
+            object instancia = Activator.CreateInstance(entidadHistoria);
+
+            // Estrae los campos de la entidad
+            PropertyInfo[] camposEntidad = typeof(TEntity).GetProperties();
+
+            foreach (PropertyInfo campoE in camposEntidad)
+            {
+                // TODO. validar que funcione con virtual ICollection
+                if (!campoE.Name.Contains("TSEG") && !campoE.Name.Contains("TGEN"))
+                {
+                    // Obtener el valor del campo de la Endidad
+                    object valorCampo = campoE.GetValue(entidad);
+
+                    // Obtener el campo correspondiente al View Model
+                    PropertyInfo campoEntidadHistoria = entidadHistoria.GetProperty(campoE.Name);
+
+                    // Establecer el valor del campo de la Entidad a la instancia del View Model por el campo del View Model
+                    campoEntidadHistoria.SetValue( instancia, valorCampo);
+                }
+            }
+            return instancia;
+        }
+
         public string EncryptPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
