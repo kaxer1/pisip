@@ -1,7 +1,7 @@
 ﻿
 namespace UI.Windows.Forms
 {
-    partial class Frm_CambiarClave
+    partial class FrmCambiarClave
     {
         /// <summary>
         /// Required designer variable.

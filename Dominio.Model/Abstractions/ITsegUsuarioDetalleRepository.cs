@@ -9,5 +9,7 @@ namespace Dominio.Model.Abstractions
 {
     public interface ITsegUsuarioDetalleRepository : IBaseRepository<TSEGUSUARIODETALLE>
     {
+        TSEGUSUARIODETALLE IniciarSesion(string usuario, string contrasenia, decimal ccompania, string ccanal, decimal crol);
+
     }
 }

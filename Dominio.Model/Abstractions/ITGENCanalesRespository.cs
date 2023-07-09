@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio.Model.Abstractions
 {
-    public interface ITGENCanalesRespository : IBaseRepository<TGENCANALES>
+    public interface ITgenCanalesRespository : IBaseRepository<TGENCANALES>
     {
     }
 }

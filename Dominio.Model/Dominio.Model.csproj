@@ -42,10 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\IBaseRepository.cs" />
-    <Compile Include="Abstractions\ITSegUsuarioSessionRepository.cs" />
-    <Compile Include="Abstractions\ITGENCanalesRespository.cs" />
-    <Compile Include="Abstractions\ITSEGPoliticaRepository.cs" />
-    <Compile Include="Abstractions\ITSEGUSUARIOSESSIONHISTORIAREPOSITORY.cs" />
+    <Compile Include="Abstractions\ITgenCanalesRespository.cs" />
+    <Compile Include="Abstractions\ITsegPoliticaRepository.cs" />
+    <Compile Include="Abstractions\ITsegRolRepository.cs" />
+    <Compile Include="Abstractions\ITsegUsuarioDetalleHistRepository.cs" />
+    <Compile Include="Abstractions\ITsegUsuarioRolRepository.cs" />
+    <Compile Include="Abstractions\ITsegUsuarioSessionRepository.cs" />
+    <Compile Include="Abstractions\ITsegUsuarioSessionHistoriaRepository.cs" />
     <Compile Include="Abstractions\ITgenCompaniaRepository.cs" />
     <Compile Include="Abstractions\ITsegUsuarioDetalleRepository.cs" />
     <Compile Include="Abstractions\ITsegUsuarioRepository.cs" />
@@ -63,6 +66,9 @@
     <Compile Include="Entities\TSEGPOLITICA.cs">
       <DependentUpon>ModelPisip.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\TSEGROL.cs">
+      <DependentUpon>ModelPisip.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\TSEGUSUARIO.cs">
       <DependentUpon>ModelPisip.tt</DependentUpon>
     </Compile>
@@ -70,6 +76,9 @@
       <DependentUpon>ModelPisip.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\TSEGUSUARIODETALLEHIST.cs">
+      <DependentUpon>ModelPisip.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\TSEGUSUARIOROL.cs">
       <DependentUpon>ModelPisip.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\TSEGUSUARIOSESSION.cs">

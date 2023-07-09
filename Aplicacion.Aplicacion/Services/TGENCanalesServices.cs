@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Aplicacion.Aplicacion.Services
 {
-    public class TGENCanalesServices
+    public class TgenCanalesServices
     {
 
 
-        readonly TGENCanalesRepository _TGENCanalesRepository;
-        public TGENCanalesServices()
+        readonly TgenCanalesRepository _TGENCanalesRepository;
+        public TgenCanalesServices()
         {
-            _TGENCanalesRepository = new TGENCanalesRepository();
+            _TGENCanalesRepository = new TgenCanalesRepository();
 
         }
 

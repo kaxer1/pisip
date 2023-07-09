@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UI.Windows.ViewModel
 {
-    public class TSEGUsuarioSessionHistoriaViewModel
+    public class TsegUsuarioSessionHistoriaViewModel
     {
         public string CUSUARIO { get; set; }
         public decimal CCOMPANIA { get; set; }

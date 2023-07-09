@@ -42,13 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\TGENCanalesServices.cs" />
+    <Compile Include="Services\TgenCanalesServices.cs" />
     <Compile Include="Services\TgenCompaniaServices.cs" />
-    <Compile Include="Services\TSEGPoliticaServices.cs" />
-    <Compile Include="Services\TSEGUsuarioSessionHistoriaServices.cs" />
+    <Compile Include="Services\TsegPoliticaServices.cs" />
+    <Compile Include="Services\TsegRolServices.cs" />
+    <Compile Include="Services\TsegUsuarioDetalleHistServices.cs" />
+    <Compile Include="Services\TsegUsuarioRolServices.cs" />
+    <Compile Include="Services\TsegUsuarioSessionHistoriaServices.cs" />
     <Compile Include="Services\TsegUsuarioDetalleServices.cs" />
     <Compile Include="Services\TsegUsuarioServices.cs" />
-    <Compile Include="Services\TSegUsuarioSessionServices.cs" />
+    <Compile Include="Services\TsegUsuarioSessionServices.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

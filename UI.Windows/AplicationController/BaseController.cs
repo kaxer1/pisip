@@ -12,12 +12,33 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.AplicationController
 {
+    public class MdatosSession
+    {
+        public string cusuario { get; set; }
+        public string ccanal { get; set; }
+        public decimal crol { get; set; }
+        public decimal ccompania { get; set; }
+
+    }
+    public class ComboBoxSelectItem
+    {
+        // nombre que aparece en el combo
+        public string label { get; set; }
+
+        // valor del ID o PK
+        public string value { get; set; }
+    }
+
     public abstract class BaseController<TEntity, T> where TEntity : class
     {
 
         // Metodo que mapea los datos del ViewModel y los setea en la entidad
-        public TEntity mapearEntidad(TEntity entidad, T viewModel)
+        public TEntity mapearViewModelToEntidad(TEntity entidad, T viewModel)
         {
+            if (viewModel == null)
+            {
+                return null;
+            }
             // Estrae los campos del View Model
             PropertyInfo[] camposViewModel = typeof(T).GetProperties();
 
@@ -36,22 +57,31 @@ namespace UI.Windows.AplicationController
         }
 
         // Metodo que mapea la lista del que devuelve el servicio y devuelve con el tipo de dato del View Model
-        public List<T> mapearLista(IEnumerable<TEntity> lista)
+        public List<T> mapearIEnumerableToLista(IEnumerable<TEntity> lista)
         {
 
             List<T> resultadoViewModel = new List<T>();
 
+            if (lista == null)
+            {
+                resultadoViewModel = null;
+                return resultadoViewModel;
+            }
             
             foreach (TEntity item in lista)
             {
-                resultadoViewModel.Add(mapearViewModel(item, (T)Activator.CreateInstance(typeof(T)) ) );
+                resultadoViewModel.Add(mapearEntityToViewModel(item, (T)Activator.CreateInstance(typeof(T)) ) );
             }
             return resultadoViewModel;
         }
 
         // Metodo que mapea los datos la entidad y los setea en el viewModel
-        public T mapearViewModel(TEntity entidad, T viewModel)
+        public T mapearEntityToViewModel(TEntity entidad, T viewModel)
         {
+            if (entidad == null)
+            {
+                return default(T);
+            }
             // Estrae los campos de la entidad
             PropertyInfo[] camposEntidad = typeof(TEntity).GetProperties();
 
@@ -73,26 +103,35 @@ namespace UI.Windows.AplicationController
             return viewModel;
         }
 
-        public void validarSoloNumerosTextBox(TextBox textBox)
+        // Metodo que mapea los datos la entidad y los setea en la entidad de historia de su tabla
+        public object mapearEntityToEntityHistoria(TEntity entidad, Type entidadHistoria)
         {
-            textBox.KeyPress += (sender, e) =>
+            if (entidad == null)
             {
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                {
-                    e.Handled = true;  // Ignorar el carácter ingresado
-                }
-            };
-        }
+                return null;
+            }
 
-        private void validarSoloLetrasTextBox(TextBox textBox)
-        {
-            textBox.KeyPress += (sender, e) =>
+            object instancia = Activator.CreateInstance(entidadHistoria);
+
+            // Estrae los campos de la entidad
+            PropertyInfo[] camposEntidad = typeof(TEntity).GetProperties();
+
+            foreach (PropertyInfo campoE in camposEntidad)
             {
-                if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar))
+                // TODO. validar que funcione con virtual ICollection
+                if (!campoE.Name.Contains("TSEG") && !campoE.Name.Contains("TGEN"))
                 {
-                    e.Handled = true;  // Ignorar el carácter ingresado
+                    // Obtener el valor del campo de la Endidad
+                    object valorCampo = campoE.GetValue(entidad);
+
+                    // Obtener el campo correspondiente al View Model
+                    PropertyInfo campoEntidadHistoria = entidadHistoria.GetProperty(campoE.Name);
+
+                    // Establecer el valor del campo de la Entidad a la instancia del View Model por el campo del View Model
+                    campoEntidadHistoria.SetValue( instancia, valorCampo);
                 }
-            };
+            }
+            return instancia;
         }
 
         public string EncryptPassword(string password)
@@ -110,6 +149,43 @@ namespace UI.Windows.AplicationController
 
                 return builder.ToString();
             }
+        }
+
+        // Metodo que mapea la lista del que devuelve el servicio y lo transforma en una lista de tipo ComboBoxSelectItem
+        public IEnumerable<ComboBoxSelectItem> mapearComboBox(IEnumerable<T> lista, string campoId, string campoNombre)
+        {
+            List<ComboBoxSelectItem> resultadoComboBox = new List<ComboBoxSelectItem>();
+
+            if (lista == null)
+            {
+                resultadoComboBox = null;
+                return resultadoComboBox;
+            }
+
+            foreach (T item in lista)
+            {
+                ComboBoxSelectItem combo = new ComboBoxSelectItem();
+                // Estrae los campos del View Model
+                PropertyInfo[] camposViewModel = typeof(T).GetProperties();
+
+                foreach (PropertyInfo campoVM in camposViewModel)
+                {
+                    if (campoVM.Name == campoId)
+                    {
+                        object valorCampo = campoVM.GetValue(item);
+                        combo.value = valorCampo.ToString();
+                        continue;
+                    }
+                    if (campoVM.Name == campoNombre)
+                    {
+                        object valorCampo = campoVM.GetValue(item);
+                        combo.label = valorCampo.ToString();
+                        continue;
+                    }
+                }
+                resultadoComboBox.Add(combo);
+            }
+            return resultadoComboBox;
         }
     }
 }

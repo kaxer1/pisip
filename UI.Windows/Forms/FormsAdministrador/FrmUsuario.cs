@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UI.Windows.AplicationController;
+using UI.Windows.Forms;
 using UI.Windows.ViewModel;
 
 namespace UI.Windows
 {
-    public partial class FrmUsuario : Form
+    public partial class FrmUsuario : FormBase
     {
         private TsegUsuarioController controllerUsuario;
         private TsegUsuarioViewModel viewModelUsuario;
@@ -20,8 +21,9 @@ namespace UI.Windows
         private TsegUsuarioDetalleController controllerUsuarioDetalle;
         private TsegUsuarioDetalleViewModel viewModelUsuarioDetalle;
 
-        public FrmUsuario()
+        public FrmUsuario() : base()
         {
+            base.formularioHijo = this;
             InitializeComponent();
             controllerUsuario = new TsegUsuarioController();
             controllerUsuarioDetalle = new TsegUsuarioDetalleController();
@@ -29,6 +31,9 @@ namespace UI.Windows
 
         public void InsertarUsuario()
         {
+            if(!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
+                return; // ASI NO PROCESDE A EJECUTAR
+
             if (controllerUsuario.InsertarUsuario(viewModelUsuario))
             {
                 MessageBox.Show("Usuario insertado correctamente");
@@ -49,6 +54,9 @@ namespace UI.Windows
 
         public void ActualizarUsuario()
         {
+            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
+                return; // ASI NO PROCESDE A EJECUTAR
+
             if (controllerUsuario.ActualizarUsuario(viewModelUsuario))
             {
                 MessageBox.Show("Usuario actualizado correctamente");
@@ -115,12 +123,12 @@ namespace UI.Windows
 
         private void txtCcompania_KeyPress(object sender, KeyPressEventArgs e)
         {
-            controllerUsuario.validarSoloNumerosTextBox(txtCcompania);
+            this.validarSoloNumerosTextBox(txtCcompania);
         }
 
         private void txtCinterno_KeyPress(object sender, KeyPressEventArgs e)
         {
-            controllerUsuario.validarSoloNumerosTextBox(txtCinterno);
+            this.validarSoloNumerosTextBox(txtCinterno);
         }
     }
 }

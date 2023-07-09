@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UI.Windows.ViewModel
 {
-    public class TSEGPoliticaViewModel
+    public class TsegPoliticaViewModel
     {
         public decimal CCOMPANIA { get; set; }
         public string CCANAL { get; set; }

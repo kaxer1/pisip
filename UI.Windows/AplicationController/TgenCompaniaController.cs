@@ -21,7 +21,7 @@ namespace UI.Windows.AplicationController
         {
             try
             {
-                TGENCOMPANIA nuevo = mapearEntidad(new TGENCOMPANIA(), nuevoCompaniaViewModel);
+                TGENCOMPANIA nuevo = mapearViewModelToEntidad(new TGENCOMPANIA(), nuevoCompaniaViewModel);
                 nuevo.OPTLOCK = 0; // valor por defecto al insertar
                 serviceCompania.InsertarCompania(nuevo);
                 return true;
@@ -36,7 +36,7 @@ namespace UI.Windows.AplicationController
         {
             try
             {
-               TGENCOMPANIA nuevo = mapearEntidad(new TGENCOMPANIA(), nuevoCompaniaViewModel);
+               TGENCOMPANIA nuevo = mapearViewModelToEntidad(new TGENCOMPANIA(), nuevoCompaniaViewModel);
                 serviceCompania.ActualizarCompania(nuevo);
                 return true;
             }
@@ -50,7 +50,7 @@ namespace UI.Windows.AplicationController
         {
             try
             {
-                return mapearLista(serviceCompania.ListarCompanias());
+                return mapearIEnumerableToLista(serviceCompania.ListarCompanias());
             }
             catch (Exception ex)
             {

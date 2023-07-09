@@ -18,6 +18,12 @@
         <AssociationConnector Association="pisipModel.FKTSEGUSUARIOTGENCOMPANIA" ManuallyRouted="false" />
         <AssociationConnector Association="pisipModel.FKTSEGUSUARIODETALLETSEGUSUARIO" ManuallyRouted="false" />
         <AssociationConnector Association="pisipModel.FKTSEGUSUARIOSESSIONTSEGUSUARIO" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="pisipModel.TSEGROL" Width="1.5" PointX="6" PointY="5.875" />
+        <EntityTypeShape EntityType="pisipModel.TSEGUSUARIOROL" Width="1.5" PointX="8.25" PointY="8.875" />
+        <AssociationConnector Association="pisipModel.FKTSEGROLTGENCANALES" />
+        <AssociationConnector Association="pisipModel.FKTSEGROLTGENCOMPANIA" />
+        <AssociationConnector Association="pisipModel.FKTSEGUSUARIOROLTSEGROL" />
+        <AssociationConnector Association="pisipModel.FKTSEGUSUARIOROLTSEGUSUARIO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

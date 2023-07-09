@@ -4,226 +4,324 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="pisipModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="pisipModelStoreContainer">
-    <EntitySet Name="TGENCANALES" EntityType="pisipModel.Store.TGENCANALES" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TGENCOMPANIA" EntityType="pisipModel.Store.TGENCOMPANIA" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TSEGPOLITICA" EntityType="pisipModel.Store.TSEGPOLITICA" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TSEGUSUARIO" EntityType="pisipModel.Store.TSEGUSUARIO" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TSEGUSUARIODETALLE" EntityType="pisipModel.Store.TSEGUSUARIODETALLE" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TSEGUSUARIODETALLEHIST" EntityType="pisipModel.Store.TSEGUSUARIODETALLEHIST" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TSEGUSUARIOSESSION" EntityType="pisipModel.Store.TSEGUSUARIOSESSION" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="TSEGUSUARIOSESSIONHISTORIA" EntityType="pisipModel.Store.TSEGUSUARIOSESSIONHISTORIA" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FKTSEGPOLITICATGENCANALES" Association="pisipModel.Store.FKTSEGPOLITICATGENCANALES">
-      <End Role="TGENCANALES" EntitySet="TGENCANALES" />
-      <End Role="TSEGPOLITICA" EntitySet="TSEGPOLITICA" />
-    </AssociationSet>
-    <AssociationSet Name="FKTSEGPOLITICATGENCOMPANIA" Association="pisipModel.Store.FKTSEGPOLITICATGENCOMPANIA">
-      <End Role="TGENCOMPANIA" EntitySet="TGENCOMPANIA" />
-      <End Role="TSEGPOLITICA" EntitySet="TSEGPOLITICA" />
-    </AssociationSet>
-    <AssociationSet Name="FKTSEGUSUARIOTGENCOMPANIA" Association="pisipModel.Store.FKTSEGUSUARIOTGENCOMPANIA">
-      <End Role="TGENCOMPANIA" EntitySet="TGENCOMPANIA" />
-      <End Role="TSEGUSUARIO" EntitySet="TSEGUSUARIO" />
-    </AssociationSet>
-    <AssociationSet Name="FKTSEGUSUARIODETALLETSEGUSUARIO" Association="pisipModel.Store.FKTSEGUSUARIODETALLETSEGUSUARIO">
-      <End Role="TSEGUSUARIO" EntitySet="TSEGUSUARIO" />
-      <End Role="TSEGUSUARIODETALLE" EntitySet="TSEGUSUARIODETALLE" />
-    </AssociationSet>
-    <AssociationSet Name="FKTSEGUSUARIOSESSIONTSEGUSUARIO" Association="pisipModel.Store.FKTSEGUSUARIOSESSIONTSEGUSUARIO">
-      <End Role="TSEGUSUARIO" EntitySet="TSEGUSUARIO" />
-      <End Role="TSEGUSUARIOSESSION" EntitySet="TSEGUSUARIOSESSION" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="TGENCANALES">
-    <Key>
-      <PropertyRef Name="CCANAL" />
-    </Key>
-    <Property Name="CCANAL" Type="varchar" Nullable="false" MaxLength="3" />
-    <Property Name="OPTLOCK" Type="decimal" Nullable="true" Precision="18" Scale="0" />
-    <Property Name="NOMBRE" Type="varchar" Nullable="true" MaxLength="60" />
-  </EntityType>
-  <EntityType Name="TGENCOMPANIA">
-    <Key>
-      <PropertyRef Name="CCOMPANIA" />
-    </Key>
-    <Property Name="CCOMPANIA" Type="decimal" Nullable="false" Precision="4" Scale="0" />
-    <Property Name="OPTLOCK" Type="decimal" Nullable="true" Precision="18" Scale="0" />
-    <Property Name="NOMBRECOMPANIA" Type="varchar" Nullable="true" MaxLength="100" />
-    <Property Name="ESLOGANCLIENTE" Type="varchar" Nullable="true" MaxLength="100" />
-    <Property Name="ESLOGANCORE" Type="varchar" Nullable="true" MaxLength="100" />
-    <Property Name="NOMBRECORTO" Type="varchar" Nullable="true" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="TSEGPOLITICA">
-    <Key>
-      <PropertyRef Name="CCOMPANIA" />
-      <PropertyRef Name="CCANAL" />
-    </Key>
-    <Property Name="CCOMPANIA" Type="decimal" Nullable="false" Precision="4" Scale="0" />
-    <Property Name="CCANAL" Type="varchar" Nullable="false" MaxLength="3" />
-    <Property Name="LONGITUD" Type="decimal" Nullable="true" Precision="2" Scale="0" />
-    <Property Name="DIASVALIDEZ" Type="decimal" Nullable="true" Precision="4" Scale="0" />
-    <Property Name="DIASMENSAJEDEINVALIDEZ" Type="decimal" Nullable="true" Precision="2" Scale="0" />
-    <Property Name="INTENTOS" Type="decimal" Nullable="true" Precision="2" Scale="0" />
-    <Property Name="REPETICIONES" Type="decimal" Nullable="true" Precision="3" Scale="0" />
-    <Property Name="NUMEROS" Type="decimal" Nullable="true" Precision="2" Scale="0" />
-    <Property Name="ESPECIALES" Type="decimal" Nullable="true" Precision="2" Scale="0" />
-    <Property Name="MINUSCULAS" Type="decimal" Nullable="true" Precision="2" Scale="0" />
-    <Property Name="MAYUSCULAS" Type="decimal" Nullable="true" Precision="2" Scale="0" />
-    <Property Name="TIEMPOSESION" Type="decimal" Nullable="true" Precision="3" Scale="0" />
-  </EntityType>
-  <EntityType Name="TSEGUSUARIO">
-    <Key>
-      <PropertyRef Name="CUSUARIO" />
-      <PropertyRef Name="CCOMPANIA" />
-    </Key>
-    <Property Name="CUSUARIO" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="CCOMPANIA" Type="decimal" Nullable="false" Precision="4" Scale="0" />
-    <Property Name="CINTERNO" Type="decimal" Nullable="true" Precision="6" Scale="0" />
-  </EntityType>
-  <EntityType Name="TSEGUSUARIODETALLE">
-    <Key>
-      <PropertyRef Name="CUSUARIO" />
-      <PropertyRef Name="CCOMPANIA" />
-    </Key>
-    <Property Name="CUSUARIO" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="CCOMPANIA" Type="decimal" Nullable="false" Precision="4" Scale="0" />
-    <Property Name="OPTLOCK" Type="decimal" Nullable="true" Precision="18" Scale="0" />
-    <Property Name="CUSUARIOING" Type="varchar" Nullable="true" MaxLength="20" />
-    <Property Name="CUSUARIOMOD" Type="varchar" Nullable="true" MaxLength="20" />
-    <Property Name="FINGRESO" Type="datetime" Nullable="true" />
-    <Property Name="FMODIFICACION" Type="datetime" Nullable="true" />
-    <Property Name="ESTATUS" Type="decimal" Nullable="true" Precision="1" Scale="0" />
-    <Property Name="CCANAL" Type="varchar" Nullable="true" MaxLength="3" />
-    <Property Name="SOBRENOMBRE" Type="varchar" Nullable="true" MaxLength="30" />
-    <Property Name="PASSWORD" Type="varchar" Nullable="true" MaxLength="70" />
-    <Property Name="CAMBIOPASSWORD" Type="varchar" Nullable="true" MaxLength="1" />
-    <Property Name="OBSERVACION" Type="varchar" Nullable="true" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="TSEGUSUARIODETALLEHIST">
-    <Key>
-      <PropertyRef Name="CUSUARIO" />
-      <PropertyRef Name="CCOMPANIA" />
-      <PropertyRef Name="FHISTORIA" />
-    </Key>
-    <Property Name="CUSUARIO" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="CCOMPANIA" Type="decimal" Nullable="false" Precision="4" Scale="0" />
-    <Property Name="FHISTORIA" Type="binary" StoreGeneratedPattern="Computed" Nullable="false" MaxLength="8" />
-    <Property Name="OPTLOCK" Type="decimal" Nullable="true" Precision="18" Scale="0" />
-    <Property Name="CUSUARIOING" Type="varchar" Nullable="true" MaxLength="20" />
-    <Property Name="CUSUARIOMOD" Type="varchar" Nullable="true" MaxLength="20" />
-    <Property Name="FINGRESO" Type="datetime" Nullable="true" />
-    <Property Name="FMODIFICACION" Type="datetime" Nullable="true" />
-    <Property Name="ESTATUS" Type="decimal" Nullable="true" Precision="1" Scale="0" />
-    <Property Name="CCANAL" Type="varchar" Nullable="true" MaxLength="3" />
-    <Property Name="SOBRENOMBRE" Type="varchar" Nullable="true" MaxLength="30" />
-    <Property Name="PASSWORD" Type="varchar" Nullable="true" MaxLength="70" />
-    <Property Name="CAMBIOPASSWORD" Type="varchar" Nullable="true" MaxLength="1" />
-    <Property Name="OBSERVACION" Type="varchar" Nullable="true" MaxLength="100" />
-  </EntityType>
-  <EntityType Name="TSEGUSUARIOSESSION">
-    <Key>
-      <PropertyRef Name="CUSUARIO" />
-      <PropertyRef Name="CCOMPANIA" />
-    </Key>
-    <Property Name="CUSUARIO" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="CCOMPANIA" Type="decimal" Nullable="false" Precision="4" Scale="0" />
-    <Property Name="NUMEROINTENTOS" Type="decimal" Nullable="true" Precision="2" Scale="0" />
-    <Property Name="IDSESSION" Type="varchar" Nullable="true" MaxLength="70" />
-    <Property Name="FINICIO" Type="datetime" Nullable="true" />
-    <Property Name="FSALIDA" Type="datetime" Nullable="true" />
-    <Property Name="ACTIVO" Type="varchar" Nullable="true" MaxLength="1" />
-    <Property Name="TIEMPOSESION" Type="decimal" Nullable="true" Precision="3" Scale="0" />
-    <Property Name="FULTIMAACCION" Type="datetime" Nullable="true" />
-    <Property Name="CESTADO" Type="varchar" Nullable="true" MaxLength="1" />
-    <Property Name="USERAGENT" Type="varchar" Nullable="true" MaxLength="200" />
-    <Property Name="CTERMINALREMOTO" Type="varchar" Nullable="true" MaxLength="19" />
-  </EntityType>
-  <EntityType Name="TSEGUSUARIOSESSIONHISTORIA">
-    <Key>
-      <PropertyRef Name="CUSUARIO" />
-      <PropertyRef Name="CCOMPANIA" />
-      <PropertyRef Name="FCREACION" />
-    </Key>
-    <Property Name="CUSUARIO" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="CCOMPANIA" Type="decimal" Nullable="false" Precision="4" Scale="0" />
-    <Property Name="FCREACION" Type="datetime" Nullable="false" />
-    <Property Name="NUMEROINTENTOS" Type="decimal" Nullable="true" Precision="2" Scale="0" />
-    <Property Name="IDSESSION" Type="varchar" Nullable="true" MaxLength="70" />
-    <Property Name="FINICIO" Type="datetime" Nullable="true" />
-    <Property Name="FSALIDA" Type="datetime" Nullable="true" />
-    <Property Name="ACTIVO" Type="varchar" Nullable="true" MaxLength="1" />
-    <Property Name="TIEMPOSESION" Type="decimal" Nullable="true" Precision="3" Scale="0" />
-    <Property Name="FULTIMAACCION" Type="datetime" Nullable="true" />
-    <Property Name="CESTADO" Type="varchar" Nullable="true" MaxLength="1" />
-    <Property Name="USERAGENT" Type="varchar" Nullable="true" MaxLength="200" />
-    <Property Name="CTERMINALREMOTO" Type="varchar" Nullable="true" MaxLength="19" />
-  </EntityType>
-  <Association Name="FKTSEGPOLITICATGENCANALES">
-    <End Role="TGENCANALES" Type="pisipModel.Store.TGENCANALES" Multiplicity="1" />
-    <End Role="TSEGPOLITICA" Type="pisipModel.Store.TSEGPOLITICA" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TGENCANALES">
-        <PropertyRef Name="CCANAL" />
-      </Principal>
-      <Dependent Role="TSEGPOLITICA">
-        <PropertyRef Name="CCANAL" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FKTSEGPOLITICATGENCOMPANIA">
-    <End Role="TGENCOMPANIA" Type="pisipModel.Store.TGENCOMPANIA" Multiplicity="1" />
-    <End Role="TSEGPOLITICA" Type="pisipModel.Store.TSEGPOLITICA" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TGENCOMPANIA">
-        <PropertyRef Name="CCOMPANIA" />
-      </Principal>
-      <Dependent Role="TSEGPOLITICA">
-        <PropertyRef Name="CCOMPANIA" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FKTSEGUSUARIOTGENCOMPANIA">
-    <End Role="TGENCOMPANIA" Type="pisipModel.Store.TGENCOMPANIA" Multiplicity="1" />
-    <End Role="TSEGUSUARIO" Type="pisipModel.Store.TSEGUSUARIO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TGENCOMPANIA">
-        <PropertyRef Name="CCOMPANIA" />
-      </Principal>
-      <Dependent Role="TSEGUSUARIO">
-        <PropertyRef Name="CCOMPANIA" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FKTSEGUSUARIODETALLETSEGUSUARIO">
-    <End Role="TSEGUSUARIO" Type="pisipModel.Store.TSEGUSUARIO" Multiplicity="1" />
-    <End Role="TSEGUSUARIODETALLE" Type="pisipModel.Store.TSEGUSUARIODETALLE" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="TSEGUSUARIO">
-        <PropertyRef Name="CUSUARIO" />
-        <PropertyRef Name="CCOMPANIA" />
-      </Principal>
-      <Dependent Role="TSEGUSUARIODETALLE">
-        <PropertyRef Name="CUSUARIO" />
-        <PropertyRef Name="CCOMPANIA" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FKTSEGUSUARIOSESSIONTSEGUSUARIO">
-    <End Role="TSEGUSUARIO" Type="pisipModel.Store.TSEGUSUARIO" Multiplicity="1" />
-    <End Role="TSEGUSUARIOSESSION" Type="pisipModel.Store.TSEGUSUARIOSESSION" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="TSEGUSUARIO">
-        <PropertyRef Name="CUSUARIO" />
-        <PropertyRef Name="CCOMPANIA" />
-      </Principal>
-      <Dependent Role="TSEGUSUARIOSESSION">
-        <PropertyRef Name="CUSUARIO" />
-        <PropertyRef Name="CCOMPANIA" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="pisipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TGENCANALES">
+          <Key>
+            <PropertyRef Name="CCANAL" />
+          </Key>
+          <Property Name="CCANAL" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="OPTLOCK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="TGENCOMPANIA">
+          <Key>
+            <PropertyRef Name="CCOMPANIA" />
+          </Key>
+          <Property Name="CCOMPANIA" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="OPTLOCK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="NOMBRECOMPANIA" Type="varchar" MaxLength="100" />
+          <Property Name="ESLOGANCLIENTE" Type="varchar" MaxLength="100" />
+          <Property Name="ESLOGANCORE" Type="varchar" MaxLength="100" />
+          <Property Name="NOMBRECORTO" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TSEGPOLITICA">
+          <Key>
+            <PropertyRef Name="CCOMPANIA" />
+            <PropertyRef Name="CCANAL" />
+          </Key>
+          <Property Name="CCOMPANIA" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="CCANAL" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="LONGITUD" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="DIASVALIDEZ" Type="numeric" Precision="4" Scale="0" />
+          <Property Name="DIASMENSAJEDEINVALIDEZ" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="INTENTOS" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="REPETICIONES" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="NUMEROS" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="ESPECIALES" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="MINUSCULAS" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="MAYUSCULAS" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="TIEMPOSESION" Type="numeric" Precision="3" Scale="0" />
+        </EntityType>
+        <EntityType Name="TSEGROL">
+          <Key>
+            <PropertyRef Name="CROL" />
+            <PropertyRef Name="CCOMPANIA" />
+          </Key>
+          <Property Name="CROL" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="CCOMPANIA" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="CCANAL" Type="varchar" MaxLength="3" />
+          <Property Name="OPTLOCK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="60" />
+          <Property Name="ACTIVO" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="ICONO" Type="varchar" MaxLength="30" />
+          <Property Name="COLOR" Type="varchar" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="TSEGUSUARIO">
+          <Key>
+            <PropertyRef Name="CUSUARIO" />
+            <PropertyRef Name="CCOMPANIA" />
+          </Key>
+          <Property Name="CUSUARIO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CCOMPANIA" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="CINTERNO" Type="numeric" Precision="6" Scale="0" />
+        </EntityType>
+        <EntityType Name="TSEGUSUARIODETALLE">
+          <Key>
+            <PropertyRef Name="CUSUARIO" />
+            <PropertyRef Name="CCOMPANIA" />
+          </Key>
+          <Property Name="CUSUARIO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CCOMPANIA" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="OPTLOCK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CUSUARIOING" Type="varchar" MaxLength="20" />
+          <Property Name="CUSUARIOMOD" Type="varchar" MaxLength="20" />
+          <Property Name="FINGRESO" Type="datetime" />
+          <Property Name="FMODIFICACION" Type="datetime" />
+          <Property Name="ESTATUS" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="CCANAL" Type="varchar" MaxLength="3" />
+          <Property Name="SOBRENOMBRE" Type="varchar" MaxLength="30" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="70" />
+          <Property Name="CAMBIOPASSWORD" Type="varchar" MaxLength="1" />
+          <Property Name="OBSERVACION" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TSEGUSUARIODETALLEHIST">
+          <Key>
+            <PropertyRef Name="CUSUARIO" />
+            <PropertyRef Name="CCOMPANIA" />
+            <PropertyRef Name="FHISTORIA" />
+          </Key>
+          <Property Name="CUSUARIO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CCOMPANIA" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="FHISTORIA" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="OPTLOCK" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CUSUARIOING" Type="varchar" MaxLength="20" />
+          <Property Name="CUSUARIOMOD" Type="varchar" MaxLength="20" />
+          <Property Name="FINGRESO" Type="datetime" />
+          <Property Name="FMODIFICACION" Type="datetime" />
+          <Property Name="ESTATUS" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="CCANAL" Type="varchar" MaxLength="3" />
+          <Property Name="SOBRENOMBRE" Type="varchar" MaxLength="30" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="70" />
+          <Property Name="CAMBIOPASSWORD" Type="varchar" MaxLength="1" />
+          <Property Name="OBSERVACION" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TSEGUSUARIOROL">
+          <Key>
+            <PropertyRef Name="CUSUARIO" />
+            <PropertyRef Name="CCOMPANIA" />
+            <PropertyRef Name="CROL" />
+          </Key>
+          <Property Name="CUSUARIO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CCOMPANIA" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="CROL" Type="numeric" Precision="3" Scale="0" Nullable="false" />
+          <Property Name="CUSUARIOING" Type="varchar" MaxLength="20" />
+          <Property Name="CUSUARIOMOD" Type="varchar" MaxLength="20" />
+          <Property Name="FINGRESO" Type="datetime" />
+          <Property Name="FMODIFICACION" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TSEGUSUARIOSESSION">
+          <Key>
+            <PropertyRef Name="CUSUARIO" />
+            <PropertyRef Name="CCOMPANIA" />
+          </Key>
+          <Property Name="CUSUARIO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CCOMPANIA" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="NUMEROINTENTOS" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="IDSESSION" Type="varchar" MaxLength="70" />
+          <Property Name="FINICIO" Type="datetime" />
+          <Property Name="FSALIDA" Type="datetime" />
+          <Property Name="ACTIVO" Type="varchar" MaxLength="1" />
+          <Property Name="TIEMPOSESION" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="FULTIMAACCION" Type="datetime" />
+          <Property Name="CESTADO" Type="varchar" MaxLength="1" />
+          <Property Name="USERAGENT" Type="varchar" MaxLength="200" />
+          <Property Name="CTERMINALREMOTO" Type="varchar" MaxLength="19" />
+        </EntityType>
+        <EntityType Name="TSEGUSUARIOSESSIONHISTORIA">
+          <Key>
+            <PropertyRef Name="CUSUARIO" />
+            <PropertyRef Name="CCOMPANIA" />
+            <PropertyRef Name="FCREACION" />
+          </Key>
+          <Property Name="CUSUARIO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CCOMPANIA" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="FCREACION" Type="datetime" Nullable="false" />
+          <Property Name="NUMEROINTENTOS" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="IDSESSION" Type="varchar" MaxLength="70" />
+          <Property Name="FINICIO" Type="datetime" />
+          <Property Name="FSALIDA" Type="datetime" />
+          <Property Name="ACTIVO" Type="varchar" MaxLength="1" />
+          <Property Name="TIEMPOSESION" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="FULTIMAACCION" Type="datetime" />
+          <Property Name="CESTADO" Type="varchar" MaxLength="1" />
+          <Property Name="USERAGENT" Type="varchar" MaxLength="200" />
+          <Property Name="CTERMINALREMOTO" Type="varchar" MaxLength="19" />
+        </EntityType>
+        <Association Name="FKTSEGPOLITICATGENCANALES">
+          <End Role="TGENCANALES" Type="Self.TGENCANALES" Multiplicity="1" />
+          <End Role="TSEGPOLITICA" Type="Self.TSEGPOLITICA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TGENCANALES">
+              <PropertyRef Name="CCANAL" />
+            </Principal>
+            <Dependent Role="TSEGPOLITICA">
+              <PropertyRef Name="CCANAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGPOLITICATGENCOMPANIA">
+          <End Role="TGENCOMPANIA" Type="Self.TGENCOMPANIA" Multiplicity="1" />
+          <End Role="TSEGPOLITICA" Type="Self.TSEGPOLITICA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TGENCOMPANIA">
+              <PropertyRef Name="CCOMPANIA" />
+            </Principal>
+            <Dependent Role="TSEGPOLITICA">
+              <PropertyRef Name="CCOMPANIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGROLTGENCANALES">
+          <End Role="TGENCANALES" Type="Self.TGENCANALES" Multiplicity="0..1" />
+          <End Role="TSEGROL" Type="Self.TSEGROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TGENCANALES">
+              <PropertyRef Name="CCANAL" />
+            </Principal>
+            <Dependent Role="TSEGROL">
+              <PropertyRef Name="CCANAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGROLTGENCOMPANIA">
+          <End Role="TGENCOMPANIA" Type="Self.TGENCOMPANIA" Multiplicity="1" />
+          <End Role="TSEGROL" Type="Self.TSEGROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TGENCOMPANIA">
+              <PropertyRef Name="CCOMPANIA" />
+            </Principal>
+            <Dependent Role="TSEGROL">
+              <PropertyRef Name="CCOMPANIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGUSUARIODETALLETSEGUSUARIO">
+          <End Role="TSEGUSUARIO" Type="Self.TSEGUSUARIO" Multiplicity="1" />
+          <End Role="TSEGUSUARIODETALLE" Type="Self.TSEGUSUARIODETALLE" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TSEGUSUARIO">
+              <PropertyRef Name="CUSUARIO" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Principal>
+            <Dependent Role="TSEGUSUARIODETALLE">
+              <PropertyRef Name="CUSUARIO" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGUSUARIOROLTSEGROL">
+          <End Role="TSEGROL" Type="Self.TSEGROL" Multiplicity="1" />
+          <End Role="TSEGUSUARIOROL" Type="Self.TSEGUSUARIOROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSEGROL">
+              <PropertyRef Name="CROL" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Principal>
+            <Dependent Role="TSEGUSUARIOROL">
+              <PropertyRef Name="CROL" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGUSUARIOROLTSEGUSUARIO">
+          <End Role="TSEGUSUARIO" Type="Self.TSEGUSUARIO" Multiplicity="1" />
+          <End Role="TSEGUSUARIOROL" Type="Self.TSEGUSUARIOROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSEGUSUARIO">
+              <PropertyRef Name="CUSUARIO" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Principal>
+            <Dependent Role="TSEGUSUARIOROL">
+              <PropertyRef Name="CUSUARIO" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGUSUARIOSESSIONTSEGUSUARIO">
+          <End Role="TSEGUSUARIO" Type="Self.TSEGUSUARIO" Multiplicity="1" />
+          <End Role="TSEGUSUARIOSESSION" Type="Self.TSEGUSUARIOSESSION" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TSEGUSUARIO">
+              <PropertyRef Name="CUSUARIO" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Principal>
+            <Dependent Role="TSEGUSUARIOSESSION">
+              <PropertyRef Name="CUSUARIO" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGUSUARIOTGENCOMPANIA">
+          <End Role="TGENCOMPANIA" Type="Self.TGENCOMPANIA" Multiplicity="1" />
+          <End Role="TSEGUSUARIO" Type="Self.TSEGUSUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TGENCOMPANIA">
+              <PropertyRef Name="CCOMPANIA" />
+            </Principal>
+            <Dependent Role="TSEGUSUARIO">
+              <PropertyRef Name="CCOMPANIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pisipModelStoreContainer">
+          <EntitySet Name="TGENCANALES" EntityType="Self.TGENCANALES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TGENCOMPANIA" EntityType="Self.TGENCOMPANIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSEGPOLITICA" EntityType="Self.TSEGPOLITICA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSEGROL" EntityType="Self.TSEGROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSEGUSUARIO" EntityType="Self.TSEGUSUARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSEGUSUARIODETALLE" EntityType="Self.TSEGUSUARIODETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSEGUSUARIODETALLEHIST" EntityType="Self.TSEGUSUARIODETALLEHIST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSEGUSUARIOROL" EntityType="Self.TSEGUSUARIOROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSEGUSUARIOSESSION" EntityType="Self.TSEGUSUARIOSESSION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSEGUSUARIOSESSIONHISTORIA" EntityType="Self.TSEGUSUARIOSESSIONHISTORIA" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FKTSEGPOLITICATGENCANALES" Association="Self.FKTSEGPOLITICATGENCANALES">
+            <End Role="TGENCANALES" EntitySet="TGENCANALES" />
+            <End Role="TSEGPOLITICA" EntitySet="TSEGPOLITICA" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGPOLITICATGENCOMPANIA" Association="Self.FKTSEGPOLITICATGENCOMPANIA">
+            <End Role="TGENCOMPANIA" EntitySet="TGENCOMPANIA" />
+            <End Role="TSEGPOLITICA" EntitySet="TSEGPOLITICA" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGROLTGENCANALES" Association="Self.FKTSEGROLTGENCANALES">
+            <End Role="TGENCANALES" EntitySet="TGENCANALES" />
+            <End Role="TSEGROL" EntitySet="TSEGROL" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGROLTGENCOMPANIA" Association="Self.FKTSEGROLTGENCOMPANIA">
+            <End Role="TGENCOMPANIA" EntitySet="TGENCOMPANIA" />
+            <End Role="TSEGROL" EntitySet="TSEGROL" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGUSUARIODETALLETSEGUSUARIO" Association="Self.FKTSEGUSUARIODETALLETSEGUSUARIO">
+            <End Role="TSEGUSUARIO" EntitySet="TSEGUSUARIO" />
+            <End Role="TSEGUSUARIODETALLE" EntitySet="TSEGUSUARIODETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGUSUARIOROLTSEGROL" Association="Self.FKTSEGUSUARIOROLTSEGROL">
+            <End Role="TSEGROL" EntitySet="TSEGROL" />
+            <End Role="TSEGUSUARIOROL" EntitySet="TSEGUSUARIOROL" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGUSUARIOROLTSEGUSUARIO" Association="Self.FKTSEGUSUARIOROLTSEGUSUARIO">
+            <End Role="TSEGUSUARIO" EntitySet="TSEGUSUARIO" />
+            <End Role="TSEGUSUARIOROL" EntitySet="TSEGUSUARIOROL" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGUSUARIOSESSIONTSEGUSUARIO" Association="Self.FKTSEGUSUARIOSESSIONTSEGUSUARIO">
+            <End Role="TSEGUSUARIO" EntitySet="TSEGUSUARIO" />
+            <End Role="TSEGUSUARIOSESSION" EntitySet="TSEGUSUARIOSESSION" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGUSUARIOTGENCOMPANIA" Association="Self.FKTSEGUSUARIOTGENCOMPANIA">
+            <End Role="TGENCOMPANIA" EntitySet="TGENCOMPANIA" />
+            <End Role="TSEGUSUARIO" EntitySet="TSEGUSUARIO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="pisipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -235,6 +333,7 @@
           <Property Name="OPTLOCK" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="NOMBRE" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TSEGPOLITICA" Relationship="Self.FKTSEGPOLITICATGENCANALES" FromRole="TGENCANALES" ToRole="TSEGPOLITICA" />
+          <NavigationProperty Name="TSEGROL" Relationship="pisipModel.FKTSEGROLTGENCANALES" FromRole="TGENCANALES" ToRole="TSEGROL" />
         </EntityType>
         <EntityType Name="TGENCOMPANIA">
           <Key>
@@ -248,6 +347,7 @@
           <Property Name="NOMBRECORTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TSEGPOLITICA" Relationship="Self.FKTSEGPOLITICATGENCOMPANIA" FromRole="TGENCOMPANIA" ToRole="TSEGPOLITICA" />
           <NavigationProperty Name="TSEGUSUARIO" Relationship="Self.FKTSEGUSUARIOTGENCOMPANIA" FromRole="TGENCOMPANIA" ToRole="TSEGUSUARIO" />
+          <NavigationProperty Name="TSEGROL" Relationship="pisipModel.FKTSEGROLTGENCOMPANIA" FromRole="TGENCOMPANIA" ToRole="TSEGROL" />
         </EntityType>
         <EntityType Name="TSEGPOLITICA">
           <Key>
@@ -280,6 +380,7 @@
           <NavigationProperty Name="TGENCOMPANIA" Relationship="Self.FKTSEGUSUARIOTGENCOMPANIA" FromRole="TSEGUSUARIO" ToRole="TGENCOMPANIA" />
           <NavigationProperty Name="TSEGUSUARIODETALLE" Relationship="Self.FKTSEGUSUARIODETALLETSEGUSUARIO" FromRole="TSEGUSUARIO" ToRole="TSEGUSUARIODETALLE" />
           <NavigationProperty Name="TSEGUSUARIOSESSION" Relationship="Self.FKTSEGUSUARIOSESSIONTSEGUSUARIO" FromRole="TSEGUSUARIO" ToRole="TSEGUSUARIOSESSION" />
+          <NavigationProperty Name="TSEGUSUARIOROL" Relationship="pisipModel.FKTSEGUSUARIOROLTSEGUSUARIO" FromRole="TSEGUSUARIO" ToRole="TSEGUSUARIOROL" />
         </EntityType>
         <EntityType Name="TSEGUSUARIODETALLE">
           <Key>
@@ -454,7 +555,110 @@
             <End Role="TSEGUSUARIO" EntitySet="TSEGUSUARIO" />
             <End Role="TSEGUSUARIOSESSION" EntitySet="TSEGUSUARIOSESSION" />
           </AssociationSet>
+          <EntitySet Name="TSEGROL" EntityType="pisipModel.TSEGROL" />
+          <EntitySet Name="TSEGUSUARIOROL" EntityType="pisipModel.TSEGUSUARIOROL" />
+          <AssociationSet Name="FKTSEGROLTGENCANALES" Association="pisipModel.FKTSEGROLTGENCANALES">
+            <End Role="TGENCANALES" EntitySet="TGENCANALES" />
+            <End Role="TSEGROL" EntitySet="TSEGROL" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGROLTGENCOMPANIA" Association="pisipModel.FKTSEGROLTGENCOMPANIA">
+            <End Role="TGENCOMPANIA" EntitySet="TGENCOMPANIA" />
+            <End Role="TSEGROL" EntitySet="TSEGROL" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGUSUARIOROLTSEGROL" Association="pisipModel.FKTSEGUSUARIOROLTSEGROL">
+            <End Role="TSEGROL" EntitySet="TSEGROL" />
+            <End Role="TSEGUSUARIOROL" EntitySet="TSEGUSUARIOROL" />
+          </AssociationSet>
+          <AssociationSet Name="FKTSEGUSUARIOROLTSEGUSUARIO" Association="pisipModel.FKTSEGUSUARIOROLTSEGUSUARIO">
+            <End Role="TSEGUSUARIO" EntitySet="TSEGUSUARIO" />
+            <End Role="TSEGUSUARIOROL" EntitySet="TSEGUSUARIOROL" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TSEGROL">
+          <Key>
+            <PropertyRef Name="CROL" />
+            <PropertyRef Name="CCOMPANIA" />
+          </Key>
+          <Property Name="CROL" Type="Decimal" Nullable="false" Precision="3" Scale="0" />
+          <Property Name="CCOMPANIA" Type="Decimal" Nullable="false" Precision="4" Scale="0" />
+          <Property Name="CCANAL" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="OPTLOCK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="NOMBRE" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="ACTIVO" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="ICONO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="COLOR" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TGENCANALES" Relationship="pisipModel.FKTSEGROLTGENCANALES" FromRole="TSEGROL" ToRole="TGENCANALES" />
+          <NavigationProperty Name="TGENCOMPANIA" Relationship="pisipModel.FKTSEGROLTGENCOMPANIA" FromRole="TSEGROL" ToRole="TGENCOMPANIA" />
+          <NavigationProperty Name="TSEGUSUARIOROL" Relationship="pisipModel.FKTSEGUSUARIOROLTSEGROL" FromRole="TSEGROL" ToRole="TSEGUSUARIOROL" />
+        </EntityType>
+        <EntityType Name="TSEGUSUARIOROL">
+          <Key>
+            <PropertyRef Name="CUSUARIO" />
+            <PropertyRef Name="CCOMPANIA" />
+            <PropertyRef Name="CROL" />
+          </Key>
+          <Property Name="CUSUARIO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CCOMPANIA" Type="Decimal" Nullable="false" Precision="4" Scale="0" />
+          <Property Name="CROL" Type="Decimal" Nullable="false" Precision="3" Scale="0" />
+          <Property Name="CUSUARIOING" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CUSUARIOMOD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FINGRESO" Type="DateTime" Precision="3" />
+          <Property Name="FMODIFICACION" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TSEGROL" Relationship="pisipModel.FKTSEGUSUARIOROLTSEGROL" FromRole="TSEGUSUARIOROL" ToRole="TSEGROL" />
+          <NavigationProperty Name="TSEGUSUARIO" Relationship="pisipModel.FKTSEGUSUARIOROLTSEGUSUARIO" FromRole="TSEGUSUARIOROL" ToRole="TSEGUSUARIO" />
+        </EntityType>
+        <Association Name="FKTSEGROLTGENCANALES">
+          <End Type="pisipModel.TGENCANALES" Role="TGENCANALES" Multiplicity="0..1" />
+          <End Type="pisipModel.TSEGROL" Role="TSEGROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TGENCANALES">
+              <PropertyRef Name="CCANAL" />
+            </Principal>
+            <Dependent Role="TSEGROL">
+              <PropertyRef Name="CCANAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGROLTGENCOMPANIA">
+          <End Type="pisipModel.TGENCOMPANIA" Role="TGENCOMPANIA" Multiplicity="1" />
+          <End Type="pisipModel.TSEGROL" Role="TSEGROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TGENCOMPANIA">
+              <PropertyRef Name="CCOMPANIA" />
+            </Principal>
+            <Dependent Role="TSEGROL">
+              <PropertyRef Name="CCOMPANIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGUSUARIOROLTSEGROL">
+          <End Type="pisipModel.TSEGROL" Role="TSEGROL" Multiplicity="1" />
+          <End Type="pisipModel.TSEGUSUARIOROL" Role="TSEGUSUARIOROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSEGROL">
+              <PropertyRef Name="CROL" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Principal>
+            <Dependent Role="TSEGUSUARIOROL">
+              <PropertyRef Name="CROL" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTSEGUSUARIOROLTSEGUSUARIO">
+          <End Type="pisipModel.TSEGUSUARIO" Role="TSEGUSUARIO" Multiplicity="1" />
+          <End Type="pisipModel.TSEGUSUARIOROL" Role="TSEGUSUARIOROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TSEGUSUARIO">
+              <PropertyRef Name="CUSUARIO" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Principal>
+            <Dependent Role="TSEGUSUARIOROL">
+              <PropertyRef Name="CUSUARIO" />
+              <PropertyRef Name="CCOMPANIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -585,6 +789,33 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+          <EntitySetMapping Name="TSEGROL">
+            <EntityTypeMapping TypeName="pisipModel.TSEGROL">
+              <MappingFragment StoreEntitySet="TSEGROL">
+                <ScalarProperty Name="COLOR" ColumnName="COLOR" />
+                <ScalarProperty Name="ICONO" ColumnName="ICONO" />
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="OPTLOCK" ColumnName="OPTLOCK" />
+                <ScalarProperty Name="CCANAL" ColumnName="CCANAL" />
+                <ScalarProperty Name="CCOMPANIA" ColumnName="CCOMPANIA" />
+                <ScalarProperty Name="CROL" ColumnName="CROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TSEGUSUARIOROL">
+            <EntityTypeMapping TypeName="pisipModel.TSEGUSUARIOROL">
+              <MappingFragment StoreEntitySet="TSEGUSUARIOROL">
+                <ScalarProperty Name="FMODIFICACION" ColumnName="FMODIFICACION" />
+                <ScalarProperty Name="FINGRESO" ColumnName="FINGRESO" />
+                <ScalarProperty Name="CUSUARIOMOD" ColumnName="CUSUARIOMOD" />
+                <ScalarProperty Name="CUSUARIOING" ColumnName="CUSUARIOING" />
+                <ScalarProperty Name="CROL" ColumnName="CROL" />
+                <ScalarProperty Name="CCOMPANIA" ColumnName="CCOMPANIA" />
+                <ScalarProperty Name="CUSUARIO" ColumnName="CUSUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

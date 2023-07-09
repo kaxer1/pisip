@@ -12,19 +12,23 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.Forms
 {
-    public partial class frmr_Canales : Form
+    public partial class FrmCanales : FormBase
     {
 
-        private TGENCanalesController _canalesController;
-        private TGENCanalesViewModel _canalesViewModel;
+        private TgenCanalesController _canalesController;
+        private TgenCanalesViewModel _canalesViewModel;
 
-        public frmr_Canales()
+        public FrmCanales() : base()
         {
+            base.formularioHijo = this;
             InitializeComponent();
-            _canalesController = new TGENCanalesController();
+            _canalesController = new TgenCanalesController();
         }
         public void InsertarCanal()
         {
+            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
+                return; // ASI NO PROCESDE A EJECUTAR
+
             if (_canalesController.InsertarCanal(_canalesViewModel))
             {
                 MessageBox.Show("Canal creado correctamente");
@@ -36,6 +40,9 @@ namespace UI.Windows.Forms
         }
         public void ActualizarCanal()
         {
+            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
+                return; // ASI NO PROCESDE A EJECUTAR
+
             if (_canalesController.ModificarCanal(_canalesViewModel))
             {
                 MessageBox.Show("Empleado modificado correctamente");
@@ -56,7 +63,7 @@ namespace UI.Windows.Forms
         private void btn_guardar_Click(object sender, EventArgs e)
         {
 
-            _canalesViewModel = new TGENCanalesViewModel();
+            _canalesViewModel = new TgenCanalesViewModel();
             _canalesViewModel.NOMBRE = txt_nombre.Text;
             _canalesViewModel.OPTLOCK = decimal.Parse(txt_opt.Text);
 
