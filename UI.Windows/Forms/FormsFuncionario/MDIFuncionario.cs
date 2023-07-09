@@ -10,12 +10,13 @@ using System.Windows.Forms;
 
 namespace UI.Windows.Forms.FormsFuncionario
 {
-    public partial class MDIFuncionario : Form
+    public partial class MDIFuncionario : FormBase
     {
         private int childFormNumber = 0;
 
-        public MDIFuncionario()
+        public MDIFuncionario() : base()
         {
+            base.formularioHijo = this;
             InitializeComponent();
         }
 

@@ -37,5 +37,10 @@ namespace Aplicacion.Aplicacion.Services
         {
             tsegRolRepository.Delete(rol);
         }
+
+        public IEnumerable<TSEGROL> ObtenerPorFiltro(Dictionary<string, object> filtros)
+        {
+            return tsegRolRepository.GetPorFiltros(filtros);
+        }
     }
 }

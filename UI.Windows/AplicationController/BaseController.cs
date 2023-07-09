@@ -12,6 +12,15 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.AplicationController
 {
+    public class ComboBoxSelectItem
+    {
+        // nombre que aparece en el combo
+        public string label { get; set; }
+
+        // valor del ID o PK
+        public string value { get; set; }
+    }
+
     public abstract class BaseController<TEntity, T> where TEntity : class
     {
 
@@ -44,6 +53,12 @@ namespace UI.Windows.AplicationController
         {
 
             List<T> resultadoViewModel = new List<T>();
+
+            if (lista == null)
+            {
+                resultadoViewModel = null;
+                return resultadoViewModel;
+            }
             
             foreach (TEntity item in lista)
             {
@@ -126,6 +141,43 @@ namespace UI.Windows.AplicationController
 
                 return builder.ToString();
             }
+        }
+
+        // Metodo que mapea la lista del que devuelve el servicio y lo transforma en una lista de tipo ComboBoxSelectItem
+        public IEnumerable<ComboBoxSelectItem> mapearComboBox(IEnumerable<T> lista, string campoId, string campoNombre)
+        {
+            List<ComboBoxSelectItem> resultadoComboBox = new List<ComboBoxSelectItem>();
+
+            if (lista == null)
+            {
+                resultadoComboBox = null;
+                return resultadoComboBox;
+            }
+
+            foreach (T item in lista)
+            {
+                ComboBoxSelectItem combo = new ComboBoxSelectItem();
+                // Estrae los campos del View Model
+                PropertyInfo[] camposViewModel = typeof(T).GetProperties();
+
+                foreach (PropertyInfo campoVM in camposViewModel)
+                {
+                    if (campoVM.Name == campoId)
+                    {
+                        object valorCampo = campoVM.GetValue(item);
+                        combo.value = valorCampo.ToString();
+                        continue;
+                    }
+                    if (campoVM.Name == campoNombre)
+                    {
+                        object valorCampo = campoVM.GetValue(item);
+                        combo.label = valorCampo.ToString();
+                        continue;
+                    }
+                }
+                resultadoComboBox.Add(combo);
+            }
+            return resultadoComboBox;
         }
     }
 }

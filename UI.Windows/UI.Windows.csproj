@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="AplicationController\BaseController.cs" />
     <Compile Include="AplicationController\TgenCanalesController.cs" />
+    <Compile Include="AplicationController\TsegPoliticaController.cs" />
     <Compile Include="AplicationController\TsegRolController.cs" />
     <Compile Include="AplicationController\TsegUsuarioDetalleHistController.cs" />
     <Compile Include="AplicationController\TsegUsuarioRolController.cs" />

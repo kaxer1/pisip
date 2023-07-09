@@ -57,5 +57,17 @@ namespace UI.Windows.AplicationController
             }
         }
 
+        public IEnumerable<TsegRolViewModel> ListarPorFiltro(Dictionary<string, object> filtros)
+        {
+            try
+            {
+                return mapearIEnumerableToLista(serviceRol.ObtenerPorFiltro(filtros));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los Roles" + ex.Message);
+            }
+        }
+
     }
 }

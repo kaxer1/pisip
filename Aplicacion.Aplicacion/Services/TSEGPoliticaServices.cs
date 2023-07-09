@@ -1,4 +1,5 @@
-﻿using Dominio.Model.Entities;
+﻿using Dominio.Model.Abstractions;
+using Dominio.Model.Entities;
 using Infra.DataAccess.Repository;
 using System;
 using System.Collections.Generic;
@@ -38,10 +39,12 @@ namespace Aplicacion.Aplicacion.Services
         public void EliminarPoliticas(int id)
         {
             _TSEGPoliticaRepository.Delete(id);
-
         }
 
-
+        public TSEGPOLITICA ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
+        {
+            return _TSEGPoliticaRepository.GetEntidadPk(idcompuesto);
+        }
 
 
     }

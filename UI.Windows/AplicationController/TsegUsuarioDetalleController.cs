@@ -61,9 +61,9 @@ namespace UI.Windows.AplicationController
             }
         }
 
-        public TsegUsuarioDetalleViewModel Login(string usuario, string contrasenia)
+        public TsegUsuarioDetalleViewModel Login(string usuario, string contrasenia, decimal ccompania, string ccanal, decimal crol)
         {
-            return mapearEntityToViewModel( serviceUsuarioDetalle.IniciarSession(usuario, contrasenia), new TsegUsuarioDetalleViewModel() );
+            return mapearEntityToViewModel( serviceUsuarioDetalle.IniciarSession(usuario, contrasenia, ccompania, ccanal, crol), new TsegUsuarioDetalleViewModel() );
         }
     }
 }

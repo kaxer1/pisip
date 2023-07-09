@@ -10,12 +10,13 @@ using System.Windows.Forms;
 
 namespace UI.Windows.Forms
 {
-    public partial class MDIAdministrador : Form
+    public partial class MDIAdministrador : FormBase
     {
         private int childFormNumber = 0;
 
-        public MDIAdministrador()
+        public MDIAdministrador() : base()
         {
+            base.formularioHijo = this;
             InitializeComponent();
         }
 
@@ -103,5 +104,6 @@ namespace UI.Windows.Forms
                 childForm.Close();
             }
         }
+
     }
 }

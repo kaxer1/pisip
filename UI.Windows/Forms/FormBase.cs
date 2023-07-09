@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace UI.Windows.Forms
 {
     public partial class FormBase : Form
     {
-        public FormBase()
-        { }
+        protected Form formularioHijo;
+        
+        protected string ccanal = "OFI";
+
+        protected decimal tiemposession = 5;
+
+        private Timer sessionTimer;
+
+        public FormBase() { }
 
         public void validarSoloNumerosTextBox(TextBox textBox)
         {
@@ -48,5 +49,34 @@ namespace UI.Windows.Forms
             };
         }
 
+        public void IniciaContador(decimal minutos)
+        {
+            // Configurar el temporizador de sesión
+            sessionTimer = new Timer();
+            sessionTimer.Interval = Convert.ToInt32( TimeSpan.FromMinutes( Convert.ToDouble(minutos) ).TotalMilliseconds );
+            sessionTimer.Tick += SessionAccionFinaliza;
+
+            IniciarTimer();
+        }
+        private void IniciarTimer()
+        {
+            // Iniciar el temporizador de sesión
+            sessionTimer.Start();
+        }
+
+        private void SessionAccionFinaliza(object sender, EventArgs e)
+        {
+            // Detener el temporizador
+            sessionTimer.Stop();
+            // Cerrar el formulario hijo
+            CerrarFormularioHijo();
+        }
+
+        protected virtual void CerrarFormularioHijo()
+        {
+            // Implementa la lógica para cerrar el formulario hijo en las clases derivadas
+            formularioHijo.Close();
+            MessageBox.Show("SESION FINALIZADA");
+        }
     }
 }
