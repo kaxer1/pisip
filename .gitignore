@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 App.Config
+/UI.Windows/AplicationController/TsegPoliticaController.cs
+/UI.Windows/AplicationController/TsegRolController.cs

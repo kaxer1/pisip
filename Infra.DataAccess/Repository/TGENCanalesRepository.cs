@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infra.DataAccess.Repository
 {
-    public class TGENCanalesRepository : BaseRepository<TGENCANALES>, ITGENCanalesRespository
+    public class TgenCanalesRepository : BaseRepository<TGENCANALES>, ITgenCanalesRespository
     {
 
     }

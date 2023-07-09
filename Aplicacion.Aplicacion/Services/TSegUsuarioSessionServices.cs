@@ -1,59 +1,51 @@
-﻿using Dominio.Model.Entities;
-using Infra.DataAccess.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dominio.Model.Abstractions;
+using Dominio.Model.Entities;
+using Infra.DataAccess.Repository;
 
 namespace Aplicacion.Aplicacion.Services
 {
-    public class TSegUsuarioSessionServices
+    public class TsegUsuarioSessionServices
     {
-        readonly TSegUsuarioSessionRepository _TSegUSuarioSessionRepository;
-        public TSegUsuarioSessionServices()
-        {
-            _TSegUSuarioSessionRepository = new TSegUsuarioSessionRepository();
+        readonly ITsegUsuarioSessionRepository tsegUsuarioSessionRepository;
 
+        public TsegUsuarioSessionServices()
+        {
+            tsegUsuarioSessionRepository = new TsegUsuarioSessionRepository();
         }
 
-        public IEnumerable<TSEGUSUARIOSESSION> GetSegUsuarioSession()
+        public IEnumerable<TSEGUSUARIOSESSION> ListarUsuarioSession()
         {
-            return _TSegUSuarioSessionRepository.GetAll();
-
+            return tsegUsuarioSessionRepository.GetAll();
         }
 
-        public void InsertarSegUsuarioSession(TSEGUSUARIOSESSION TSEGUSUARIOSESSION)
+        public void InsertarUsuarioSession(TSEGUSUARIOSESSION nuevoUsuarioSession)
         {
-            _TSegUSuarioSessionRepository.Add(TSEGUSUARIOSESSION);
-
+            tsegUsuarioSessionRepository.Add(nuevoUsuarioSession);
         }
 
-        public void InsertarUsuarioSession(TSEGUSUARIOSESSION nuevo)
+        public void ActualizarUsuarioSession(TSEGUSUARIOSESSION nuevoUsuarioSession)
         {
-            throw new NotImplementedException();
+            tsegUsuarioSessionRepository.Modify(nuevoUsuarioSession);
         }
 
-        public void ActualizarSegUsuarioSession(TSEGUSUARIOSESSION TSEGUSUARIOSESSION)
+        public void EliminarUsuarioSession(TSEGUSUARIOSESSION usuarioSession)
         {
-            _TSegUSuarioSessionRepository.Modify(TSEGUSUARIOSESSION);
-
+            tsegUsuarioSessionRepository.Delete(usuarioSession);
         }
 
-        public void EliminarSegUsuarioSession(int id)
+        public IEnumerable<TSEGUSUARIOSESSION> listarSessionesActivas()
         {
-            _TSegUSuarioSessionRepository.Delete(id);
-
+            return tsegUsuarioSessionRepository.listarSessionesActivas();
         }
 
-        public void ActualizarUsuario(TSEGUSUARIOSESSION nuevo)
+        public TSEGUSUARIOSESSION ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
         {
-            throw new NotImplementedException();
-        }
-
-        public object ListarUsuario()
-        {
-            throw new NotImplementedException();
+            return tsegUsuarioSessionRepository.GetEntidadPk(idcompuesto);
         }
     }
 }

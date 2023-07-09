@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace UI.Windows.ViewModel
 {
-   public class TSegUsuarioSessionViewModel
+    public class TsegUsuarioSessionViewModel
     {
-
         public string CUSUARIO { get; set; }
         public decimal CCOMPANIA { get; set; }
         public Nullable<decimal> NUMEROINTENTOS { get; set; }
