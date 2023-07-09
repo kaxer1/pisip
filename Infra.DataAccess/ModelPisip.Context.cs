@@ -12,8 +12,7 @@ namespace Infra.DataAccess
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using Dominio.Model.Entities;
-
+    
     public partial class pisipEntities : DbContext
     {
         public pisipEntities()

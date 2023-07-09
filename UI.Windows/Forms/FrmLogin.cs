@@ -174,6 +174,11 @@ namespace UI.Windows.Forms
         private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.validarSinCaracteresEspecialesTextBox(txtUsuario);
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                MessageBox.Show("Listo");
+            }
+
         }
 
         private void FrmLogin_Load(object sender, EventArgs e)
@@ -205,6 +210,11 @@ namespace UI.Windows.Forms
         {
             ComboBoxSelectItem selectedItem = (ComboBoxSelectItem) cbRol.SelectedItem;
             crolSeleccionado = decimal.Parse(selectedItem.value);
+        }
+
+        private void txtClave_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -9,7 +9,7 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.AplicationController
 {
-    class TgenCanalesController
+   public class TgenCanalesController
     {
         private TgenCanalesServices _servicesCanales;
         public TgenCanalesController()

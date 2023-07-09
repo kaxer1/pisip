@@ -9,7 +9,7 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.AplicationController
 {
-    internal class TsegRolController : BaseController<TSEGROL, TsegRolViewModel>
+    public class TsegRolController : BaseController<TSEGROL, TsegRolViewModel>
     {
         private TsegRolServices serviceRol;
         public TsegRolController()
