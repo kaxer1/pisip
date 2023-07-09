@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Caching;
 using System.Windows.Forms;
+using Aplicacion.Aplicacion.Services;
+using Dominio.Model.Entities;
+using UI.Windows.AplicationController;
 using Timer = System.Windows.Forms.Timer;
 
 namespace UI.Windows.Forms
@@ -14,7 +19,15 @@ namespace UI.Windows.Forms
 
         private Timer sessionTimer;
 
-        public FormBase() { }
+        private static MemoryCache cache = MemoryCache.Default;
+
+        private TsegUsuarioSessionServices serviceUsuarioSession;
+
+        private static string CACHE_CLAVE_SESSION = "mdatossession";
+
+        public FormBase() {
+            serviceUsuarioSession = new TsegUsuarioSessionServices();
+        }
 
         public void validarSoloNumerosTextBox(TextBox textBox)
         {
@@ -49,6 +62,11 @@ namespace UI.Windows.Forms
             };
         }
 
+        /****************************************************************************
+         * 
+         * INICIO METODOS DEL CONTADOR
+         * 
+         ************************************************************************** */
         public void IniciaContador(decimal minutos)
         {
             // Configurar el temporizador de sesión
@@ -78,5 +96,88 @@ namespace UI.Windows.Forms
             formularioHijo.Close();
             MessageBox.Show("SESION FINALIZADA");
         }
+
+        /****************************************************************************
+         * FIN METODOS DEL CONTADOR
+         ************************************************************************** */
+
+        /****************************************************************************
+         * 
+         * INICIO METODOS DEL CACHE DE SESSION
+         * 
+         ************************************************************************** */
+        protected bool ejecutaSentencia()
+        {
+            if (!validarSentencia())
+            {
+                formularioHijo.Close();
+                MessageBox.Show("LA SESION A SIDO DESACTIVADA, EL PROGRAMA SE CERRARA");
+                Application.Exit();
+                return false;
+            }
+            return true;
+        }
+
+        private bool validarSentencia()
+        {
+            MdatosSession mdatos = ObtenerObjetoMdatosSessionCache();
+
+            if (mdatos == null)
+            {
+                return false;
+            }
+
+            var pkUsuarioSession = new Dictionary<string, object>
+                {
+                    { "CCOMPANIA", mdatos.ccompania },
+                    { "CUSUARIO", mdatos.cusuario }
+                };
+
+            TSEGUSUARIOSESSION usuariosession = serviceUsuarioSession.ObtenerRegistroPorPk(pkUsuarioSession);
+
+            if (usuariosession == null)
+            {
+                return false;
+            }
+
+            if (usuariosession.ACTIVO == "0")
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected void GuardarInicioSessionCache(decimal tiemposession, MdatosSession mdatossession)
+        {
+            CacheItemPolicy politica = new CacheItemPolicy
+            {
+                AbsoluteExpiration = DateTime.Now.AddMinutes(Convert.ToDouble(tiemposession))
+            };
+
+            cache.Add(CACHE_CLAVE_SESSION, mdatossession, politica);
+        }
+
+        private MdatosSession ObtenerObjetoMdatosSessionCache()
+        {
+            // Obtener un objeto de la caché
+            MdatosSession valorObtenido = cache.Get(CACHE_CLAVE_SESSION) as MdatosSession;
+            if (valorObtenido != null)
+            {
+                Console.WriteLine("Valor obtenido: " + valorObtenido);
+            }
+            return valorObtenido;
+        }
+
+        protected void RemoverSession()
+        {
+            // Remover un objeto de la caché
+            cache.Remove(CACHE_CLAVE_SESSION);
+        }
+
+        /****************************************************************************
+         * FIN METODOS DEL CACHE DE SESSION
+         ************************************************************************** */
+
     }
 }

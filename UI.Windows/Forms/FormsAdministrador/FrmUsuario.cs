@@ -23,6 +23,7 @@ namespace UI.Windows
 
         public FrmUsuario() : base()
         {
+            base.formularioHijo = this;
             InitializeComponent();
             controllerUsuario = new TsegUsuarioController();
             controllerUsuarioDetalle = new TsegUsuarioDetalleController();
@@ -30,6 +31,9 @@ namespace UI.Windows
 
         public void InsertarUsuario()
         {
+            if(!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
+                return; // ASI NO PROCESDE A EJECUTAR
+
             if (controllerUsuario.InsertarUsuario(viewModelUsuario))
             {
                 MessageBox.Show("Usuario insertado correctamente");
@@ -50,6 +54,9 @@ namespace UI.Windows
 
         public void ActualizarUsuario()
         {
+            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
+                return; // ASI NO PROCESDE A EJECUTAR
+
             if (controllerUsuario.ActualizarUsuario(viewModelUsuario))
             {
                 MessageBox.Show("Usuario actualizado correctamente");

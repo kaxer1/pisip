@@ -105,5 +105,10 @@ namespace UI.Windows.Forms
             }
         }
 
+        private void detalleUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmUsuario frmUsuario = new FrmUsuario();
+            frmUsuario.Show();
+        }
     }
 }

@@ -82,6 +82,8 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detalleUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -117,7 +119,8 @@
             this.printPreviewToolStripMenuItem,
             this.printSetupToolStripMenuItem,
             this.toolStripSeparator5,
-            this.exitToolStripMenuItem});
+            this.exitToolStripMenuItem,
+            this.usuarioToolStripMenuItem});
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
             this.fileMenu.Size = new System.Drawing.Size(73, 24);
@@ -529,6 +532,21 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(54, 20);
             this.toolStripStatusLabel.Text = "Estado";
             // 
+            // usuarioToolStripMenuItem
+            // 
+            this.usuarioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.detalleUsuarioToolStripMenuItem});
+            this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
+            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(260, 26);
+            this.usuarioToolStripMenuItem.Text = "Usuario";
+            // 
+            // detalleUsuarioToolStripMenuItem
+            // 
+            this.detalleUsuarioToolStripMenuItem.Name = "detalleUsuarioToolStripMenuItem";
+            this.detalleUsuarioToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.detalleUsuarioToolStripMenuItem.Text = "DetalleUsuario";
+            this.detalleUsuarioToolStripMenuItem.Click += new System.EventHandler(this.detalleUsuarioToolStripMenuItem_Click);
+            // 
             // MDIAdministrador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -607,6 +625,8 @@
         private System.Windows.Forms.ToolStripButton printPreviewToolStripButton;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem detalleUsuarioToolStripMenuItem;
     }
 }
 

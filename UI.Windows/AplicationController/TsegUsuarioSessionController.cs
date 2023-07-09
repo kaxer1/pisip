@@ -13,6 +13,7 @@ namespace UI.Windows.AplicationController
     {
         private TsegUsuarioSessionServices serviceUsuarioSession;
         private TsegUsuarioSessionHistoriaServices serviceUsuarioSessionHistoria;
+
         public TsegUsuarioSessionController()
         {
             serviceUsuarioSession = new TsegUsuarioSessionServices();
@@ -92,5 +93,6 @@ namespace UI.Windows.AplicationController
             historia.FCREACION = DateTime.Now;
             serviceUsuarioSessionHistoria.InsertarUsuarioSessionHistory(historia);
         }
+
     }
 }

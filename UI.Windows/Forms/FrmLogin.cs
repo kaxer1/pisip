@@ -36,6 +36,7 @@ namespace UI.Windows.Forms
 
         public FrmLogin() : base()
         {
+            base.formularioHijo = this;
             InitializeComponent();
             controllerUsuarioDetalle = new TsegUsuarioDetalleController();
             controllerUsuarioSession = new TsegUsuarioSessionController();
@@ -82,7 +83,7 @@ namespace UI.Windows.Forms
                     viewModelUsuarioSession.ACTIVO = "1";
                     controllerUsuarioSession.ActualizarUsuarioSession(viewModelUsuarioSession);
                 }
-
+                
                 this.ManejarPoliticas();
             }
 
@@ -100,6 +101,16 @@ namespace UI.Windows.Forms
             if(viewModelPolitica.TIEMPOSESION != null)
             {
                 tiemposession = (decimal) viewModelPolitica.TIEMPOSESION;
+                
+                MdatosSession mdatos = new MdatosSession();
+                mdatos.ccanal = ccanal;
+                mdatos.ccompania = ccompaniaSeleccionado;
+                mdatos.crol = crolSeleccionado;
+                mdatos.cusuario = viewModelUsuarioDetalle.CUSUARIO;
+
+                GuardarInicioSessionCache(tiemposession, mdatos);
+                
+                
                 this.ManejoRoles();
             } else
             {
@@ -123,7 +134,7 @@ namespace UI.Windows.Forms
 
                 if (resultadoAdministrador == DialogResult.Cancel)
                 {
-                    this.Show();
+                    MostrarVenta();
                 }
             }
 
@@ -135,10 +146,23 @@ namespace UI.Windows.Forms
 
                 if (resultadoAdministrador == DialogResult.Cancel)
                 {
-                    this.Show();
+                    MostrarVenta();
                 }
             }
 
+            RemoverSession();
+        }
+
+        private void MostrarVenta()
+        {
+            try
+            {
+                this.Show();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR AL MOSTRAR LA PANTALLA: " + ex.Message);
+            }
         }
 
         private void limpiarFormularioLogin ()
@@ -179,7 +203,7 @@ namespace UI.Windows.Forms
 
         private void cbRol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBoxSelectItem selectedItem = (ComboBoxSelectItem)cbRol.SelectedItem;
+            ComboBoxSelectItem selectedItem = (ComboBoxSelectItem) cbRol.SelectedItem;
             crolSeleccionado = decimal.Parse(selectedItem.value);
         }
     }

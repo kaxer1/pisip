@@ -18,13 +18,17 @@ namespace UI.Windows.Forms
         private TgenCanalesController _canalesController;
         private TgenCanalesViewModel _canalesViewModel;
 
-        public FrmCanales()
+        public FrmCanales() : base()
         {
+            base.formularioHijo = this;
             InitializeComponent();
             _canalesController = new TgenCanalesController();
         }
         public void InsertarCanal()
         {
+            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
+                return; // ASI NO PROCESDE A EJECUTAR
+
             if (_canalesController.InsertarCanal(_canalesViewModel))
             {
                 MessageBox.Show("Canal creado correctamente");
@@ -36,6 +40,9 @@ namespace UI.Windows.Forms
         }
         public void ActualizarCanal()
         {
+            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
+                return; // ASI NO PROCESDE A EJECUTAR
+
             if (_canalesController.ModificarCanal(_canalesViewModel))
             {
                 MessageBox.Show("Empleado modificado correctamente");

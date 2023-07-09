@@ -17,14 +17,18 @@ namespace UI.Windows
     {
         private TgenCompaniaController controllerCompania;
         private TgenCompaniaViewModel viewModelCompania;
-        public FrmCompania()
+        public FrmCompania() : base()
         {
+            base.formularioHijo = this;
             InitializeComponent();
             controllerCompania = new TgenCompaniaController();
         }
 
         public void InsertarCompania()
         {
+            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
+                return; // ASI NO PROCESDE A EJECUTAR
+
             if (controllerCompania.InsertarCompania(viewModelCompania))
             {
                 MessageBox.Show("Compania insertado correctamente");
@@ -37,6 +41,9 @@ namespace UI.Windows
 
         public void ActualizarCompania()
         {
+            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
+                return; // ASI NO PROCESDE A EJECUTAR
+
             if (controllerCompania.ActualizarCompania(viewModelCompania))
             {
                 MessageBox.Show("Compania actualizado correctamente");

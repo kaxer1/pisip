@@ -12,6 +12,14 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.AplicationController
 {
+    public class MdatosSession
+    {
+        public string cusuario { get; set; }
+        public string ccanal { get; set; }
+        public decimal crol { get; set; }
+        public decimal ccompania { get; set; }
+
+    }
     public class ComboBoxSelectItem
     {
         // nombre que aparece en el combo

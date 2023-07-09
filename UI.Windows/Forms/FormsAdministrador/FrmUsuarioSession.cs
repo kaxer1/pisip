@@ -18,8 +18,9 @@ namespace UI.Windows
         private TsegUsuarioSessionController controllerSessiones;
         private TsegUsuarioSessionViewModel viewModelSessiones;
 
-        public FrmUsuarioSession()
+        public FrmUsuarioSession() : base()
         {
+            base.formularioHijo = this;
             InitializeComponent();
             controllerSessiones = new TsegUsuarioSessionController();
         }
