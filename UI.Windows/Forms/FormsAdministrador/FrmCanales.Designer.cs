@@ -30,15 +30,15 @@ namespace UI.Windows.Forms
         private void InitializeComponent()
         {
             this.grb_contenido = new System.Windows.Forms.GroupBox();
-            this.dgv_canales = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txt_nombre = new System.Windows.Forms.TextBox();
+            this.txt_id = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txt_opt = new System.Windows.Forms.TextBox();
+            this.txt_nombre = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dgv_canales = new System.Windows.Forms.DataGridView();
             this.btn_nuevo = new System.Windows.Forms.Button();
             this.btn_guardar = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txt_id = new System.Windows.Forms.TextBox();
             this.grb_contenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_canales)).BeginInit();
             this.SuspendLayout();
@@ -52,29 +52,42 @@ namespace UI.Windows.Forms
             this.grb_contenido.Controls.Add(this.label2);
             this.grb_contenido.Controls.Add(this.label1);
             this.grb_contenido.Enabled = false;
-            this.grb_contenido.Location = new System.Drawing.Point(12, 2);
+            this.grb_contenido.Location = new System.Drawing.Point(12, 12);
             this.grb_contenido.Name = "grb_contenido";
-            this.grb_contenido.Size = new System.Drawing.Size(516, 165);
+            this.grb_contenido.Size = new System.Drawing.Size(495, 148);
             this.grb_contenido.TabIndex = 0;
             this.grb_contenido.TabStop = false;
             this.grb_contenido.Enter += new System.EventHandler(this.grb_contenido_Enter);
             // 
-            // dgv_canales
+            // txt_id
             // 
-            this.dgv_canales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_canales.Location = new System.Drawing.Point(12, 265);
-            this.dgv_canales.Name = "dgv_canales";
-            this.dgv_canales.Size = new System.Drawing.Size(903, 177);
-            this.dgv_canales.TabIndex = 1;
+            this.txt_id.Location = new System.Drawing.Point(89, 13);
+            this.txt_id.Name = "txt_id";
+            this.txt_id.Size = new System.Drawing.Size(194, 20);
+            this.txt_id.TabIndex = 5;
             // 
-            // label1
+            // label3
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 56);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Nombre";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(21, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(16, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Id";
+            // 
+            // txt_opt
+            // 
+            this.txt_opt.Location = new System.Drawing.Point(89, 99);
+            this.txt_opt.Name = "txt_opt";
+            this.txt_opt.Size = new System.Drawing.Size(194, 20);
+            this.txt_opt.TabIndex = 3;
+            // 
+            // txt_nombre
+            // 
+            this.txt_nombre.Location = new System.Drawing.Point(89, 53);
+            this.txt_nombre.Name = "txt_nombre";
+            this.txt_nombre.Size = new System.Drawing.Size(194, 20);
+            this.txt_nombre.TabIndex = 2;
             // 
             // label2
             // 
@@ -85,23 +98,26 @@ namespace UI.Windows.Forms
             this.label2.TabIndex = 1;
             this.label2.Text = "OptLock";
             // 
-            // txt_nombre
+            // label1
             // 
-            this.txt_nombre.Location = new System.Drawing.Point(89, 53);
-            this.txt_nombre.Name = "txt_nombre";
-            this.txt_nombre.Size = new System.Drawing.Size(194, 20);
-            this.txt_nombre.TabIndex = 2;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(21, 56);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Nombre";
             // 
-            // txt_opt
+            // dgv_canales
             // 
-            this.txt_opt.Location = new System.Drawing.Point(89, 99);
-            this.txt_opt.Name = "txt_opt";
-            this.txt_opt.Size = new System.Drawing.Size(194, 20);
-            this.txt_opt.TabIndex = 3;
+            this.dgv_canales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_canales.Location = new System.Drawing.Point(12, 220);
+            this.dgv_canales.Name = "dgv_canales";
+            this.dgv_canales.Size = new System.Drawing.Size(723, 195);
+            this.dgv_canales.TabIndex = 1;
             // 
             // btn_nuevo
             // 
-            this.btn_nuevo.Location = new System.Drawing.Point(36, 213);
+            this.btn_nuevo.Location = new System.Drawing.Point(36, 180);
             this.btn_nuevo.Name = "btn_nuevo";
             this.btn_nuevo.Size = new System.Drawing.Size(75, 23);
             this.btn_nuevo.TabIndex = 2;
@@ -119,32 +135,16 @@ namespace UI.Windows.Forms
             this.btn_guardar.UseVisualStyleBackColor = true;
             this.btn_guardar.Click += new System.EventHandler(this.btn_guardar_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(16, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Id";
-            // 
-            // txt_id
-            // 
-            this.txt_id.Location = new System.Drawing.Point(89, 13);
-            this.txt_id.Name = "txt_id";
-            this.txt_id.Size = new System.Drawing.Size(194, 20);
-            this.txt_id.TabIndex = 5;
-            // 
-            // frmr_Canales
+            // FrmCanales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(927, 454);
+            this.ClientSize = new System.Drawing.Size(747, 445);
             this.Controls.Add(this.btn_guardar);
             this.Controls.Add(this.btn_nuevo);
             this.Controls.Add(this.dgv_canales);
             this.Controls.Add(this.grb_contenido);
-            this.Name = "frmr_Canales";
+            this.Name = "FrmCanales";
             this.Text = "frmr_Canales";
             this.Load += new System.EventHandler(this.frmr_Canales_Load);
             this.grb_contenido.ResumeLayout(false);

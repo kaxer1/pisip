@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UI.Windows.Forms.FormsAdministrador;
 
 namespace UI.Windows.Forms
 {
@@ -109,6 +110,31 @@ namespace UI.Windows.Forms
         {
             FrmUsuario frmUsuario = new FrmUsuario();
             frmUsuario.Show();
+        }
+
+        private void asignaciónDeRolesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frm_usuarioRol frm_usuarioRol = new frm_usuarioRol();
+            frm_usuarioRol.Show();
+        }
+
+        private void consultarSesionesPorUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frm_usuarioSesionHistoria frm_usuarioSesionHistoria = new frm_usuarioSesionHistoria();
+            frm_usuarioSesionHistoria.Show();
+
+        }
+
+        private void canalesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCanales FrmCanales = new FrmCanales();
+            FrmCanales.Show();
+        }
+
+        private void politicaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frm_politica frm_politica = new frm_politica();
+            frm_politica.Show();
         }
     }
 }

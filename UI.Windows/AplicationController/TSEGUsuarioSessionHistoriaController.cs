@@ -74,9 +74,9 @@ namespace UI.Windows.AplicationController
         }
 
 
-        public IEnumerable<TsegUsuarioSessionHistoriaViewModel> ListarUsuarioSessionHistoria()
+        public IEnumerable<TsegUsuarioSessionHistoriaViewModel> ListarUsuarioSessionHistoria(string usuario)
         {
-            var canalList = _TsegUsuarioSessionHistoriaServices.GetUsuarioSessionHistory();
+            var canalList = _TsegUsuarioSessionHistoriaServices.ListarSesiones(usuario);
             List<TsegUsuarioSessionHistoriaViewModel> listaCanalesViewModel = new List<TsegUsuarioSessionHistoriaViewModel>();
 
             try

@@ -72,7 +72,7 @@ namespace UI.Windows.Forms
             if (txt_id.Text != "")
             {
                 _canalesViewModel.CCANAL = txt_id.Text;
-                ActualizarCanal();
+                InsertarCanal();
             }
             else {
                 InsertarCanal();

@@ -9,5 +9,6 @@ namespace Dominio.Model.Abstractions
 {
     public  interface ITsegUsuarioSessionHistoriaRepository : IBaseRepository<TSEGUSUARIOSESSIONHISTORIA>
     {
+         IEnumerable<TSEGUSUARIOSESSIONHISTORIA> ListarSesiones(string usuario);
     }
 }

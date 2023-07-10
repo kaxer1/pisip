@@ -175,6 +175,18 @@ namespace UI.Windows.Forms
             cache.Remove(CACHE_CLAVE_SESSION);
         }
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // FormBase
+            // 
+            this.ClientSize = new System.Drawing.Size(345, 289);
+            this.Name = "FormBase";
+            this.ResumeLayout(false);
+
+        }
+
         /****************************************************************************
          * FIN METODOS DEL CACHE DE SESSION
          ************************************************************************** */
