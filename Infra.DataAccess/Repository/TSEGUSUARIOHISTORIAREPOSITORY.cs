@@ -10,6 +10,14 @@ namespace Infra.DataAccess.Repository
 {
     public class TsegUsuarioHistoriaRepository : BaseRepository<TSEGUSUARIOSESSIONHISTORIA>, ITsegUsuarioSessionHistoriaRepository
     {
-       
+        public void ListarSesiones(string usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<TSEGUSUARIOSESSIONHISTORIA> ITsegUsuarioSessionHistoriaRepository.ListarSesiones(string usuario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -34,5 +34,10 @@ namespace UI.Windows
         {
             ListarSessionesActivas();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

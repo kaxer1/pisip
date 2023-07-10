@@ -10,10 +10,10 @@ namespace Aplicacion.Aplicacion.Services
 {
     public class TsegUsuarioSessionHistoriaServices
     {
-        readonly TsegUsuarioHistoriaRepository _TSEGUSUARIOHISTORIAREPOSITORY;
+        readonly TsegUsuarioSessionHistoriaRepository _TSEGUSUARIOHISTORIAREPOSITORY;
         public TsegUsuarioSessionHistoriaServices()
         {
-            _TSEGUSUARIOHISTORIAREPOSITORY = new TsegUsuarioHistoriaRepository();
+            _TSEGUSUARIOHISTORIAREPOSITORY = new TsegUsuarioSessionHistoriaRepository();
 
         }
 
@@ -37,6 +37,12 @@ namespace Aplicacion.Aplicacion.Services
         public void EliminarUsuarioSessionHistory(int id)
         {
             _TSEGUSUARIOHISTORIAREPOSITORY.Delete(id);
+
+        }
+
+        public IEnumerable<TSEGUSUARIOSESSIONHISTORIA> ListarSesiones(string usuario)
+        {
+            return _TSEGUSUARIOHISTORIAREPOSITORY.ListarSesiones(usuario);
 
         }
 
