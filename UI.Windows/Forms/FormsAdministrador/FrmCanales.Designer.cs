@@ -61,6 +61,7 @@ namespace UI.Windows.Forms
             // 
             // txt_id
             // 
+            this.txt_id.Enabled = false;
             this.txt_id.Location = new System.Drawing.Point(89, 13);
             this.txt_id.Name = "txt_id";
             this.txt_id.Size = new System.Drawing.Size(194, 20);

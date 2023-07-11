@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Dominio.Model.Abstractions
 {
-    public  interface ITsegUsuarioSessionHistoriaRepository : IBaseRepository<TSEGUSUARIOSESSIONHISTORIA>
+    public interface ITsegUsuarioSessionHistoriaRepository : IBaseRepository<TSEGUSUARIOSESSIONHISTORIA>
     {
-         IEnumerable<TSEGUSUARIOSESSIONHISTORIA> ListarSesiones(string usuario);
+        IEnumerable<TSEGUSUARIOSESSIONHISTORIA> ListarSesiones(string usuario);
     }
 }

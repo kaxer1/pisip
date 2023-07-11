@@ -38,7 +38,7 @@ namespace UI.Windows.Forms.FormsAdministrador
 
             cb_canal.DataSource = _tgenCompaniaController.ListarCompania();
             cb_canal.DisplayMember = "CCANAL";
-            cb_canal.ValueMember = "CCANAL";
+            //cb_canal.ValueMember = "CCOMANIA";
         }
 
 

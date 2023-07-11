@@ -9,7 +9,7 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.AplicationController
 {
-    internal class TsegPoliticaController : BaseController<TSEGPOLITICA, TsegPoliticaViewModel>
+    public class TsegPoliticaController : BaseController<TSEGPOLITICA, TsegPoliticaViewModel>
     {
         private TsegPoliticaServices servicePolitica;
 

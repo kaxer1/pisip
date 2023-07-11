@@ -26,7 +26,7 @@ namespace UI.Windows.Forms.FormsAdministrador
         public void ListarSessiones(string usuario)
         {
 
-            dgv_historia.DataSource = _TsegUsuarioSessionHistoriaController.ListarUsuarioSessionHistoria(usuario);
+            dgv_historia.DataSource = _TsegUsuarioSessionHistoriaController.ListarUsuarioSessionHistoria();
 
         }
         private void ListarUsuarios()

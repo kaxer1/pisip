@@ -11,6 +11,7 @@ namespace Infra.DataAccess.Repository
     public class TsegUsuarioSessionRepository : BaseRepository<TSEGUSUARIOSESSION>, ITsegUsuarioSessionRepository
     {
         public IEnumerable<TSEGUSUARIOSESSION> listarSessionesActivas()
+       
         {
             try
             {

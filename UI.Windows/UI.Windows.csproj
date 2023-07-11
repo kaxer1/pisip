@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>UI.Windows.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="AplicationController\BaseController.cs" />
     <Compile Include="AplicationController\TgenCanalesController.cs" />

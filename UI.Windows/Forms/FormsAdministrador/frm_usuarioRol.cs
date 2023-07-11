@@ -127,5 +127,6 @@ namespace UI.Windows.Forms.FormsAdministrador
             ListarRoles();
             ListarCompania();
         }
+
     }
 }
