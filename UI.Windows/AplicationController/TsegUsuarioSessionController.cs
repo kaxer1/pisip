@@ -14,7 +14,7 @@ namespace UI.Windows.AplicationController
         private TsegUsuarioSessionServices serviceUsuarioSession;
         private TsegUsuarioSessionHistoriaServices serviceUsuarioSessionHistoria;
 
-        public TsegUsuarioSessionController()
+        public TsegUsuarioSessionController() : base()
         {
             serviceUsuarioSession = new TsegUsuarioSessionServices();
             serviceUsuarioSessionHistoria = new TsegUsuarioSessionHistoriaServices();

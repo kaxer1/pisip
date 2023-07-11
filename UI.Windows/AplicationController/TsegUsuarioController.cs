@@ -12,7 +12,7 @@ namespace UI.Windows.AplicationController
     public class TsegUsuarioController : BaseController<TSEGUSUARIO, TsegUsuarioViewModel>
     {
         private TsegUsuarioServices serviceUsuario;
-        public TsegUsuarioController()
+        public TsegUsuarioController() : base()
         {
             serviceUsuario = new TsegUsuarioServices();
         }
@@ -54,6 +54,19 @@ namespace UI.Windows.AplicationController
             catch (Exception ex)
             {
                 throw new Exception("Error al listar los Usuarios" + ex.Message);
+            }
+        }
+
+        public TsegUsuarioViewModel ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
+        {
+            try
+            {
+                TSEGUSUARIO registro = serviceUsuario.ObtenerRegistroPorPk(idcompuesto);
+                return mapearEntityToViewModel(registro, new TsegUsuarioViewModel());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar las Usuario" + ex.Message);
             }
         }
     }

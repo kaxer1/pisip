@@ -12,7 +12,7 @@ namespace UI.Windows.AplicationController
     public class TsegUsuarioDetalleHistController : BaseController<TSEGUSUARIODETALLEHIST, TsegUsuarioDetalleHistViewModel>
     {
         private TsegUsuarioDetalleHistServices serviceUsuarioDetalleHist;
-        public TsegUsuarioDetalleHistController()
+        public TsegUsuarioDetalleHistController() : base()
         {
             serviceUsuarioDetalleHist = new TsegUsuarioDetalleHistServices();
         }
@@ -58,6 +58,18 @@ namespace UI.Windows.AplicationController
             catch (Exception ex)
             {
                 throw new Exception("Error al listar los Usuarios Detalle Historia" + ex.Message);
+            }
+        }
+
+        public IEnumerable<TsegUsuarioDetalleHistViewModel> ListarPorFiltro(Dictionary<string, object> filtros)
+        {
+            try
+            {
+                return mapearIEnumerableToLista(serviceUsuarioDetalleHist.ObtenerPorFiltro(filtros));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los Detalles Historicos del Usuario" + ex.Message);
             }
         }
     }

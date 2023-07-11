@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Caching;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,26 @@ namespace UI.Windows.AplicationController
 
     public abstract class BaseController<TEntity, T> where TEntity : class
     {
+        private static string CACHE_CLAVE_SESSION = "mdatossession";
+
+        private static MemoryCache cache = MemoryCache.Default;
+
+        public MdatosSession mdatosUsuario;
+
+        protected BaseController()
+        {
+            mdatosUsuario = ObtenerObjetoMdatosSessionCache();
+        }
+        private MdatosSession ObtenerObjetoMdatosSessionCache()
+        {
+            // Obtener un objeto de la caché
+            MdatosSession valorObtenido = cache.Get(CACHE_CLAVE_SESSION) as MdatosSession;
+            if (valorObtenido != null)
+            {
+                Console.WriteLine("Valor obtenido: " + valorObtenido);
+            }
+            return valorObtenido;
+        }
 
         // Metodo que mapea los datos del ViewModel y los setea en la entidad
         public TEntity mapearViewModelToEntidad(TEntity entidad, T viewModel)

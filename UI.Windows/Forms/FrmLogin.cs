@@ -13,6 +13,7 @@ using UI.Windows.AplicationController;
 using UI.Windows.Forms.FormsFuncionario;
 using UI.Windows.ViewModel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace UI.Windows.Forms
 {
@@ -28,11 +29,10 @@ namespace UI.Windows.Forms
 
         TsegRolController controllerRol;
 
-        TsegPoliticaController controllerPolitica;
-        TsegPoliticaViewModel viewModelPolitica;
-
         private decimal ccompaniaSeleccionado = 0;
         private decimal crolSeleccionado = 0;
+        private int intentosLogin = 0;
+        private Guid sessionId;
 
         public FrmLogin() : base()
         {
@@ -42,11 +42,12 @@ namespace UI.Windows.Forms
             controllerUsuarioSession = new TsegUsuarioSessionController();
             controllerCompania = new TgenCompaniaController();
             controllerRol = new TsegRolController();
-            controllerPolitica = new TsegPoliticaController();
         }
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
+            AlmacenarPolitica(ccompaniaSeleccionado);
+
             string usuario = txtUsuario.Text;
             string password = controllerUsuarioDetalle.EncryptPassword( txtClave.Text );
 
@@ -54,49 +55,108 @@ namespace UI.Windows.Forms
 
             if(viewModelUsuarioDetalle == null)
             {
-                MessageBox.Show("El usuario no existe");
-            } else
-            {
-                var pkUsuarioSession = new Dictionary<string, object>
-                {
-                    { "CUSUARIO", viewModelUsuarioDetalle.CUSUARIO }, 
-                    { "CCOMPANIA", viewModelUsuarioDetalle.CCOMPANIA }  
-                };
+                intentosLogin++;
+                bool bloquea = ValidaIntentosLogin(intentosLogin);
 
-                viewModelUsuarioSession = controllerUsuarioSession.ObtenerRegistroPorPk(pkUsuarioSession);
-                
-                if(viewModelUsuarioSession == null)
+                if(bloquea)
                 {
-                    viewModelUsuarioSession = new TsegUsuarioSessionViewModel();
-                    viewModelUsuarioSession.CUSUARIO = viewModelUsuarioDetalle.CUSUARIO;
-                    viewModelUsuarioSession.CCOMPANIA = viewModelUsuarioDetalle.CCOMPANIA;
-                    viewModelUsuarioSession.CESTADO = "I";
-                    viewModelUsuarioSession.FINICIO = DateTime.Now;
-                    viewModelUsuarioSession.ACTIVO = "1";
-
-                    controllerUsuarioSession.InsertarUsuarioSession(viewModelUsuarioSession);
+                    this.ManejaBloqueoSession(usuario);
                 } else
                 {
-                    controllerUsuarioSession.InsertarHistorial(viewModelUsuarioSession);
-                    viewModelUsuarioSession.CESTADO = "I";
-                    viewModelUsuarioSession.FINICIO = DateTime.Now;
-                    viewModelUsuarioSession.ACTIVO = "1";
-                    controllerUsuarioSession.ActualizarUsuarioSession(viewModelUsuarioSession);
+                    MessageBox.Show("EL USUARIO O CONTRASEÑA INCORRECTO.");
                 }
-                
-                this.ManejarPoliticas();
             }
+            else
+            {
+                this.ManejarSession();
+            }
+
+        }
+
+        private void ManejaBloqueoSession(string usuario)
+        {
+            var pkUsuario = new Dictionary<string, object>
+                    {
+                        { "CUSUARIO", usuario },
+                        { "CCOMPANIA", ccompaniaSeleccionado }
+                    };
+
+            TsegUsuarioDetalleViewModel detalleUsuario = controllerUsuarioDetalle.ObtenerRegistroPorPk(pkUsuario);
+
+            if (detalleUsuario != null)
+            {
+                controllerUsuarioDetalle.InsertarHistorial(detalleUsuario);
+                detalleUsuario.OBSERVACION = "BLOQUEO POR INGRESO DE CONTRASEÑA INCORRECTA";
+                detalleUsuario.CAMBIOPASSWORD = "1";
+                detalleUsuario.ESTATUS = 0;
+                controllerUsuarioDetalle.ActualizarUsuarioDetalle(detalleUsuario);
+            }
+
+            TsegUsuarioSessionViewModel sessionUsuario = controllerUsuarioSession.ObtenerRegistroPorPk(pkUsuario);
+
+            if (sessionUsuario == null)
+            {
+                sessionUsuario = new TsegUsuarioSessionViewModel();
+                sessionUsuario.CUSUARIO = usuario;
+                sessionUsuario.CCOMPANIA = ccompaniaSeleccionado;
+                sessionUsuario.CESTADO = "F";
+                sessionUsuario.FINICIO = DateTime.Now;
+                sessionUsuario.ACTIVO = "0";
+                sessionUsuario.NUMEROINTENTOS = intentosLogin;
+                controllerUsuarioSession.InsertarUsuarioSession(sessionUsuario);
+            }
+            else
+            {
+                controllerUsuarioSession.InsertarHistorial(sessionUsuario);
+                sessionUsuario.CESTADO = "F";
+                sessionUsuario.FINICIO = DateTime.Now;
+                sessionUsuario.ACTIVO = "0";
+                sessionUsuario.NUMEROINTENTOS = intentosLogin;
+                controllerUsuarioSession.ActualizarUsuarioSession(sessionUsuario);
+            }
+            MessageBox.Show("EL USUARIO FUE BLOQUEADO POR EXCEDER EL NÚMERO DE INTENTOS FALLIDOS.");
+        }
+
+        private void ManejarSession()
+        {
+            sessionId = Guid.NewGuid();
+            var pkUsuarioSession = new Dictionary<string, object>
+                {
+                    { "CUSUARIO", viewModelUsuarioDetalle.CUSUARIO },
+                    { "CCOMPANIA", viewModelUsuarioDetalle.CCOMPANIA }
+                };
+
+            viewModelUsuarioSession = controllerUsuarioSession.ObtenerRegistroPorPk(pkUsuarioSession);
+
+            if (viewModelUsuarioSession == null)
+            {
+                viewModelUsuarioSession = new TsegUsuarioSessionViewModel();
+                viewModelUsuarioSession.CUSUARIO = viewModelUsuarioDetalle.CUSUARIO;
+                viewModelUsuarioSession.CCOMPANIA = viewModelUsuarioDetalle.CCOMPANIA;
+                viewModelUsuarioSession.CESTADO = "I";
+                viewModelUsuarioSession.FINICIO = DateTime.Now;
+                viewModelUsuarioSession.ACTIVO = "1";
+                viewModelUsuarioSession.NUMEROINTENTOS = intentosLogin;
+                viewModelUsuarioSession.IDSESSION = sessionId.ToString();
+                controllerUsuarioSession.InsertarUsuarioSession(viewModelUsuarioSession);
+            }
+            else
+            {
+                controllerUsuarioSession.InsertarHistorial(viewModelUsuarioSession);
+                viewModelUsuarioSession.CESTADO = "I";
+                viewModelUsuarioSession.FINICIO = DateTime.Now;
+                viewModelUsuarioSession.ACTIVO = "1";
+                viewModelUsuarioSession.NUMEROINTENTOS = intentosLogin;
+                viewModelUsuarioSession.IDSESSION = sessionId.ToString();
+                controllerUsuarioSession.ActualizarUsuarioSession(viewModelUsuarioSession);
+            }
+
+            this.ManejarPoliticas();
 
         }
 
         private void ManejarPoliticas()
         {
-            var pkrol = new Dictionary<string, object>
-                {
-                    { "CCOMPANIA", viewModelUsuarioDetalle.CCOMPANIA },
-                    { "CCANAL", ccanal }
-                };
-            viewModelPolitica = controllerPolitica.ObtenerRegistroPorPk(pkrol);
 
             if(viewModelPolitica.TIEMPOSESION != null)
             {
@@ -109,7 +169,6 @@ namespace UI.Windows.Forms
                 mdatos.cusuario = viewModelUsuarioDetalle.CUSUARIO;
 
                 GuardarInicioSessionCache(tiemposession, mdatos);
-                
                 
                 this.ManejoRoles();
             } else
@@ -127,7 +186,6 @@ namespace UI.Windows.Forms
 
             if (crolSeleccionado == 1) // ROL ADMINISTRADOR
             {
-                // TODO validacion de ventanas.
                 MDIAdministrador formAdministrador = new MDIAdministrador();
                 formAdministrador.IniciaContador(tiemposession);
                 DialogResult resultadoAdministrador = formAdministrador.ShowDialog();
@@ -205,6 +263,19 @@ namespace UI.Windows.Forms
         {
             ComboBoxSelectItem selectedItem = (ComboBoxSelectItem) cbRol.SelectedItem;
             crolSeleccionado = decimal.Parse(selectedItem.value);
+        }
+
+        private void btnCambiarPassword_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmCambiarClave frmCambiarClave = new FrmCambiarClave(ccompaniaSeleccionado, txtUsuario.Text, crolSeleccionado);
+            DialogResult resultadoCambioClave = frmCambiarClave.ShowDialog();
+
+            if (resultadoCambioClave == DialogResult.OK)
+            {
+                limpiarFormularioLogin();
+            }
+            this.Show();
         }
     }
 }

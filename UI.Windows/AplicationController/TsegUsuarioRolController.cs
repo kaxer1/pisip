@@ -12,7 +12,7 @@ namespace UI.Windows.AplicationController
     public class TsegUsuarioRolController : BaseController<TSEGUSUARIOROL, TsegUsuarioRolViewModel>
     {
         private TsegUsuarioRolServices serviceUsuarioRol;
-        public TsegUsuarioRolController()
+        public TsegUsuarioRolController() : base()
         {
             serviceUsuarioRol = new TsegUsuarioRolServices();
         }

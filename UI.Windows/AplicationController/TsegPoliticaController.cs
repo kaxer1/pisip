@@ -13,7 +13,7 @@ namespace UI.Windows.AplicationController
     {
         private TsegPoliticaServices servicePolitica;
 
-        public TsegPoliticaController()
+        public TsegPoliticaController() : base()
         {
             servicePolitica = new TsegPoliticaServices();
         }

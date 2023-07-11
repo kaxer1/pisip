@@ -92,7 +92,7 @@
           </Key>
           <Property Name="CUSUARIO" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="CCOMPANIA" Type="numeric" Precision="4" Scale="0" Nullable="false" />
-          <Property Name="FHISTORIA" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="FHISTORIA" Type="datetime" Nullable="false" />
           <Property Name="OPTLOCK" Type="numeric" Precision="18" Scale="0" />
           <Property Name="CUSUARIOING" Type="varchar" MaxLength="20" />
           <Property Name="CUSUARIOMOD" Type="varchar" MaxLength="20" />
@@ -402,27 +402,6 @@
           <Property Name="OBSERVACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TSEGUSUARIO" Relationship="Self.FKTSEGUSUARIODETALLETSEGUSUARIO" FromRole="TSEGUSUARIODETALLE" ToRole="TSEGUSUARIO" />
         </EntityType>
-        <EntityType Name="TSEGUSUARIODETALLEHIST">
-          <Key>
-            <PropertyRef Name="CUSUARIO" />
-            <PropertyRef Name="CCOMPANIA" />
-            <PropertyRef Name="FHISTORIA" />
-          </Key>
-          <Property Name="CUSUARIO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CCOMPANIA" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
-          <Property Name="FHISTORIA" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="OPTLOCK" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CUSUARIOING" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CUSUARIOMOD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FINGRESO" Type="DateTime" Precision="3" />
-          <Property Name="FMODIFICACION" Type="DateTime" Precision="3" />
-          <Property Name="ESTATUS" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="CCANAL" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="SOBRENOMBRE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="PASSWORD" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
-          <Property Name="CAMBIOPASSWORD" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="OBSERVACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="TSEGUSUARIOSESSION">
           <Key>
             <PropertyRef Name="CUSUARIO" />
@@ -532,7 +511,6 @@
           <EntitySet Name="TSEGPOLITICA" EntityType="Self.TSEGPOLITICA" />
           <EntitySet Name="TSEGUSUARIO" EntityType="Self.TSEGUSUARIO" />
           <EntitySet Name="TSEGUSUARIODETALLE" EntityType="Self.TSEGUSUARIODETALLE" />
-          <EntitySet Name="TSEGUSUARIODETALLEHIST" EntityType="Self.TSEGUSUARIODETALLEHIST" />
           <EntitySet Name="TSEGUSUARIOSESSION" EntityType="Self.TSEGUSUARIOSESSION" />
           <EntitySet Name="TSEGUSUARIOSESSIONHISTORIA" EntityType="Self.TSEGUSUARIOSESSIONHISTORIA" />
           <AssociationSet Name="FKTSEGPOLITICATGENCANALES" Association="Self.FKTSEGPOLITICATGENCANALES">
@@ -573,6 +551,7 @@
             <End Role="TSEGUSUARIO" EntitySet="TSEGUSUARIO" />
             <End Role="TSEGUSUARIOROL" EntitySet="TSEGUSUARIOROL" />
           </AssociationSet>
+          <EntitySet Name="TSEGUSUARIODETALLEHIST" EntityType="pisipModel.TSEGUSUARIODETALLEHIST" />
         </EntityContainer>
         <EntityType Name="TSEGROL">
           <Key>
@@ -659,6 +638,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TSEGUSUARIODETALLEHIST">
+          <Key>
+            <PropertyRef Name="CUSUARIO" />
+            <PropertyRef Name="CCOMPANIA" />
+            <PropertyRef Name="FHISTORIA" />
+          </Key>
+          <Property Name="CUSUARIO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CCOMPANIA" Type="Decimal" Nullable="false" Precision="4" Scale="0" />
+          <Property Name="FHISTORIA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OPTLOCK" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CUSUARIOING" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CUSUARIOMOD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FINGRESO" Type="DateTime" Precision="3" />
+          <Property Name="FMODIFICACION" Type="DateTime" Precision="3" />
+          <Property Name="ESTATUS" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="CCANAL" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="SOBRENOMBRE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="CAMBIOPASSWORD" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="OBSERVACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -732,26 +732,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TSEGUSUARIODETALLEHIST">
-      <EntityTypeMapping TypeName="IsTypeOf(pisipModel.TSEGUSUARIODETALLEHIST)">
-        <MappingFragment StoreEntitySet="TSEGUSUARIODETALLEHIST">
-          <ScalarProperty Name="CUSUARIO" ColumnName="CUSUARIO" />
-          <ScalarProperty Name="CCOMPANIA" ColumnName="CCOMPANIA" />
-          <ScalarProperty Name="FHISTORIA" ColumnName="FHISTORIA" />
-          <ScalarProperty Name="OPTLOCK" ColumnName="OPTLOCK" />
-          <ScalarProperty Name="CUSUARIOING" ColumnName="CUSUARIOING" />
-          <ScalarProperty Name="CUSUARIOMOD" ColumnName="CUSUARIOMOD" />
-          <ScalarProperty Name="FINGRESO" ColumnName="FINGRESO" />
-          <ScalarProperty Name="FMODIFICACION" ColumnName="FMODIFICACION" />
-          <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
-          <ScalarProperty Name="CCANAL" ColumnName="CCANAL" />
-          <ScalarProperty Name="SOBRENOMBRE" ColumnName="SOBRENOMBRE" />
-          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
-          <ScalarProperty Name="CAMBIOPASSWORD" ColumnName="CAMBIOPASSWORD" />
-          <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="TSEGUSUARIOSESSION">
       <EntityTypeMapping TypeName="IsTypeOf(pisipModel.TSEGUSUARIOSESSION)">
         <MappingFragment StoreEntitySet="TSEGUSUARIOSESSION">
@@ -811,6 +791,26 @@
                 <ScalarProperty Name="CUSUARIOMOD" ColumnName="CUSUARIOMOD" />
                 <ScalarProperty Name="CUSUARIOING" ColumnName="CUSUARIOING" />
                 <ScalarProperty Name="CROL" ColumnName="CROL" />
+                <ScalarProperty Name="CCOMPANIA" ColumnName="CCOMPANIA" />
+                <ScalarProperty Name="CUSUARIO" ColumnName="CUSUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TSEGUSUARIODETALLEHIST">
+            <EntityTypeMapping TypeName="pisipModel.TSEGUSUARIODETALLEHIST">
+              <MappingFragment StoreEntitySet="TSEGUSUARIODETALLEHIST">
+                <ScalarProperty Name="OBSERVACION" ColumnName="OBSERVACION" />
+                <ScalarProperty Name="CAMBIOPASSWORD" ColumnName="CAMBIOPASSWORD" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="SOBRENOMBRE" ColumnName="SOBRENOMBRE" />
+                <ScalarProperty Name="CCANAL" ColumnName="CCANAL" />
+                <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+                <ScalarProperty Name="FMODIFICACION" ColumnName="FMODIFICACION" />
+                <ScalarProperty Name="FINGRESO" ColumnName="FINGRESO" />
+                <ScalarProperty Name="CUSUARIOMOD" ColumnName="CUSUARIOMOD" />
+                <ScalarProperty Name="CUSUARIOING" ColumnName="CUSUARIOING" />
+                <ScalarProperty Name="OPTLOCK" ColumnName="OPTLOCK" />
+                <ScalarProperty Name="FHISTORIA" ColumnName="FHISTORIA" />
                 <ScalarProperty Name="CCOMPANIA" ColumnName="CCOMPANIA" />
                 <ScalarProperty Name="CUSUARIO" ColumnName="CUSUARIO" />
               </MappingFragment>

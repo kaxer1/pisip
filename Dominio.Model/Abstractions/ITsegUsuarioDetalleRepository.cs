@@ -11,5 +11,7 @@ namespace Dominio.Model.Abstractions
     {
         TSEGUSUARIODETALLE IniciarSesion(string usuario, string contrasenia, decimal ccompania, string ccanal, decimal crol);
 
+        TSEGUSUARIODETALLE ValidaUsuarioRolExiste(string usuario, string contrasenia, decimal ccompania, string ccanal, decimal crol);
+
     }
 }

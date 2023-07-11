@@ -10,6 +10,7 @@ namespace UI.Windows.ViewModel
     {
         public string CUSUARIO { get; set; }
         public decimal CCOMPANIA { get; set; }
+        public System.DateTime FHISTORIA { get; set; }
         public Nullable<decimal> OPTLOCK { get; set; }
         public string CUSUARIOING { get; set; }
         public string CUSUARIOMOD { get; set; }

@@ -37,5 +37,10 @@ namespace Aplicacion.Aplicacion.Services
         {
             tsegUsuarioDetalleHistRepository.Delete(usuarioDetalle);
         }
+
+        public IEnumerable<TSEGUSUARIODETALLEHIST> ObtenerPorFiltro(Dictionary<string, object> filtros)
+        {
+            return tsegUsuarioDetalleHistRepository.GetPorFiltros(filtros);
+        }
     }
 }

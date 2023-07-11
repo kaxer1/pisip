@@ -18,6 +18,7 @@ namespace UI.Windows
         private TsegUsuarioSessionController controllerSessiones;
         private TsegUsuarioSessionViewModel viewModelSessiones;
 
+        private decimal codigoCompaniaSeleccionado = 0;
         public FrmUsuarioSession() : base()
         {
             base.formularioHijo = this;
@@ -35,9 +36,41 @@ namespace UI.Windows
             ListarSessionesActivas();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void dgvListaSesiones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (dgvListaSesiones.SelectedRows.Count > 0)
+            {
+                txtUsuarioSeleccionado.Text = dgvListaSesiones.CurrentRow.Cells[0].Value.ToString();
+                codigoCompaniaSeleccionado = (decimal) dgvListaSesiones.CurrentRow.Cells[1].Value;
+                grbDesactivarSesion.Enabled = true;
+                
+            }
+        }
 
+        private void btnInactivarSession_Click(object sender, EventArgs e)
+        {
+            var pkUsuarioSession = new Dictionary<string, object>
+                {
+                    { "CUSUARIO", txtUsuarioSeleccionado.Text },
+                    { "CCOMPANIA", codigoCompaniaSeleccionado }
+                };
+
+            viewModelSessiones = controllerSessiones.ObtenerRegistroPorPk(pkUsuarioSession);
+
+            if (viewModelSessiones != null)
+            {
+                controllerSessiones.InsertarHistorial(viewModelSessiones);
+                viewModelSessiones.CESTADO = "S";
+                viewModelSessiones.FSALIDA = DateTime.Now;
+                viewModelSessiones.ACTIVO = "0";
+                controllerSessiones.ActualizarUsuarioSession(viewModelSessiones);
+                ListarSessionesActivas();
+                grbDesactivarSesion.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show("LA SESSIÓN NO FUE ENCONTRADA");
+            }
         }
     }
 }

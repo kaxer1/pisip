@@ -38,6 +38,7 @@ namespace UI.Windows.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.cbRol = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnCambiarPassword = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -127,11 +128,22 @@ namespace UI.Windows.Forms
             this.label4.TabIndex = 8;
             this.label4.Text = "Rol";
             // 
+            // btnCambiarPassword
+            // 
+            this.btnCambiarPassword.Location = new System.Drawing.Point(251, 347);
+            this.btnCambiarPassword.Name = "btnCambiarPassword";
+            this.btnCambiarPassword.Size = new System.Drawing.Size(149, 23);
+            this.btnCambiarPassword.TabIndex = 9;
+            this.btnCambiarPassword.Text = "Cambiar Contraseña";
+            this.btnCambiarPassword.UseVisualStyleBackColor = true;
+            this.btnCambiarPassword.Click += new System.EventHandler(this.btnCambiarPassword_Click);
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(683, 423);
+            this.Controls.Add(this.btnCambiarPassword);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cbRol);
             this.Controls.Add(this.label3);
@@ -161,5 +173,6 @@ namespace UI.Windows.Forms
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cbRol;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnCambiarPassword;
     }
 }

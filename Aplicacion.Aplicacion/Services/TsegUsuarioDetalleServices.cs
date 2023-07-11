@@ -42,5 +42,15 @@ namespace Aplicacion.Aplicacion.Services
         {
             return tsegUsuarioDetalleRepository.IniciarSesion(usuario, contrasenia, ccompania, ccanal, crol);
         }
+
+        public TSEGUSUARIODETALLE ValidaUsuarioRolExiste(string usuario, string contrasenia, decimal ccompania, string ccanal, decimal crol)
+        {
+            return tsegUsuarioDetalleRepository.ValidaUsuarioRolExiste(usuario, contrasenia, ccompania, ccanal, crol);
+        }
+
+        public TSEGUSUARIODETALLE ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
+        {
+            return tsegUsuarioDetalleRepository.GetEntidadPk(idcompuesto);
+        }
     }
 }
