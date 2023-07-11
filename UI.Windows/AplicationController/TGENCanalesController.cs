@@ -9,18 +9,13 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.AplicationController
 {
-    class TgenCanalesController
+    public class TgenCanalesController : BaseController<TGENCANALES, TgenCanalesViewModel>
     {
         private TgenCanalesServices _servicesCanales;
-        public TgenCanalesController()
+        public TgenCanalesController() : base()
         {
             _servicesCanales = new TgenCanalesServices();
         }
-
-
-
-
-
 
         public bool InsertarCanal(TgenCanalesViewModel nuevoCanalViewModel)
         {
@@ -33,9 +28,6 @@ namespace UI.Windows.AplicationController
 
                 _servicesCanales.InsertarCanales(nuevoCanal);
                 return true;
-
-
-
             }
             catch (Exception ex)
             {
@@ -48,21 +40,16 @@ namespace UI.Windows.AplicationController
             TGENCANALES nuevoCanal = new TGENCANALES();
             try
             {
-            
                 nuevoCanal.NOMBRE = nuevoCanalViewModel.NOMBRE;
                 nuevoCanal.CCANAL = nuevoCanalViewModel.CCANAL;
                 _servicesCanales.ActualizarCanales(nuevoCanal);
                 return true;
-
-
-
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al actualizar Canal" + ex.Message);
             }
         }
-
 
         public IEnumerable<TgenCanalesViewModel> ListarCanales()
         {
@@ -78,7 +65,6 @@ namespace UI.Windows.AplicationController
                         CCANAL = item.CCANAL,
                         NOMBRE = item.NOMBRE,
                         OPTLOCK= item.OPTLOCK
-                       
                     });
                 }
                 return listaCanalesViewModel;
@@ -87,19 +73,7 @@ namespace UI.Windows.AplicationController
             {
                 throw new Exception("Error al obtener Canales " + ex.Message);
             }
-
-
-
-
         }
-
-
-
-
-
-
-
-
 
     }
 }

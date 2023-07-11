@@ -21,12 +21,21 @@ namespace UI.Windows
         private TsegUsuarioDetalleController controllerUsuarioDetalle;
         private TsegUsuarioDetalleViewModel viewModelUsuarioDetalle;
 
+        private TgenCompaniaController controllerCompania;
+
+        private TgenCanalesController controllerCanal;
+
+        private decimal ccompaniaSeleccionado = 0;
+        private string ccanalSeleccionado = "";
+        private bool esnuevo = true;
         public FrmUsuario() : base()
         {
             base.formularioHijo = this;
             InitializeComponent();
             controllerUsuario = new TsegUsuarioController();
             controllerUsuarioDetalle = new TsegUsuarioDetalleController();
+            controllerCompania = new TgenCompaniaController();
+            controllerCanal = new TgenCanalesController();
         }
 
         public void InsertarUsuario()
@@ -63,15 +72,15 @@ namespace UI.Windows
             }
             else
             {
-                MessageBox.Show("Error al actualizar Usuario");
+                MessageBox.Show("Error al actualizar Usuario ");
             }
             if (controllerUsuarioDetalle.ActualizarUsuarioDetalle(viewModelUsuarioDetalle))
             {
-                MessageBox.Show("Usuario actualizado correctamente");
+                MessageBox.Show("Usuario Detalle actualizado correctamente");
             }
             else
             {
-                MessageBox.Show("Error al actualizar Usuario");
+                MessageBox.Show("Error al actualizar Usuario Detalle");
             }
         }
 
@@ -83,52 +92,132 @@ namespace UI.Windows
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             grbFormulario.Enabled = true;
+            txtCusuario.Enabled = true;
+            cbCompania.Enabled = true;
         }
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
+            IEnumerable<TgenCompaniaViewModel> lcompanias = controllerCompania.ListarCompania();
+            cbCompania.DataSource = controllerCompania.mapearComboBox(lcompanias, "CCOMPANIA", "NOMBRECOMPANIA");
+            cbCompania.DisplayMember = "label";
+            cbCompania.ValueMember = "value";
+
+            IEnumerable<TgenCanalesViewModel> lcanales = controllerCanal.ListarCanales();
+            cbCanal.DataSource = controllerCanal.mapearComboBox(lcanales, "CCANAL", "NOMBRE");
+            cbCanal.DisplayMember = "label";
+            cbCanal.ValueMember = "value";
+
             ListarUsuarios();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            viewModelUsuario = new TsegUsuarioViewModel();
-            viewModelUsuario.CUSUARIO = txtCusuario.Text;
-            viewModelUsuario.CCOMPANIA = int.Parse(txtCcompania.Text);
-            viewModelUsuario.CINTERNO = int.Parse(txtCinterno.Text);
 
-            viewModelUsuarioDetalle = new TsegUsuarioDetalleViewModel();
-            viewModelUsuarioDetalle.CUSUARIO = txtCusuario.Text;
-            viewModelUsuarioDetalle.CCOMPANIA = int.Parse(txtCcompania.Text);
-            viewModelUsuarioDetalle.CCANAL = txtCcanal.Text;
-            viewModelUsuarioDetalle.SOBRENOMBRE= txtSobreNombre.Text;
-            viewModelUsuarioDetalle.PASSWORD = controllerUsuario.EncryptPassword( txtPassword.Text );
-            viewModelUsuarioDetalle.OBSERVACION = txtObservacion.Text;
-
-            if (chkEstatus.Checked)
+            if(esnuevo)
             {
-                viewModelUsuarioDetalle.ESTATUS = 1;
-            }
-            else
-            {
-                viewModelUsuarioDetalle.ESTATUS = 0;
-            }
+                viewModelUsuario = new TsegUsuarioViewModel();
+                viewModelUsuario.CUSUARIO = txtCusuario.Text;
+                viewModelUsuario.CCOMPANIA = ccompaniaSeleccionado;
+                viewModelUsuario.CINTERNO = int.Parse(txtCinterno.Text);
 
-            // Solo inserta porque debe ingresar el codigo de usuario. 
-            // TODO implementar la actualizacion con alguna bandera.
-            InsertarUsuario();
+                viewModelUsuarioDetalle = new TsegUsuarioDetalleViewModel();
+                viewModelUsuarioDetalle.CUSUARIO = txtCusuario.Text;
+                viewModelUsuarioDetalle.CCOMPANIA = ccompaniaSeleccionado;
+                viewModelUsuarioDetalle.CCANAL = ccanalSeleccionado;
+                viewModelUsuarioDetalle.SOBRENOMBRE= txtSobreNombre.Text;
+                viewModelUsuarioDetalle.PASSWORD = controllerUsuario.EncryptPassword( txtPassword.Text );
+                viewModelUsuarioDetalle.OBSERVACION = txtObservacion.Text;
+
+                if (chkEstatus.Checked)
+                {
+                    viewModelUsuarioDetalle.ESTATUS = 1;
+                }
+                else
+                {
+                    viewModelUsuarioDetalle.ESTATUS = 0;
+                }
+                InsertarUsuario();
+            } else
+            {
+                viewModelUsuario = new TsegUsuarioViewModel();
+                viewModelUsuario.CUSUARIO = txtCusuario.Text;
+                viewModelUsuario.CCOMPANIA = ccompaniaSeleccionado;
+                viewModelUsuario.CINTERNO = int.Parse(txtCinterno.Text);
+
+                var pkUsuario= new Dictionary<string, object>
+                {
+                    { "CUSUARIO",  txtCusuario.Text },
+                    { "CCOMPANIA", ccompaniaSeleccionado }
+                };
+
+                viewModelUsuarioDetalle = controllerUsuarioDetalle.ObtenerRegistroPorPk(pkUsuario);
+                controllerUsuarioDetalle.InsertarHistorial(viewModelUsuarioDetalle);
+
+                viewModelUsuarioDetalle.CCANAL = ccanalSeleccionado;
+                viewModelUsuarioDetalle.SOBRENOMBRE = txtSobreNombre.Text;
+                viewModelUsuarioDetalle.OBSERVACION = txtObservacion.Text;
+                if(txtPassword.Text != "") {
+                    viewModelUsuarioDetalle.PASSWORD = controllerUsuario.EncryptPassword(txtPassword.Text);
+                }
+                ActualizarUsuario();
+            }
             
             ListarUsuarios();
-        }
-
-        private void txtCcompania_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            this.validarSoloNumerosTextBox(txtCcompania);
         }
 
         private void txtCinterno_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.validarSoloNumerosTextBox(txtCinterno);
+        }
+
+        private void dgvListaUsuario_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvListaUsuario.SelectedRows.Count > 0)
+            {
+                txtCusuario.Enabled = false;
+                cbCompania.Enabled = false;
+                ccompaniaSeleccionado = (decimal)dgvListaUsuario.CurrentRow.Cells[1].Value;
+                ccanalSeleccionado = dgvListaUsuario.CurrentRow.Cells[8].Value.ToString();
+                int estatus = Convert.ToInt32(dgvListaUsuario.CurrentRow.Cells[7].Value.ToString());
+                grbFormulario.Enabled = true;
+                esnuevo = false;
+
+                if (estatus == 1)
+                {
+                    chkEstatus.Checked = true;
+                }
+                else
+                {
+                    chkEstatus.Checked = false;
+                }
+
+                txtCusuario.Text = dgvListaUsuario.CurrentRow.Cells[0].Value.ToString();
+                cbCompania.Text = dgvListaUsuario.CurrentRow.Cells[1].Value.ToString();
+                cbCanal.Text = dgvListaUsuario.CurrentRow.Cells[8].Value.ToString();
+                txtSobreNombre.Text = dgvListaUsuario.CurrentRow.Cells[9].Value.ToString();
+                txtObservacion.Text = dgvListaUsuario.CurrentRow.Cells[12].Value.ToString();
+                
+                var pkUsuario = new Dictionary<string, object>
+                {
+                    { "CUSUARIO",  txtCusuario.Text },
+                    { "CCOMPANIA", ccompaniaSeleccionado }
+                };
+                viewModelUsuario = controllerUsuario.ObtenerRegistroPorPk(pkUsuario);
+                txtCinterno.Text = viewModelUsuario.CINTERNO.ToString();
+            }
+        }
+
+        private void cbCompania_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxSelectItem selectedItem = (ComboBoxSelectItem)cbCompania.SelectedItem;
+            ccompaniaSeleccionado = decimal.Parse(selectedItem.value);
+        }
+
+        private void cbCanal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxSelectItem selectedItem = (ComboBoxSelectItem)cbCanal.SelectedItem;
+            ccanalSeleccionado = selectedItem.value;
         }
     }
 }

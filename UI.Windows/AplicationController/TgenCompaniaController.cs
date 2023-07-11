@@ -12,7 +12,7 @@ namespace UI.Windows.AplicationController
     public class TgenCompaniaController : BaseController<TGENCOMPANIA , TgenCompaniaViewModel>
     {
         private TgenCompaniaServices serviceCompania;
-        public TgenCompaniaController()
+        public TgenCompaniaController() : base()
         {
             serviceCompania = new TgenCompaniaServices();
         }

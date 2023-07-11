@@ -12,9 +12,11 @@ namespace UI.Windows.AplicationController
     public class TsegUsuarioDetalleController : BaseController<TSEGUSUARIODETALLE, TsegUsuarioDetalleViewModel>
     {
         private TsegUsuarioDetalleServices serviceUsuarioDetalle;
-        public TsegUsuarioDetalleController()
+        private TsegUsuarioDetalleHistServices serviceUsuarioDetalleHist;
+        public TsegUsuarioDetalleController() : base()
         {
             serviceUsuarioDetalle = new TsegUsuarioDetalleServices();
+            serviceUsuarioDetalleHist = new TsegUsuarioDetalleHistServices();
         }
 
         public bool InsertarUsuarioDetalle(TsegUsuarioDetalleViewModel nuevoUsuarioDetalleViewModel)
@@ -24,6 +26,7 @@ namespace UI.Windows.AplicationController
                 TSEGUSUARIODETALLE nuevo = mapearViewModelToEntidad(new TSEGUSUARIODETALLE(), nuevoUsuarioDetalleViewModel);
                 nuevo.OPTLOCK = 0; // valor por defecto al insertar
                 nuevo.CAMBIOPASSWORD = "0"; // por defecto no hace cambios de password cuando ingresa
+                nuevo.CUSUARIOING = mdatosUsuario.cusuario;
                 nuevo.FINGRESO = DateTime.Now;
                 serviceUsuarioDetalle.InsertarUsuarioDetalle(nuevo);
                 return true;
@@ -39,6 +42,8 @@ namespace UI.Windows.AplicationController
             try
             {
                 TSEGUSUARIODETALLE nuevo = mapearViewModelToEntidad(new TSEGUSUARIODETALLE(), nuevoUsuarioDetalleViewModel);
+                nuevo.OPTLOCK = nuevo.OPTLOCK + 1;
+                nuevo.CUSUARIOMOD = mdatosUsuario.cusuario;
                 nuevo.FMODIFICACION = DateTime.Now;
                 serviceUsuarioDetalle.ActualizarUsuarioDetalle(nuevo);
                 return true;
@@ -64,6 +69,32 @@ namespace UI.Windows.AplicationController
         public TsegUsuarioDetalleViewModel Login(string usuario, string contrasenia, decimal ccompania, string ccanal, decimal crol)
         {
             return mapearEntityToViewModel( serviceUsuarioDetalle.IniciarSession(usuario, contrasenia, ccompania, ccanal, crol), new TsegUsuarioDetalleViewModel() );
+        }
+
+        public TsegUsuarioDetalleViewModel ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
+        {
+            try
+            {
+                TSEGUSUARIODETALLE registro = serviceUsuarioDetalle.ObtenerRegistroPorPk(idcompuesto);
+                return mapearEntityToViewModel(registro, new TsegUsuarioDetalleViewModel());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar las Sessiones de Usuario" + ex.Message);
+            }
+        }
+
+        public TsegUsuarioDetalleViewModel ValidaUsuarioExiste(string usuario, string contrasenia, decimal ccompania, string ccanal, decimal crol)
+        {
+            return mapearEntityToViewModel(serviceUsuarioDetalle.ValidaUsuarioRolExiste(usuario, contrasenia, ccompania, ccanal, crol), new TsegUsuarioDetalleViewModel());
+        }
+
+        public void InsertarHistorial(TsegUsuarioDetalleViewModel registro)
+        {
+            TSEGUSUARIODETALLE original = mapearViewModelToEntidad(new TSEGUSUARIODETALLE(), registro);
+            TSEGUSUARIODETALLEHIST historia = (TSEGUSUARIODETALLEHIST)mapearEntityToEntityHistoria(original, typeof(TSEGUSUARIODETALLEHIST));
+            historia.FHISTORIA = DateTime.Now;
+            serviceUsuarioDetalleHist.InsertarUsuarioDetalleHist(historia);
         }
     }
 }

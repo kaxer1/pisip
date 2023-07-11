@@ -37,5 +37,10 @@ namespace Aplicacion.Aplicacion.Services
         {
             tsegUsuarioRepository.Delete(usuario);
         }
+
+        public TSEGUSUARIO ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
+        {
+            return tsegUsuarioRepository.GetEntidadPk(idcompuesto);
+        }
     }
 }

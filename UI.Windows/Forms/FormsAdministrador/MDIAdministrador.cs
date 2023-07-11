@@ -108,7 +108,15 @@ namespace UI.Windows.Forms
         private void detalleUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmUsuario frmUsuario = new FrmUsuario();
+            frmUsuario.MdiParent = this; // para que el formulario este dentro del mdi
             frmUsuario.Show();
+        }
+
+        private void sesionesActivasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmUsuarioSession frmUsuarioSession = new FrmUsuarioSession();
+            frmUsuarioSession.MdiParent = this; // para que el formulario este dentro del mdi
+            frmUsuarioSession.Show();
         }
     }
 }

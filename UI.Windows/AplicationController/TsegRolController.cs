@@ -12,7 +12,7 @@ namespace UI.Windows.AplicationController
     internal class TsegRolController : BaseController<TSEGROL, TsegRolViewModel>
     {
         private TsegRolServices serviceRol;
-        public TsegRolController()
+        public TsegRolController() : base()
         {
             serviceRol = new TsegRolServices();
         }
