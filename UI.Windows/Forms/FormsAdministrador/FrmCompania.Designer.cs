@@ -167,6 +167,7 @@ namespace UI.Windows
             this.dgvListaCompania.RowTemplate.Height = 24;
             this.dgvListaCompania.Size = new System.Drawing.Size(909, 199);
             this.dgvListaCompania.TabIndex = 13;
+            this.dgvListaCompania.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListaCompania_CellDoubleClick);
             // 
             // grbFormulario
             // 

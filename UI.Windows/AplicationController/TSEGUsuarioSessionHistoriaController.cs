@@ -9,7 +9,7 @@ using UI.Windows.ViewModel;
 
 namespace UI.Windows.AplicationController
 {
-    public class TsegUsuarioSessionHistoriaController
+    public class TsegUsuarioSessionHistoriaController : BaseController<TSEGUSUARIOSESSIONHISTORIA, TsegUsuarioSessionHistoriaViewModel>
     {
         private TsegUsuarioSessionHistoriaServices _TsegUsuarioSessionHistoriaServices;
         public TsegUsuarioSessionHistoriaController() : base()
@@ -106,6 +106,18 @@ namespace UI.Windows.AplicationController
             catch (Exception ex)
             {
                 throw new Exception("Error al obtener Usuario Session Historia " + ex.Message);
+            }
+        }
+
+        public IEnumerable<TsegUsuarioSessionHistoriaViewModel> ListarPorFiltro(Dictionary<string, object> filtros)
+        {
+            try
+            {
+                return mapearIEnumerableToLista(_TsegUsuarioSessionHistoriaServices.ObtenerPorFiltro(filtros));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los registro historicos de las seciones de usuario" + ex.Message);
             }
         }
     }

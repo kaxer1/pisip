@@ -63,12 +63,18 @@ namespace UI.Windows.Forms
                     this.ManejaBloqueoSession(usuario);
                 } else
                 {
-                    MessageBox.Show("EL USUARIO O CONTRASEÑA INCORRECTO.");
+                    MessageBox.Show("USUARIO O CONTRASEÑA INCORRECTO.");
                 }
             }
             else
             {
-                this.ManejarSession();
+                this.MuestraMensajeDiasValidesContrasenia();
+                // validar dias valides
+                if (this.ValidaDiasValidesContrasenia())
+                    this.ManejarSession();
+                else
+                    this.MostrarFormularioCambioClave();
+                
             }
 
         }
@@ -115,6 +121,36 @@ namespace UI.Windows.Forms
                 controllerUsuarioSession.ActualizarUsuarioSession(sessionUsuario);
             }
             MessageBox.Show("EL USUARIO FUE BLOQUEADO POR EXCEDER EL NÚMERO DE INTENTOS FALLIDOS.");
+        }
+
+        private bool ValidaDiasValidesContrasenia()
+        {
+            if(viewModelUsuarioDetalle.FMODIFICACION != null)
+            {
+                DateTime fechaInicial = new DateTime( ((DateTime)viewModelUsuarioDetalle.FMODIFICACION).Ticks );
+                DateTime fechaSumada = fechaInicial.AddDays( (double)viewModelPolitica.DIASVALIDEZ );
+                DateTime hoy = DateTime.Now;
+                if (fechaSumada.Date <= hoy.Date)
+                {
+                    MessageBox.Show("POR POLITICA DE LA EMPRESA, DEBE CAMBIAR LA CONTRASEÑA CADA " + viewModelPolitica.DIASVALIDEZ + " DÍAS");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void MuestraMensajeDiasValidesContrasenia()
+        {
+            if (viewModelUsuarioDetalle.FMODIFICACION != null)
+            {
+                DateTime fechaInicial = new DateTime(((DateTime)viewModelUsuarioDetalle.FMODIFICACION).Ticks);
+                DateTime fechaSumada = fechaInicial.AddDays((double)viewModelPolitica.DIASMENSAJEDEINVALIDEZ);
+                DateTime hoy = DateTime.Now;
+                if (fechaSumada.Date == hoy.Date)
+                {
+                    MessageBox.Show("TIENE " + viewModelPolitica.DIASMENSAJEDEINVALIDEZ + " DÍAS DE VALIDES DE SU CONTRASEÑA. SE RECOMIENDA QUE CAMBIEN LA CONTRASEÑA");
+                }
+            }
         }
 
         private void ManejarSession()
@@ -266,6 +302,11 @@ namespace UI.Windows.Forms
         }
 
         private void btnCambiarPassword_Click(object sender, EventArgs e)
+        {
+            this.MostrarFormularioCambioClave();
+        }
+
+        private void MostrarFormularioCambioClave()
         {
             this.Hide();
             FrmCambiarClave frmCambiarClave = new FrmCambiarClave(ccompaniaSeleccionado, txtUsuario.Text, crolSeleccionado);

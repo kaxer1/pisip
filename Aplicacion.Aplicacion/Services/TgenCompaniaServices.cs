@@ -41,5 +41,10 @@ namespace Aplicacion.Aplicacion.Services
             tgenCompaniaRepository.Delete(compania);
         }
 
+        public TGENCOMPANIA ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
+        {
+            return tgenCompaniaRepository.GetEntidadPk(idcompuesto);
+        }
     }
+
 }

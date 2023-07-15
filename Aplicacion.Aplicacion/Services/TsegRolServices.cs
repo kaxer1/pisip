@@ -38,6 +38,11 @@ namespace Aplicacion.Aplicacion.Services
             tsegRolRepository.Delete(rol);
         }
 
+        public TSEGROL ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
+        {
+            return tsegRolRepository.GetEntidadPk(idcompuesto);
+        }
+
         public IEnumerable<TSEGROL> ObtenerPorFiltro(Dictionary<string, object> filtros)
         {
             return tsegRolRepository.GetPorFiltros(filtros);

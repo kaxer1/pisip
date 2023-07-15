@@ -22,6 +22,7 @@ namespace UI.Windows.AplicationController
             try
             {
                 TSEGROL nuevo = mapearViewModelToEntidad(new TSEGROL(), nuevoRolViewModel);
+                nuevo.OPTLOCK = 0;
                 serviceRol.InsertarRol(nuevo);
                 return true;
             }
@@ -36,6 +37,7 @@ namespace UI.Windows.AplicationController
             try
             {
                 TSEGROL nuevo = mapearViewModelToEntidad(new TSEGROL(), nuevoRolViewModel);
+                nuevo.OPTLOCK = nuevo.OPTLOCK + 1;
                 serviceRol.ActualizarRol(nuevo);
                 return true;
             }
@@ -50,6 +52,19 @@ namespace UI.Windows.AplicationController
             try
             {
                 return mapearIEnumerableToLista(serviceRol.ListarRol());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los Roles" + ex.Message);
+            }
+        }
+
+        public TsegRolViewModel ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
+        {
+            try
+            {
+                TSEGROL registro = serviceRol.ObtenerRegistroPorPk(idcompuesto);
+                return mapearEntityToViewModel(registro, new TsegRolViewModel());
             }
             catch (Exception ex)
             {
