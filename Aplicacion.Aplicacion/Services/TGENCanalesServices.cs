@@ -1,4 +1,5 @@
-﻿using Dominio.Model.Entities;
+﻿using Dominio.Model.Abstractions;
+using Dominio.Model.Entities;
 using Infra.DataAccess.Repository;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,10 @@ namespace Aplicacion.Aplicacion.Services
 
         }
 
+        public TGENCANALES ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
+        {
+            return _TGENCanalesRepository.GetEntidadPk(idcompuesto);
+        }
 
     }
 }

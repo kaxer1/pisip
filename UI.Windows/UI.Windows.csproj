@@ -50,6 +50,18 @@
     <Compile Include="Forms\FormBase.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FormsAdministrador\FrmRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsAdministrador\FrmRol.Designer.cs">
+      <DependentUpon>FrmRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormsAdministrador\FrmUsuarioDetalleHistoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormsAdministrador\FrmUsuarioDetalleHistoria.Designer.cs">
+      <DependentUpon>FrmUsuarioDetalleHistoria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormsAdministrador\FrmUsuarioSession.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,23 +89,23 @@
     <Compile Include="Forms\FormsAdministrador\FrmCanales.Designer.cs">
       <DependentUpon>FrmCanales.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormsAdministrador\frm_politica.cs">
+    <Compile Include="Forms\FormsAdministrador\FrmPolitica.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormsAdministrador\frm_politica.Designer.cs">
-      <DependentUpon>frm_politica.cs</DependentUpon>
+    <Compile Include="Forms\FormsAdministrador\FrmPolitica.Designer.cs">
+      <DependentUpon>FrmPolitica.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormsAdministrador\frm_usuarioRol.cs">
+    <Compile Include="Forms\FormsAdministrador\FrmUsuarioRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormsAdministrador\frm_usuarioRol.Designer.cs">
-      <DependentUpon>frm_usuarioRol.cs</DependentUpon>
+    <Compile Include="Forms\FormsAdministrador\FrmUsuarioRol.Designer.cs">
+      <DependentUpon>FrmUsuarioRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormsAdministrador\frm_usuarioSesionHistoria.cs">
+    <Compile Include="Forms\FormsAdministrador\FrmUsuarioSesionHistoria.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FormsAdministrador\frm_usuarioSesionHistoria.Designer.cs">
-      <DependentUpon>frm_usuarioSesionHistoria.cs</DependentUpon>
+    <Compile Include="Forms\FormsAdministrador\FrmUsuarioSesionHistoria.Designer.cs">
+      <DependentUpon>FrmUsuarioSesionHistoria.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormsFuncionario\MDIFuncionario.cs">
       <SubType>Form</SubType>
@@ -134,14 +146,20 @@
     <EmbeddedResource Include="Forms\FormsAdministrador\FrmCanales.resx">
       <DependentUpon>FrmCanales.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsAdministrador\frm_politica.resx">
-      <DependentUpon>frm_politica.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormsAdministrador\FrmPolitica.resx">
+      <DependentUpon>FrmPolitica.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsAdministrador\frm_usuarioRol.resx">
-      <DependentUpon>frm_usuarioRol.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormsAdministrador\FrmRol.resx">
+      <DependentUpon>FrmRol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormsAdministrador\frm_usuarioSesionHistoria.resx">
-      <DependentUpon>frm_usuarioSesionHistoria.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormsAdministrador\FrmUsuarioDetalleHistoria.resx">
+      <DependentUpon>FrmUsuarioDetalleHistoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsAdministrador\FrmUsuarioRol.resx">
+      <DependentUpon>FrmUsuarioRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormsAdministrador\FrmUsuarioSesionHistoria.resx">
+      <DependentUpon>FrmUsuarioSesionHistoria.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormsFuncionario\MDIFuncionario.resx">
       <DependentUpon>MDIFuncionario.cs</DependentUpon>

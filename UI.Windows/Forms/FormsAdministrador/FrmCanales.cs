@@ -45,7 +45,7 @@ namespace UI.Windows.Forms
 
             if (_canalesController.ModificarCanal(_canalesViewModel))
             {
-                MessageBox.Show("Empleado modificado correctamente");
+                MessageBox.Show("Canal modificado correctamente");
             }
             else
             {
@@ -55,35 +55,38 @@ namespace UI.Windows.Forms
 
         public void ListarCanales()
         {
-
             dgv_canales.DataSource = _canalesController.ListarCanales();
-
         }
 
         private void btn_guardar_Click(object sender, EventArgs e)
         {
-
-            _canalesViewModel = new TgenCanalesViewModel();
-            _canalesViewModel.NOMBRE = txt_nombre.Text;
-            _canalesViewModel.OPTLOCK = decimal.Parse(txt_opt.Text);
-
-         
-
-            if (txt_id.Text != "")
+            if (esnuevo)
             {
-                _canalesViewModel.CCANAL = txt_id.Text;
+                _canalesViewModel = new TgenCanalesViewModel();
+                _canalesViewModel.CCANAL = txt_ccanal.Text;
+                _canalesViewModel.NOMBRE = txt_nombre.Text;
                 InsertarCanal();
             }
             else {
-                InsertarCanal();
+                var pkCanal = new Dictionary<string, object>
+                {
+                    { "CCANAL",  txt_ccanal.Text }
+                };
+
+                _canalesViewModel = _canalesController.ObtenerRegistroPorPk(pkCanal);
+                _canalesViewModel.NOMBRE = txt_nombre.Text;
+                ActualizarCanal();
             }
             ListarCanales();
-
+            grb_contenido.Enabled = false;
+            txt_ccanal.Enabled = false;
         }
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
+            esnuevo = true;
             grb_contenido.Enabled = true;
+            txt_ccanal.Enabled = true;
         }
 
         private void frmr_Canales_Load(object sender, EventArgs e)
@@ -91,9 +94,17 @@ namespace UI.Windows.Forms
             ListarCanales();
         }
 
-        private void grb_contenido_Enter(object sender, EventArgs e)
+        private void dgv_canales_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (dgv_canales.SelectedRows.Count > 0)
+            {
+                esnuevo = false;
+                grb_contenido.Enabled = true;
+                txt_ccanal.Enabled = false;
 
+                txt_ccanal.Text = dgv_canales.CurrentRow.Cells[0].Value.ToString();
+                txt_nombre.Text = dgv_canales.CurrentRow.Cells[2].Value.ToString();
+            }
         }
     }
 }

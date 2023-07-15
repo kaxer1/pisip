@@ -27,7 +27,7 @@ namespace UI.Windows
 
         private decimal ccompaniaSeleccionado = 0;
         private string ccanalSeleccionado = "";
-        private bool esnuevo = true;
+        
         public FrmUsuario() : base()
         {
             base.formularioHijo = this;
@@ -113,14 +113,13 @@ namespace UI.Windows
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            viewModelUsuario = new TsegUsuarioViewModel();
+            viewModelUsuario.CUSUARIO = txtCusuario.Text;
+            viewModelUsuario.CCOMPANIA = ccompaniaSeleccionado;
+            viewModelUsuario.CINTERNO = int.Parse(txtCinterno.Text);
 
-            if(esnuevo)
+            if (esnuevo)
             {
-                viewModelUsuario = new TsegUsuarioViewModel();
-                viewModelUsuario.CUSUARIO = txtCusuario.Text;
-                viewModelUsuario.CCOMPANIA = ccompaniaSeleccionado;
-                viewModelUsuario.CINTERNO = int.Parse(txtCinterno.Text);
-
                 viewModelUsuarioDetalle = new TsegUsuarioDetalleViewModel();
                 viewModelUsuarioDetalle.CUSUARIO = txtCusuario.Text;
                 viewModelUsuarioDetalle.CCOMPANIA = ccompaniaSeleccionado;
@@ -130,21 +129,13 @@ namespace UI.Windows
                 viewModelUsuarioDetalle.OBSERVACION = txtObservacion.Text;
 
                 if (chkEstatus.Checked)
-                {
                     viewModelUsuarioDetalle.ESTATUS = 1;
-                }
                 else
-                {
                     viewModelUsuarioDetalle.ESTATUS = 0;
-                }
+
                 InsertarUsuario();
             } else
             {
-                viewModelUsuario = new TsegUsuarioViewModel();
-                viewModelUsuario.CUSUARIO = txtCusuario.Text;
-                viewModelUsuario.CCOMPANIA = ccompaniaSeleccionado;
-                viewModelUsuario.CINTERNO = int.Parse(txtCinterno.Text);
-
                 var pkUsuario= new Dictionary<string, object>
                 {
                     { "CUSUARIO",  txtCusuario.Text },
@@ -157,7 +148,13 @@ namespace UI.Windows
                 viewModelUsuarioDetalle.CCANAL = ccanalSeleccionado;
                 viewModelUsuarioDetalle.SOBRENOMBRE = txtSobreNombre.Text;
                 viewModelUsuarioDetalle.OBSERVACION = txtObservacion.Text;
-                if(txtPassword.Text != "") {
+                
+                if (chkEstatus.Checked)
+                    viewModelUsuarioDetalle.ESTATUS = 1;
+                else
+                    viewModelUsuarioDetalle.ESTATUS = 0;
+
+                if (txtPassword.Text != "") {
                     viewModelUsuarioDetalle.PASSWORD = controllerUsuario.EncryptPassword(txtPassword.Text);
                 }
                 ActualizarUsuario();
@@ -184,17 +181,21 @@ namespace UI.Windows
                 esnuevo = false;
 
                 if (estatus == 1)
-                {
                     chkEstatus.Checked = true;
-                }
                 else
-                {
                     chkEstatus.Checked = false;
-                }
+
+                // setea el item correspondiente en el combo
+                int indexCcomponia = cbCompania.FindStringExact(dgvListaUsuario.CurrentRow.Cells[1].Value.ToString());
+                if (indexCcomponia != -1)
+                    cbCompania.SelectedIndex = indexCcomponia;
+
+                // setea el item correspondiente en el combo
+                int indexCcanal = cbCanal.FindStringExact(dgvListaUsuario.CurrentRow.Cells[8].Value.ToString());
+                if (indexCcanal != -1)
+                    cbCanal.SelectedIndex = indexCcanal;
 
                 txtCusuario.Text = dgvListaUsuario.CurrentRow.Cells[0].Value.ToString();
-                cbCompania.Text = dgvListaUsuario.CurrentRow.Cells[1].Value.ToString();
-                cbCanal.Text = dgvListaUsuario.CurrentRow.Cells[8].Value.ToString();
                 txtSobreNombre.Text = dgvListaUsuario.CurrentRow.Cells[9].Value.ToString();
                 txtObservacion.Text = dgvListaUsuario.CurrentRow.Cells[12].Value.ToString();
                 

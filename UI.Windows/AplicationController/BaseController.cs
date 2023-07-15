@@ -191,6 +191,13 @@ namespace UI.Windows.AplicationController
 
                 foreach (PropertyInfo campoVM in camposViewModel)
                 {
+                    if (campoVM.Name == campoId && campoVM.Name == campoNombre)
+                    {
+                        object valorCampo = campoVM.GetValue(item);
+                        combo.value = valorCampo.ToString();
+                        combo.label = valorCampo.ToString();
+                        continue;
+                    }
                     if (campoVM.Name == campoId)
                     {
                         object valorCampo = campoVM.GetValue(item);
