@@ -143,7 +143,6 @@ namespace Infra.DataAccess.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine("ERROR EN REPOSITORIO BASE: " + ex.Message);
                 return entity;
             }
         }
@@ -177,7 +176,6 @@ namespace Infra.DataAccess.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine("ERROR EN REPOSITORIO BASE: " + ex.Message);
                 return lregistros;
             }
         }

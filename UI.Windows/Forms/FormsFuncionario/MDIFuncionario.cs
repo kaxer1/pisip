@@ -7,22 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UI.Windows.AplicationController;
-using UI.Windows.Forms.FormsAdministrador;
 
 namespace UI.Windows.Forms.FormsFuncionario
 {
     public partial class MDIFuncionario : FormBase
     {
-        TsegUsuarioController usuarioController;
-
         private int childFormNumber = 0;
 
         public MDIFuncionario() : base()
         {
             base.formularioHijo = this;
             InitializeComponent();
-            usuarioController = new TsegUsuarioController();
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -108,14 +103,6 @@ namespace UI.Windows.Forms.FormsFuncionario
             {
                 childForm.Close();
             }
-        }
-
-        private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MdatosSession mdatos = usuarioController.mdatosUsuario;
-            FrmCambiarClave frmCambiarClave = new FrmCambiarClave(mdatos.ccompania, mdatos.cusuario, mdatos.crol);
-            frmCambiarClave.MdiParent = this;
-            frmCambiarClave.Show();
         }
     }
 }

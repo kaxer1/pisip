@@ -24,7 +24,7 @@ namespace UI.Windows.AplicationController
             {
                 nuevoCanal.CCANAL = nuevoCanalViewModel.CCANAL;
                 nuevoCanal.NOMBRE = nuevoCanalViewModel.NOMBRE;
-                nuevoCanal.OPTLOCK = 0;
+                nuevoCanal.OPTLOCK = nuevoCanalViewModel.OPTLOCK;
 
                 _servicesCanales.InsertarCanales(nuevoCanal);
                 return true;
@@ -42,7 +42,6 @@ namespace UI.Windows.AplicationController
             {
                 nuevoCanal.NOMBRE = nuevoCanalViewModel.NOMBRE;
                 nuevoCanal.CCANAL = nuevoCanalViewModel.CCANAL;
-                nuevoCanal.OPTLOCK = nuevoCanalViewModel.OPTLOCK + 1;
                 _servicesCanales.ActualizarCanales(nuevoCanal);
                 return true;
             }
@@ -73,19 +72,6 @@ namespace UI.Windows.AplicationController
             catch (Exception ex)
             {
                 throw new Exception("Error al obtener Canales " + ex.Message);
-            }
-        }
-
-        public TgenCanalesViewModel ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
-        {
-            try
-            {
-                TGENCANALES registro = _servicesCanales.ObtenerRegistroPorPk(idcompuesto);
-                return mapearEntityToViewModel(registro, new TgenCanalesViewModel());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al listar las Sessiones de Usuario" + ex.Message);
             }
         }
 

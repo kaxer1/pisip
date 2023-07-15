@@ -58,6 +58,7 @@ namespace UI.Windows
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Sesiones Activas";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtUsuarioSeleccionado
             // 

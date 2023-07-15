@@ -26,7 +26,7 @@ namespace UI.Windows.AplicationController
                 TSEGUSUARIODETALLE nuevo = mapearViewModelToEntidad(new TSEGUSUARIODETALLE(), nuevoUsuarioDetalleViewModel);
                 nuevo.OPTLOCK = 0; // valor por defecto al insertar
                 nuevo.CAMBIOPASSWORD = "0"; // por defecto no hace cambios de password cuando ingresa
-                nuevo.CUSUARIOING = (mdatosUsuario == null) ? null : mdatosUsuario.cusuario;
+                nuevo.CUSUARIOING = mdatosUsuario.cusuario;
                 nuevo.FINGRESO = DateTime.Now;
                 serviceUsuarioDetalle.InsertarUsuarioDetalle(nuevo);
                 return true;
@@ -43,7 +43,7 @@ namespace UI.Windows.AplicationController
             {
                 TSEGUSUARIODETALLE nuevo = mapearViewModelToEntidad(new TSEGUSUARIODETALLE(), nuevoUsuarioDetalleViewModel);
                 nuevo.OPTLOCK = nuevo.OPTLOCK + 1;
-                nuevo.CUSUARIOMOD = (mdatosUsuario == null ) ? null : mdatosUsuario.cusuario;
+                nuevo.CUSUARIOMOD = mdatosUsuario.cusuario;
                 nuevo.FMODIFICACION = DateTime.Now;
                 serviceUsuarioDetalle.ActualizarUsuarioDetalle(nuevo);
                 return true;

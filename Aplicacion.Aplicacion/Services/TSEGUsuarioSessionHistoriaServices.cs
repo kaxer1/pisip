@@ -1,5 +1,4 @@
-﻿using Dominio.Model.Abstractions;
-using Dominio.Model.Entities;
+﻿using Dominio.Model.Entities;
 using Infra.DataAccess.Repository;
 using System;
 using System.Collections.Generic;
@@ -39,11 +38,6 @@ namespace Aplicacion.Aplicacion.Services
         {
             _TSEGUSUARIOHISTORIAREPOSITORY.Delete(id);
 
-        }
-
-        public IEnumerable<TSEGUSUARIOSESSIONHISTORIA> ObtenerPorFiltro(Dictionary<string, object> filtros)
-        {
-            return _TSEGUSUARIOHISTORIAREPOSITORY.GetPorFiltros(filtros);
         }
 
 

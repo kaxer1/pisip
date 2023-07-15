@@ -30,8 +30,6 @@ namespace UI.Windows.Forms
         
         private static string CACHE_CLAVE_SESSION = "mdatossession";
 
-        protected bool esnuevo = true;
-
         public FormBase() {
             serviceUsuarioSession = new TsegUsuarioSessionServices();
             controllerPolitica = new TsegPoliticaController();

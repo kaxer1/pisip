@@ -7,22 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UI.Windows.AplicationController;
 using UI.Windows.Forms.FormsAdministrador;
 
 namespace UI.Windows.Forms
 {
     public partial class MDIAdministrador : FormBase
     {
-        TsegUsuarioController usuarioController;
-
         private int childFormNumber = 0;
 
         public MDIAdministrador() : base()
         {
             base.formularioHijo = this;
             InitializeComponent();
-            usuarioController = new TsegUsuarioController();
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -119,29 +115,26 @@ namespace UI.Windows.Forms
 
         private void asignaciónDeRolesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmUsuarioRol frm_usuarioRol = new FrmUsuarioRol();
-            frm_usuarioRol.MdiParent = this;
+            frm_usuarioRol frm_usuarioRol = new frm_usuarioRol();
             frm_usuarioRol.Show();
         }
 
         private void consultarSesionesPorUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmUsuarioSesionHistoria frm_usuarioSesionHistoria = new FrmUsuarioSesionHistoria();
-            frm_usuarioSesionHistoria.MdiParent = this;
+            frm_usuarioSesionHistoria frm_usuarioSesionHistoria = new frm_usuarioSesionHistoria();
             frm_usuarioSesionHistoria.Show();
+
         }
 
         private void canalesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmCanales FrmCanales = new FrmCanales();
-            FrmCanales.MdiParent = this;
             FrmCanales.Show();
         }
 
         private void politicaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmPolitica frm_politica = new FrmPolitica();
-            frm_politica.MdiParent = this;
+            frm_politica frm_politica = new frm_politica();
             frm_politica.Show();
         }
         
@@ -150,35 +143,6 @@ namespace UI.Windows.Forms
             FrmUsuarioSession frmUsuarioSession = new FrmUsuarioSession();
             frmUsuarioSession.MdiParent = this; // para que el formulario este dentro del mdi
             frmUsuarioSession.Show();
-        }
-
-        private void rolesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmRol frmRol = new FrmRol();
-            frmRol.MdiParent = this; // para que el formulario este dentro del mdi
-            frmRol.Show();
-        }
-
-        private void compañiaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmCompania frmCompania = new FrmCompania();
-            frmCompania.MdiParent = this; // para que el formulario este dentro del mdi
-            frmCompania.Show();
-        }
-
-        private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MdatosSession mdatos = usuarioController.mdatosUsuario;
-            FrmCambiarClave frmCambiarClave = new FrmCambiarClave(mdatos.ccompania, mdatos.cusuario, mdatos.crol);
-            frmCambiarClave.MdiParent = this;
-            frmCambiarClave.Show();
-        }
-
-        private void consultarHistorialInformacionUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmUsuarioDetalleHistoria frmUsuarioDetalle = new FrmUsuarioDetalleHistoria();
-            frmUsuarioDetalle.MdiParent = this; 
-            frmUsuarioDetalle.Show();
         }
     }
 }

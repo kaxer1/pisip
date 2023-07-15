@@ -61,68 +61,32 @@ namespace UI.Windows
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            esnuevo = true;
             grbFormulario.Enabled = true;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (esnuevo)
+            viewModelCompania = new TgenCompaniaViewModel();
+            viewModelCompania.NOMBRECOMPANIA = txtNombreCompania.Text;
+            viewModelCompania.ESLOGANCLIENTE = txtEsloganCliente.Text;
+            viewModelCompania.ESLOGANCORE = txtEsloganCore.Text;
+            viewModelCompania.NOMBRECORTO = txtNombreCorto.Text;
+
+            if (txtCcompania.Text != "")
             {
-                viewModelCompania = new TgenCompaniaViewModel();
-                viewModelCompania.NOMBRECOMPANIA = txtNombreCompania.Text;
-                viewModelCompania.ESLOGANCLIENTE = txtEsloganCliente.Text;
-                viewModelCompania.ESLOGANCORE = txtEsloganCore.Text;
-                viewModelCompania.NOMBRECORTO = txtNombreCorto.Text;
-                InsertarCompania();
+                viewModelCompania.CCOMPANIA = int.Parse(txtCcompania.Text);
+                ActualizarCompania();
             }
             else
             {
-                var pkUsuario = new Dictionary<string, object>
-                {
-                    { "CCOMPANIA", Convert.ToDecimal(txtCcompania.Text) }
-                };
-
-                viewModelCompania = controllerCompania.ObtenerRegistroPorPk(pkUsuario);
-                viewModelCompania.NOMBRECOMPANIA = txtNombreCompania.Text;
-                viewModelCompania.ESLOGANCLIENTE = txtEsloganCliente.Text;
-                viewModelCompania.ESLOGANCORE = txtEsloganCore.Text;
-                viewModelCompania.NOMBRECORTO = txtNombreCorto.Text;
-                ActualizarCompania();
+                InsertarCompania();
             }
             ListarCompanias();
-            limpiarFormulario();
-            grbFormulario.Enabled = false;
         }
 
         private void FrmCompania_Load(object sender, EventArgs e)
         {
             ListarCompanias();
-        }
-
-        private void limpiarFormulario()
-        {
-            txtCcompania.Text = "";
-            txtNombreCompania.Text = "";
-            txtEsloganCliente.Text = "";
-            txtEsloganCore.Text = "";
-            txtNombreCorto.Text = "";
-        }
-
-        private void dgvListaCompania_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dgvListaCompania.SelectedRows.Count > 0)
-            {
-                grbFormulario.Enabled = true;
-                esnuevo = false;
-
-                txtCcompania.Text = dgvListaCompania.CurrentRow.Cells[0].Value.ToString();
-                txtNombreCompania.Text = dgvListaCompania.CurrentRow.Cells[2].Value.ToString();
-                txtEsloganCliente.Text = dgvListaCompania.CurrentRow.Cells[3].Value.ToString();
-                txtEsloganCore.Text = dgvListaCompania.CurrentRow.Cells[4].Value.ToString();
-                txtNombreCorto.Text = dgvListaCompania.CurrentRow.Cells[5].Value.ToString();
-
-            }
         }
     }
 }

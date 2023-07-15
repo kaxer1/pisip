@@ -23,7 +23,6 @@ namespace UI.Windows.AplicationController
             {
                 TSEGUSUARIOROL nuevo = mapearViewModelToEntidad(new TSEGUSUARIOROL(), nuevoUsuarioRolViewModel);
                 nuevo.FINGRESO = DateTime.Now;
-                nuevo.CUSUARIOING = mdatosUsuario.cusuario;
                 serviceUsuarioRol.InsertarUsuarioRol(nuevo);
                 return true;
             }
@@ -39,7 +38,6 @@ namespace UI.Windows.AplicationController
             {
                 TSEGUSUARIOROL nuevo = mapearViewModelToEntidad(new TSEGUSUARIOROL(), nuevoUsuarioRolViewModel);
                 nuevo.FMODIFICACION = DateTime.Now;
-                nuevo.CUSUARIOMOD = mdatosUsuario.cusuario;
                 serviceUsuarioRol.ActualizarUsuarioRol(nuevo);
                 return true;
             }
@@ -61,17 +59,5 @@ namespace UI.Windows.AplicationController
             }
         }
 
-        public TsegUsuarioRolViewModel ObtenerRegistroPorPk(Dictionary<string, object> idcompuesto)
-        {
-            try
-            {
-                TSEGUSUARIOROL registro = serviceUsuarioRol.ObtenerRegistroPorPk(idcompuesto);
-                return mapearEntityToViewModel(registro, new TsegUsuarioRolViewModel());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al listar lor Roles de Usuario" + ex.Message);
-            }
-        }
     }
 }
