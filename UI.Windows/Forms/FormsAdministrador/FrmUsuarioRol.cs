@@ -111,6 +111,13 @@ namespace UI.Windows.Forms.FormsAdministrador
         public void ListarUsuarioRoles()
         {
             dgv_contenido.DataSource = _tsegUsuarioRolController.ListarUsuarioRol();
+            dgv_contenido.Columns[0].ReadOnly = true;
+            dgv_contenido.Columns[1].ReadOnly = true;
+            dgv_contenido.Columns[2].ReadOnly = true;
+            dgv_contenido.Columns[3].ReadOnly = true;
+            dgv_contenido.Columns[4].ReadOnly = true;
+            dgv_contenido.Columns[5].ReadOnly = true;
+            dgv_contenido.Columns[8].ReadOnly = true;
         }
 
         private void FrmUsuarioRol_Load(object sender, EventArgs e)

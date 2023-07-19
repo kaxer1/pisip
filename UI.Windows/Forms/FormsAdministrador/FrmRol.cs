@@ -94,6 +94,14 @@ namespace UI.Windows.Forms.FormsAdministrador
         public void ListarUsuarioRoles()
         {
             dgv_contenido.DataSource = _tsegRolController.ListarRol();
+            dgv_contenido.Columns[0].ReadOnly = true;
+            dgv_contenido.Columns[1].ReadOnly = true;
+            dgv_contenido.Columns[2].ReadOnly = true;
+            dgv_contenido.Columns[3].Visible = false;
+            dgv_contenido.Columns[4].ReadOnly = true;
+            dgv_contenido.Columns[5].ReadOnly = true;
+            dgv_contenido.Columns[6].ReadOnly = true;
+            dgv_contenido.Columns[7].ReadOnly = true;
         }
 
         private void btn_guardar_Click(object sender, EventArgs e)

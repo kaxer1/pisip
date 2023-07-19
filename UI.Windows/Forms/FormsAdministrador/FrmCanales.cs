@@ -56,6 +56,9 @@ namespace UI.Windows.Forms
         public void ListarCanales()
         {
             dgv_canales.DataSource = _canalesController.ListarCanales();
+            dgv_canales.Columns[0].ReadOnly = true;
+            dgv_canales.Columns[1].Visible = false;
+            dgv_canales.Columns[2].ReadOnly = true;
         }
 
         private void btn_guardar_Click(object sender, EventArgs e)
@@ -80,6 +83,13 @@ namespace UI.Windows.Forms
             ListarCanales();
             grb_contenido.Enabled = false;
             txt_ccanal.Enabled = false;
+            limpiarForm();
+        }
+
+        private void limpiarForm()
+        {
+            txt_ccanal.Text = "";
+            txt_nombre.Text = "";
         }
 
         private void btn_nuevo_Click(object sender, EventArgs e)

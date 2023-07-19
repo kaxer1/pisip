@@ -57,12 +57,19 @@ namespace UI.Windows
         private void ListarCompanias()
         {
             dgvListaCompania.DataSource = controllerCompania.ListarCompania();
+            dgvListaCompania.Columns[0].ReadOnly = true;
+            dgvListaCompania.Columns[1].Visible = false;
+            dgvListaCompania.Columns[2].ReadOnly = true;
+            dgvListaCompania.Columns[3].ReadOnly = true;
+            dgvListaCompania.Columns[4].ReadOnly = true;
+            dgvListaCompania.Columns[5].ReadOnly = true;
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             esnuevo = true;
             grbFormulario.Enabled = true;
+            txtCcompania.Enabled = true;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -92,7 +99,6 @@ namespace UI.Windows
             }
             ListarCompanias();
             limpiarFormulario();
-            grbFormulario.Enabled = false;
         }
 
         private void FrmCompania_Load(object sender, EventArgs e)
@@ -107,6 +113,8 @@ namespace UI.Windows
             txtEsloganCliente.Text = "";
             txtEsloganCore.Text = "";
             txtNombreCorto.Text = "";
+            txtCcompania.Enabled = false;
+            grbFormulario.Enabled = false;
         }
 
         private void dgvListaCompania_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -114,6 +122,7 @@ namespace UI.Windows
             if (dgvListaCompania.SelectedRows.Count > 0)
             {
                 grbFormulario.Enabled = true;
+                txtCcompania.Enabled = false;
                 esnuevo = false;
 
                 txtCcompania.Text = dgvListaCompania.CurrentRow.Cells[0].Value.ToString();

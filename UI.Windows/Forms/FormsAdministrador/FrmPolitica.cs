@@ -108,6 +108,18 @@ namespace UI.Windows.Forms.FormsAdministrador
         public void ListarPolitica()
         {
             dgv_politica.DataSource = _TsegPoliticaController.ListarPolitica();
+            dgv_politica.Columns[0].ReadOnly = true;
+            dgv_politica.Columns[1].ReadOnly = true;
+            dgv_politica.Columns[2].ReadOnly = true;
+            dgv_politica.Columns[3].ReadOnly = true;
+            dgv_politica.Columns[4].ReadOnly = true;
+            dgv_politica.Columns[5].ReadOnly = true;
+            dgv_politica.Columns[6].ReadOnly = true;
+            dgv_politica.Columns[7].ReadOnly = true;
+            dgv_politica.Columns[8].ReadOnly = true;
+            dgv_politica.Columns[9].ReadOnly = true;
+            dgv_politica.Columns[10].ReadOnly = true;
+            dgv_politica.Columns[11].ReadOnly = true;
         }
 
         private void btn_guardar_Click(object sender, EventArgs e)
@@ -158,6 +170,7 @@ namespace UI.Windows.Forms.FormsAdministrador
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
+            esnuevo = true;
             cb_canal.Enabled = true;
             cb_compania.Enabled = true;
             gb_contenido.Enabled = true;

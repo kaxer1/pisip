@@ -87,10 +87,25 @@ namespace UI.Windows
         private void ListarUsuarios()
         {
             dgvListaUsuario.DataSource = controllerUsuarioDetalle.ListarUsuarioDetalle();
+
+            dgvListaUsuario.Columns[0].ReadOnly = true;
+            dgvListaUsuario.Columns[1].ReadOnly = true;
+            dgvListaUsuario.Columns[2].Visible = false;
+            dgvListaUsuario.Columns[3].ReadOnly = true;
+            dgvListaUsuario.Columns[4].ReadOnly = true;
+            dgvListaUsuario.Columns[5].ReadOnly = true;
+            dgvListaUsuario.Columns[6].ReadOnly = true;
+            dgvListaUsuario.Columns[7].ReadOnly = true;
+            dgvListaUsuario.Columns[8].ReadOnly = true;
+            dgvListaUsuario.Columns[9].ReadOnly = true;
+            dgvListaUsuario.Columns[10].Visible = false;
+            dgvListaUsuario.Columns[11].ReadOnly = true;
+            dgvListaUsuario.Columns[12].ReadOnly = true;
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
+            esnuevo = true;
             grbFormulario.Enabled = true;
             txtCusuario.Enabled = true;
             cbCompania.Enabled = true;
@@ -161,6 +176,21 @@ namespace UI.Windows
             }
             
             ListarUsuarios();
+            limpiarForm();
+
+        }
+
+        private void limpiarForm()
+        {
+            txtCinterno.Text = "";
+            txtCusuario.Text = "";
+            txtObservacion.Text = "";
+            txtPassword.Text = "";
+            txtSobreNombre.Text = "";
+            cbCanal.Text = "";
+            cbCompania.Text = "";
+            chkEstatus.Checked = false;
+            grbFormulario.Enabled = false;
         }
 
         private void txtCinterno_KeyPress(object sender, KeyPressEventArgs e)
