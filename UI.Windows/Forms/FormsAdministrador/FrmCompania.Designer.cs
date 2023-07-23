@@ -70,6 +70,7 @@ namespace UI.Windows
             // 
             this.txtCcompania.Enabled = false;
             this.txtCcompania.Location = new System.Drawing.Point(175, 72);
+            this.txtCcompania.MaxLength = 4;
             this.txtCcompania.Name = "txtCcompania";
             this.txtCcompania.Size = new System.Drawing.Size(170, 22);
             this.txtCcompania.TabIndex = 2;
@@ -77,6 +78,7 @@ namespace UI.Windows
             // txtNombreCompania
             // 
             this.txtNombreCompania.Location = new System.Drawing.Point(175, 114);
+            this.txtNombreCompania.MaxLength = 100;
             this.txtNombreCompania.Name = "txtNombreCompania";
             this.txtNombreCompania.Size = new System.Drawing.Size(170, 22);
             this.txtNombreCompania.TabIndex = 4;
@@ -93,6 +95,7 @@ namespace UI.Windows
             // txtEsloganCliente
             // 
             this.txtEsloganCliente.Location = new System.Drawing.Point(175, 154);
+            this.txtEsloganCliente.MaxLength = 100;
             this.txtEsloganCliente.Name = "txtEsloganCliente";
             this.txtEsloganCliente.Size = new System.Drawing.Size(170, 22);
             this.txtEsloganCliente.TabIndex = 6;
@@ -109,6 +112,7 @@ namespace UI.Windows
             // txtEsloganCore
             // 
             this.txtEsloganCore.Location = new System.Drawing.Point(175, 195);
+            this.txtEsloganCore.MaxLength = 100;
             this.txtEsloganCore.Name = "txtEsloganCore";
             this.txtEsloganCore.Size = new System.Drawing.Size(170, 22);
             this.txtEsloganCore.TabIndex = 8;
@@ -125,6 +129,7 @@ namespace UI.Windows
             // txtNombreCorto
             // 
             this.txtNombreCorto.Location = new System.Drawing.Point(175, 234);
+            this.txtNombreCorto.MaxLength = 100;
             this.txtNombreCorto.Name = "txtNombreCorto";
             this.txtNombreCorto.Size = new System.Drawing.Size(170, 22);
             this.txtNombreCorto.TabIndex = 10;

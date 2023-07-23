@@ -25,6 +25,9 @@ namespace Aplicacion.Aplicacion.Services
 
         public void InsertarRol(TSEGROL nuevoRol)
         {
+            // caso especial porque no se usa secuencia atomatica en la base.
+            var rollista = ListarRol();
+            nuevoRol.CROL = rollista.Count() + 1;
             tsegRolRepository.Add(nuevoRol);
         }
 

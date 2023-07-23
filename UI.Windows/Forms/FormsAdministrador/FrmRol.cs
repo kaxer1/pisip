@@ -16,19 +16,20 @@ namespace UI.Windows.Forms.FormsAdministrador
     {
         private TsegRolController _tsegRolController;
         private TsegRolViewModel _tsegRolViewModel;
-        private TsegUsuarioController _tsegUsuarioController;
         private TgenCompaniaController _tgenCompaniaController;
+
+        private TgenCanalesController _tgenCanalesController;
 
         private decimal ccompaniaSeleccionado = 0;
         private string ccanalSeleccionado = "";
 
-        public FrmRol() : base()
+        public FrmRol(Timer timer) : base(timer)
         {
             base.formularioHijo = this;
             InitializeComponent();
-            _tsegUsuarioController = new TsegUsuarioController();
             _tsegRolController = new TsegRolController();
             _tgenCompaniaController = new TgenCompaniaController();
+            _tgenCanalesController = new TgenCanalesController();
         }
 
         private void ListarCompania()
@@ -39,25 +40,16 @@ namespace UI.Windows.Forms.FormsAdministrador
             cb_compania.ValueMember = "value";
         }
 
+        private void ListarCanal()
+        {
+            IEnumerable<TgenCanalesViewModel> lcanales = _tgenCanalesController.ListarCanales();
+            cb_canal.DataSource = _tgenCanalesController.mapearComboBox(lcanales, "CCANAL", "NOMBRE");
+            cb_canal.DisplayMember = "label";
+            cb_canal.ValueMember = "value";
+        }
+
         public void InsertarRol()
         {
-            if (!ejecutaSentencia())
-                return;
-
-            var pkRol = new Dictionary<string, object>
-                {
-                    { "CCOMPANIA",  ccompaniaSeleccionado },
-                    { "CROL",  Convert.ToDecimal(txtCrol.Text) },
-                };
-
-            TsegRolViewModel rol = _tsegRolController.ObtenerRegistroPorPk(pkRol);
-
-            if (rol != null)
-            {
-                MessageBox.Show("El Rol ya existe");
-                return;
-            }
-
             if (_tsegRolController.InsertarRol(_tsegRolViewModel))
             {
                 MessageBox.Show("Registro creado correctamente");
@@ -69,8 +61,6 @@ namespace UI.Windows.Forms.FormsAdministrador
         }
         public void ActualizarRol()
         {
-            if (!ejecutaSentencia())
-                return;
             if (_tsegRolController.ActualizarRol(_tsegRolViewModel))
             {
                 MessageBox.Show("Registro modificado correctamente");
@@ -94,14 +84,36 @@ namespace UI.Windows.Forms.FormsAdministrador
         public void ListarUsuarioRoles()
         {
             dgv_contenido.DataSource = _tsegRolController.ListarRol();
+            dgv_contenido.Columns[0].ReadOnly = true;
+            dgv_contenido.Columns[1].ReadOnly = true;
+            dgv_contenido.Columns[2].ReadOnly = true;
+            dgv_contenido.Columns[3].Visible = false;
+            dgv_contenido.Columns[4].ReadOnly = true;
+            dgv_contenido.Columns[5].ReadOnly = true;
+            dgv_contenido.Columns[6].ReadOnly = true;
+            dgv_contenido.Columns[7].ReadOnly = true;
         }
 
         private void btn_guardar_Click(object sender, EventArgs e)
         {
+            ejecutaSentencia();
+            var pkUsuarioRol = new Dictionary<string, object>
+                {
+                    { "CROL",  Convert.ToDecimal((txtCrol.Text == "") ? "0": txtCrol.Text) },
+                    { "CCOMPANIA",  ccompaniaSeleccionado },
+                };
+
+            _tsegRolViewModel = _tsegRolController.ObtenerRegistroPorPk(pkUsuarioRol);
+
             if (esnuevo)
             {
+                if (_tsegRolViewModel != null)
+                {
+                    MessageBox.Show("EL CÓDIGO DE REGISTRO YA EXISTE");
+                    return;
+                }
                 _tsegRolViewModel = new TsegRolViewModel();
-                _tsegRolViewModel.CROL = Convert.ToDecimal(txtCrol.Text);
+                _tsegRolViewModel.CROL = Convert.ToDecimal((txtCrol.Text == "") ? "0" : txtCrol.Text);
                 _tsegRolViewModel.CCOMPANIA = ccompaniaSeleccionado;
 
                 _tsegRolViewModel.CCANAL = ccanalSeleccionado;
@@ -118,13 +130,6 @@ namespace UI.Windows.Forms.FormsAdministrador
             }
             else
             {
-                var pkUsuarioRol = new Dictionary<string, object>
-                {
-                    { "CROL",  Convert.ToDecimal(txtCrol.Text) },
-                    { "CCOMPANIA",  ccompaniaSeleccionado },
-                };
-
-                _tsegRolViewModel = _tsegRolController.ObtenerRegistroPorPk(pkUsuarioRol);
                 _tsegRolViewModel.CCANAL = ccanalSeleccionado;
                 _tsegRolViewModel.NOMBRE = txtNombre.Text;
                 _tsegRolViewModel.ICONO = txtIcono.Text;
@@ -156,30 +161,22 @@ namespace UI.Windows.Forms.FormsAdministrador
                 ccanalSeleccionado = dgv_contenido.CurrentRow.Cells[2].Value.ToString();
 
                 // setea el item correspondiente en el combo
-                int indexCcomponia = cb_compania.FindStringExact(dgv_contenido.CurrentRow.Cells[1].Value.ToString());
-                if (indexCcomponia != -1)
-                    cb_compania.SelectedIndex = indexCcomponia;
+                cb_compania.SelectedValue = dgv_contenido.CurrentRow.Cells[1].Value.ToString();
 
                 // setea el item correspondiente en el combo
-                int indexCcanal = cb_canal.FindStringExact(dgv_contenido.CurrentRow.Cells[2].Value.ToString());
-                if (indexCcanal != -1)
-                    cb_canal.SelectedIndex = indexCcanal;
+                cb_canal.SelectedValue = dgv_contenido.CurrentRow.Cells[2].Value.ToString();
 
                 txtCrol.Text = dgv_contenido.CurrentRow.Cells[0].Value.ToString();
                 txtNombre.Text = dgv_contenido.CurrentRow.Cells[4].Value.ToString();
-                txtIcono.Text = dgv_contenido.CurrentRow.Cells[6].Value.ToString();
-                txtColor.Text = dgv_contenido.CurrentRow.Cells[7].Value.ToString();
+                txtIcono.Text = (dgv_contenido.CurrentRow.Cells[6].Value == null) ? "" : dgv_contenido.CurrentRow.Cells[6].Value.ToString();
+                txtColor.Text = (dgv_contenido.CurrentRow.Cells[7].Value == null) ? "" : dgv_contenido.CurrentRow.Cells[7].Value.ToString();
 
                 int estatus = Convert.ToInt32(dgv_contenido.CurrentRow.Cells[5].Value.ToString());
                 
                 if (estatus == 1)
-                {
                     chkEstatus.Checked = true;
-                }
                 else
-                {
                     chkEstatus.Checked = false;
-                }
 
             }
         }
@@ -188,12 +185,26 @@ namespace UI.Windows.Forms.FormsAdministrador
         {
             cb_compania.Enabled = true;
             grbContenido.Enabled = true;
-            esnuevo = false;
+            esnuevo = true;
         }
 
         private void FrmRol_Load(object sender, EventArgs e)
         {
+            ListarCompania();
+            ListarCanal();
             ListarUsuarioRoles();
+        }
+
+        private void cb_compania_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxSelectItem selectedItem = (ComboBoxSelectItem)cb_compania.SelectedItem;
+            ccompaniaSeleccionado = decimal.Parse(selectedItem.value);
+        }
+
+        private void cb_canal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBoxSelectItem selectedItem = (ComboBoxSelectItem)cb_canal.SelectedItem;
+            ccanalSeleccionado = selectedItem.value;
         }
     }
 }

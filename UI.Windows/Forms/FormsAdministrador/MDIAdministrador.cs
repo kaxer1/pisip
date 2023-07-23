@@ -16,43 +16,12 @@ namespace UI.Windows.Forms
     {
         TsegUsuarioController usuarioController;
 
-        private int childFormNumber = 0;
-
-        public MDIAdministrador() : base()
+        public MDIAdministrador(decimal tiemposession) : base(new Timer())
         {
             base.formularioHijo = this;
             InitializeComponent();
             usuarioController = new TsegUsuarioController();
-        }
-
-        private void ShowNewForm(object sender, EventArgs e)
-        {
-            Form childForm = new Form();
-            childForm.MdiParent = this;
-            childForm.Text = "Ventana " + childFormNumber++;
-            childForm.Show();
-        }
-
-        private void OpenFile(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "Archivos de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = openFileDialog.FileName;
-            }
-        }
-
-        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            saveFileDialog.Filter = "Archivos de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*";
-            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = saveFileDialog.FileName;
-            }
+            sessionTimer = InstanciarContador(tiemposession);
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
@@ -74,12 +43,10 @@ namespace UI.Windows.Forms
 
         private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
         }
 
         private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -112,73 +79,87 @@ namespace UI.Windows.Forms
 
         private void detalleUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmUsuario frmUsuario = new FrmUsuario();
-            frmUsuario.MdiParent = this; // para que el formulario este dentro del mdi
+            FrmUsuario frmUsuario = new FrmUsuario(sessionTimer);
+            frmUsuario.MdiParent = this;
+            frmUsuario.StartPosition = FormStartPosition.CenterScreen;
             frmUsuario.Show();
-        }
-
-        private void asignaciónDeRolesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmUsuarioRol frm_usuarioRol = new FrmUsuarioRol();
-            frm_usuarioRol.MdiParent = this;
-            frm_usuarioRol.Show();
         }
 
         private void consultarSesionesPorUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmUsuarioSesionHistoria frm_usuarioSesionHistoria = new FrmUsuarioSesionHistoria();
+            FrmUsuarioSesionHistoria frm_usuarioSesionHistoria = new FrmUsuarioSesionHistoria(sessionTimer);
             frm_usuarioSesionHistoria.MdiParent = this;
+            frm_usuarioSesionHistoria.StartPosition = FormStartPosition.CenterScreen;
             frm_usuarioSesionHistoria.Show();
-        }
-
-        private void canalesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmCanales FrmCanales = new FrmCanales();
-            FrmCanales.MdiParent = this;
-            FrmCanales.Show();
         }
 
         private void politicaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmPolitica frm_politica = new FrmPolitica();
+            FrmPolitica frm_politica = new FrmPolitica(sessionTimer);
             frm_politica.MdiParent = this;
+            frm_politica.StartPosition = FormStartPosition.CenterScreen;
             frm_politica.Show();
         }
         
         private void sesionesActivasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmUsuarioSession frmUsuarioSession = new FrmUsuarioSession();
-            frmUsuarioSession.MdiParent = this; // para que el formulario este dentro del mdi
+            FrmUsuarioSession frmUsuarioSession = new FrmUsuarioSession(sessionTimer);
+            frmUsuarioSession.MdiParent = this;
+            frmUsuarioSession.StartPosition = FormStartPosition.CenterScreen;
             frmUsuarioSession.Show();
         }
 
         private void rolesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmRol frmRol = new FrmRol();
-            frmRol.MdiParent = this; // para que el formulario este dentro del mdi
+            FrmRol frmRol = new FrmRol(sessionTimer);
+            frmRol.MdiParent = this;
+            frmRol.StartPosition = FormStartPosition.CenterScreen;
             frmRol.Show();
-        }
-
-        private void compañiaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmCompania frmCompania = new FrmCompania();
-            frmCompania.MdiParent = this; // para que el formulario este dentro del mdi
-            frmCompania.Show();
-        }
-
-        private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MdatosSession mdatos = usuarioController.mdatosUsuario;
-            FrmCambiarClave frmCambiarClave = new FrmCambiarClave(mdatos.ccompania, mdatos.cusuario, mdatos.crol);
-            frmCambiarClave.MdiParent = this;
-            frmCambiarClave.Show();
         }
 
         private void consultarHistorialInformacionUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmUsuarioDetalleHistoria frmUsuarioDetalle = new FrmUsuarioDetalleHistoria();
-            frmUsuarioDetalle.MdiParent = this; 
+            FrmUsuarioDetalleHistoria frmUsuarioDetalle = new FrmUsuarioDetalleHistoria(sessionTimer);
+            frmUsuarioDetalle.MdiParent = this;
+            frmUsuarioDetalle.StartPosition = FormStartPosition.CenterScreen;
             frmUsuarioDetalle.Show();
+        }
+
+        private void compañiaToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FrmCompania frmCompania = new FrmCompania(sessionTimer);
+            frmCompania.MdiParent = this;
+            frmCompania.StartPosition = FormStartPosition.CenterScreen;
+            frmCompania.Show();
+        }
+
+        private void canalesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FrmCanales FrmCanales = new FrmCanales(sessionTimer);
+            FrmCanales.MdiParent = this;
+            FrmCanales.StartPosition = FormStartPosition.CenterScreen;
+            FrmCanales.Show();
+        }
+
+        private void asignaciónDeRolesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FrmUsuarioRol frm_usuarioRol = new FrmUsuarioRol(sessionTimer);
+            frm_usuarioRol.MdiParent = this;
+            frm_usuarioRol.StartPosition = FormStartPosition.CenterScreen;
+            frm_usuarioRol.Show();
+        }
+
+        private void cambiarContraseñaToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            MdatosSession mdatos = usuarioController.mdatosUsuario;
+            FrmCambiarClave frmCambiarClave = new FrmCambiarClave(mdatos.ccompania, mdatos.cusuario, mdatos.crol, sessionTimer);
+            frmCambiarClave.MdiParent = this;
+            frmCambiarClave.StartPosition = FormStartPosition.CenterScreen;
+            frmCambiarClave.Show();
+        }
+
+        private void MDIAdministrador_Load(object sender, EventArgs e)
+        {
         }
     }
 }

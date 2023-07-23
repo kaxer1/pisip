@@ -23,7 +23,7 @@ namespace UI.Windows.Forms.FormsAdministrador
         private decimal ccompaniaSeleccionado = 0;
         private string ccanalSeleccionado = "";
         
-        public FrmPolitica() : base()
+        public FrmPolitica(Timer timer) : base(timer)
         {
             base.formularioHijo = this;
             InitializeComponent();
@@ -34,6 +34,7 @@ namespace UI.Windows.Forms.FormsAdministrador
 
         private void ListarCompania()
         {
+            ejecutaSentencia();
             IEnumerable<TgenCompaniaViewModel> lcompanias = _tgenCompaniaController.ListarCompania();
             cb_compania.DataSource = _tgenCompaniaController.mapearComboBox(lcompanias, "CCOMPANIA", "NOMBRECOMPANIA");
             cb_compania.DisplayMember = "label";
@@ -42,6 +43,7 @@ namespace UI.Windows.Forms.FormsAdministrador
         }
         private void ListarCanales()
         {
+            ejecutaSentencia();
             IEnumerable<TgenCanalesViewModel> lcanales = _tgenCanalesController.ListarCanales();
             cb_canal.DataSource = _tgenCanalesController.mapearComboBox(lcanales, "CCANAL", "NOMBRE");
             cb_canal.DisplayMember = "label";
@@ -50,23 +52,6 @@ namespace UI.Windows.Forms.FormsAdministrador
 
         public void InsertarPolitica()
         {
-            if (!ejecutaSentencia())
-                return;
-
-            var pkUsuario = new Dictionary<string, object>
-                {
-                    { "CCANAL",  ccanalSeleccionado },
-                    { "CCOMPANIA", ccompaniaSeleccionado }
-                };
-
-            TsegPoliticaViewModel politica = _TsegPoliticaController.ObtenerRegistroPorPk(pkUsuario);
-
-            if (politica != null)
-            {
-                MessageBox.Show("La politica ya existe");
-                return;
-            }
-
             if (_TsegPoliticaController.InsertarPolitica(_TsegPoliticaViewModel))
             {
                 MessageBox.Show("Politica creado correctamente");
@@ -78,9 +63,6 @@ namespace UI.Windows.Forms.FormsAdministrador
         }
         public void ActualizarCliente()
         {
-            if (!ejecutaSentencia())
-                return;
-
             if (_TsegPoliticaController.ActualizarPolitica(_TsegPoliticaViewModel))
             {
                 MessageBox.Show("Politica modificado correctamente");
@@ -107,45 +89,67 @@ namespace UI.Windows.Forms.FormsAdministrador
 
         public void ListarPolitica()
         {
+            ejecutaSentencia();
             dgv_politica.DataSource = _TsegPoliticaController.ListarPolitica();
+            dgv_politica.Columns[0].ReadOnly = true;
+            dgv_politica.Columns[1].ReadOnly = true;
+            dgv_politica.Columns[2].ReadOnly = true;
+            dgv_politica.Columns[3].ReadOnly = true;
+            dgv_politica.Columns[4].ReadOnly = true;
+            dgv_politica.Columns[5].ReadOnly = true;
+            dgv_politica.Columns[6].ReadOnly = true;
+            dgv_politica.Columns[7].ReadOnly = true;
+            dgv_politica.Columns[8].ReadOnly = true;
+            dgv_politica.Columns[9].ReadOnly = true;
+            dgv_politica.Columns[10].ReadOnly = true;
+            dgv_politica.Columns[11].ReadOnly = true;
         }
 
         private void btn_guardar_Click(object sender, EventArgs e)
         {
-            if(esnuevo)
+            ejecutaSentencia();
+            var pkPolitica = new Dictionary<string, object>
             {
+                { "CCOMPANIA",  ccompaniaSeleccionado },
+                { "CCANAL",  ccanalSeleccionado }
+            };
+            _TsegPoliticaViewModel = _TsegPoliticaController.ObtenerRegistroPorPk(pkPolitica);
+
+            if (esnuevo)
+            {
+                if (_TsegPoliticaViewModel != null)
+                {
+                    MessageBox.Show("EL CÓDIGO DE REGISTRO YA EXISTE");
+                    return;
+                }
                 _TsegPoliticaViewModel = new TsegPoliticaViewModel();
             
                 _TsegPoliticaViewModel.CCOMPANIA = ccompaniaSeleccionado;
                 _TsegPoliticaViewModel.CCANAL = ccanalSeleccionado; 
-                _TsegPoliticaViewModel.LONGITUD = decimal.Parse(txt_longitud.Text);
-                _TsegPoliticaViewModel.DIASVALIDEZ = decimal.Parse(txt_diasVal.Text);
-                _TsegPoliticaViewModel.DIASMENSAJEDEINVALIDEZ = decimal.Parse(txt_mensajeInva.Text);
-                _TsegPoliticaViewModel.INTENTOS = decimal.Parse(txt_intentos.Text);
-                _TsegPoliticaViewModel.REPETICIONES = decimal.Parse(txt_repe.Text);
-                _TsegPoliticaViewModel.NUMEROS = decimal.Parse(txt_numeros.Text);
-                _TsegPoliticaViewModel.ESPECIALES = decimal.Parse(txt_especiales.Text);
-                _TsegPoliticaViewModel.MINUSCULAS = decimal.Parse(txt_minus.Text);
-                _TsegPoliticaViewModel.MAYUSCULAS = decimal.Parse(txt_mayus.Text);
-                _TsegPoliticaViewModel.TIEMPOSESION = decimal.Parse(txt_tiempo.Text);
+                _TsegPoliticaViewModel.LONGITUD = decimal.Parse( (txt_longitud.Text == "") ? "0" : txt_longitud.Text );
+                _TsegPoliticaViewModel.DIASVALIDEZ = decimal.Parse( (txt_diasVal.Text == "") ? "0" : txt_diasVal.Text );
+                _TsegPoliticaViewModel.DIASMENSAJEDEINVALIDEZ = decimal.Parse( (txt_mensajeInva.Text == "") ? "0" : txt_mensajeInva.Text );
+                _TsegPoliticaViewModel.INTENTOS = decimal.Parse( (txt_intentos.Text == "") ? "0" : txt_intentos.Text );
+                _TsegPoliticaViewModel.REPETICIONES = decimal.Parse( (txt_repe.Text == "") ? "0" : txt_repe.Text );
+                _TsegPoliticaViewModel.NUMEROS = decimal.Parse( (txt_numeros.Text == "") ? "0" : txt_numeros.Text );
+                _TsegPoliticaViewModel.ESPECIALES = decimal.Parse( (txt_especiales.Text == "") ? "0" : txt_especiales.Text );
+                _TsegPoliticaViewModel.MINUSCULAS = decimal.Parse( (txt_minus.Text == "") ? "0" : txt_minus.Text );
+                _TsegPoliticaViewModel.MAYUSCULAS = decimal.Parse( (txt_mayus.Text == "") ? "0" : txt_mayus.Text );
+                _TsegPoliticaViewModel.TIEMPOSESION = decimal.Parse( (txt_tiempo.Text == "") ? "0" : txt_tiempo.Text );
             
                 InsertarPolitica();
             } else
             {
-                _TsegPoliticaViewModel = new TsegPoliticaViewModel();
-
-                _TsegPoliticaViewModel.CCOMPANIA = ccompaniaSeleccionado;
-                _TsegPoliticaViewModel.CCANAL = ccanalSeleccionado;
-                _TsegPoliticaViewModel.LONGITUD = decimal.Parse(txt_longitud.Text);
-                _TsegPoliticaViewModel.DIASVALIDEZ = decimal.Parse(txt_diasVal.Text);
-                _TsegPoliticaViewModel.DIASMENSAJEDEINVALIDEZ = decimal.Parse(txt_mensajeInva.Text);
-                _TsegPoliticaViewModel.INTENTOS = decimal.Parse(txt_intentos.Text);
-                _TsegPoliticaViewModel.REPETICIONES = decimal.Parse(txt_repe.Text);
-                _TsegPoliticaViewModel.NUMEROS = decimal.Parse(txt_numeros.Text);
-                _TsegPoliticaViewModel.ESPECIALES = decimal.Parse(txt_especiales.Text);
-                _TsegPoliticaViewModel.MINUSCULAS = decimal.Parse(txt_minus.Text);
-                _TsegPoliticaViewModel.MAYUSCULAS = decimal.Parse(txt_mayus.Text);
-                _TsegPoliticaViewModel.TIEMPOSESION = decimal.Parse(txt_tiempo.Text);
+                _TsegPoliticaViewModel.LONGITUD = decimal.Parse( (txt_longitud.Text == "") ? "0" : txt_longitud.Text );
+                _TsegPoliticaViewModel.DIASVALIDEZ = decimal.Parse( (txt_diasVal.Text == "") ? "0" : txt_diasVal.Text );
+                _TsegPoliticaViewModel.DIASMENSAJEDEINVALIDEZ = decimal.Parse( (txt_mensajeInva.Text == "") ? "0" : txt_mensajeInva.Text );
+                _TsegPoliticaViewModel.INTENTOS = decimal.Parse( (txt_intentos.Text == "") ? "0" : txt_intentos.Text );
+                _TsegPoliticaViewModel.REPETICIONES = decimal.Parse( (txt_repe.Text == "") ? "0" : txt_repe.Text );
+                _TsegPoliticaViewModel.NUMEROS = decimal.Parse( (txt_numeros.Text == "") ? "0" : txt_numeros.Text );
+                _TsegPoliticaViewModel.ESPECIALES = decimal.Parse( (txt_especiales.Text == "") ? "0" : txt_especiales.Text );
+                _TsegPoliticaViewModel.MINUSCULAS = decimal.Parse( (txt_minus.Text == "") ? "0" : txt_minus.Text );
+                _TsegPoliticaViewModel.MAYUSCULAS = decimal.Parse( (txt_mayus.Text == "") ? "0" : txt_mayus.Text );
+                _TsegPoliticaViewModel.TIEMPOSESION = decimal.Parse( (txt_tiempo.Text == "") ? "0" : txt_tiempo.Text );
 
                 ActualizarCliente();
             }
@@ -158,6 +162,7 @@ namespace UI.Windows.Forms.FormsAdministrador
 
         private void btn_nuevo_Click(object sender, EventArgs e)
         {
+            esnuevo = true;
             cb_canal.Enabled = true;
             cb_compania.Enabled = true;
             gb_contenido.Enabled = true;

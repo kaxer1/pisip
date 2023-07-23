@@ -19,6 +19,7 @@ namespace UI.Windows.AplicationController
         public string ccanal { get; set; }
         public decimal crol { get; set; }
         public decimal ccompania { get; set; }
+        public decimal tiemposesion { get; set; }
 
     }
     public class ComboBoxSelectItem
@@ -48,7 +49,7 @@ namespace UI.Windows.AplicationController
             MdatosSession valorObtenido = cache.Get(CACHE_CLAVE_SESSION) as MdatosSession;
             if (valorObtenido != null)
             {
-                Console.WriteLine("Valor obtenido: " + valorObtenido);
+                Console.WriteLine("Valor obtenido BaseController: " + valorObtenido);
             }
             return valorObtenido;
         }

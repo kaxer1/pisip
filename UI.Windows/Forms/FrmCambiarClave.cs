@@ -22,7 +22,7 @@ namespace UI.Windows.Forms
         private TsegUsuarioDetalleViewModel viewModelUsuarioDetalle;
 
         private TsegUsuarioDetalleHistController contorllerUsuarioDetalleHist;
-        public FrmCambiarClave(decimal ccompania, string cusuario, decimal crol) : base()
+        public FrmCambiarClave(decimal ccompania, string cusuario, decimal crol, Timer timer) : base(timer)
         {
             base.formularioHijo = this;
             InitializeComponent();
