@@ -99,6 +99,7 @@
             // txtColor
             // 
             this.txtColor.Location = new System.Drawing.Point(583, 35);
+            this.txtColor.MaxLength = 8;
             this.txtColor.Name = "txtColor";
             this.txtColor.Size = new System.Drawing.Size(249, 22);
             this.txtColor.TabIndex = 32;
@@ -116,6 +117,7 @@
             // txtIcono
             // 
             this.txtIcono.Location = new System.Drawing.Point(123, 160);
+            this.txtIcono.MaxLength = 30;
             this.txtIcono.Name = "txtIcono";
             this.txtIcono.Size = new System.Drawing.Size(249, 22);
             this.txtIcono.TabIndex = 30;
@@ -143,6 +145,7 @@
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(123, 124);
+            this.txtNombre.MaxLength = 60;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(249, 22);
             this.txtNombre.TabIndex = 27;
@@ -165,6 +168,7 @@
             this.cb_canal.Name = "cb_canal";
             this.cb_canal.Size = new System.Drawing.Size(249, 24);
             this.cb_canal.TabIndex = 25;
+            this.cb_canal.SelectedIndexChanged += new System.EventHandler(this.cb_canal_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -180,6 +184,7 @@
             // 
             this.txtCrol.Enabled = false;
             this.txtCrol.Location = new System.Drawing.Point(123, 29);
+            this.txtCrol.MaxLength = 3;
             this.txtCrol.Name = "txtCrol";
             this.txtCrol.Size = new System.Drawing.Size(249, 22);
             this.txtCrol.TabIndex = 5;
@@ -192,6 +197,7 @@
             this.cb_compania.Name = "cb_compania";
             this.cb_compania.Size = new System.Drawing.Size(249, 24);
             this.cb_compania.TabIndex = 4;
+            this.cb_compania.SelectedIndexChanged += new System.EventHandler(this.cb_compania_SelectedIndexChanged);
             // 
             // btn_guardar
             // 

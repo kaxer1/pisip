@@ -20,13 +20,14 @@ namespace UI.Windows.Forms.FormsAdministrador
         //Referencias
         private TsegUsuarioController _tsegUsuarioController;
         private TsegRolController _tsegRolController;
+        private TsegRolViewModel _TsegRolViewModel;
         private TgenCompaniaController _tgenCompaniaController;
 
         private string cusuarioSeleccionado = "";
         private decimal ccompaniaSeleccionado = 0;
         private decimal crolSeleccionado = 0;
 
-        public FrmUsuarioRol() : base()
+        public FrmUsuarioRol(Timer timer) : base(timer)
         {
             base.formularioHijo = this;
             InitializeComponent();
@@ -61,24 +62,6 @@ namespace UI.Windows.Forms.FormsAdministrador
 
         public void InsertarUsuarioROl()
         {
-            if (!ejecutaSentencia())
-                return; 
-
-            var pkUsuarioRol = new Dictionary<string, object>
-                {
-                    { "CUSUARIO",  cusuarioSeleccionado },
-                    { "CCOMPANIA",  ccompaniaSeleccionado },
-                    { "CROL",  crolSeleccionado },
-                };
-
-            TsegUsuarioRolViewModel usuraiorol = _tsegUsuarioRolController.ObtenerRegistroPorPk(pkUsuarioRol);
-
-            if (usuraiorol != null)
-            {
-                MessageBox.Show("El usuario con ese rol ya existe");
-                return;
-            }
-
             if (_tsegUsuarioRolController.InsertarUsuarioRol(_TsegUsuarioRolViewModel))
             {
                 MessageBox.Show("Registro creado correctamente");
@@ -90,8 +73,6 @@ namespace UI.Windows.Forms.FormsAdministrador
         }
         public void ActualizarUsuarioRol()
         {
-            if (!ejecutaSentencia()) 
-                return; 
             if (_tsegUsuarioRolController.ActualizarUsuarioRol(_TsegUsuarioRolViewModel))
             {
                 MessageBox.Show("Registro modificado correctamente");
@@ -110,6 +91,7 @@ namespace UI.Windows.Forms.FormsAdministrador
         }
         public void ListarUsuarioRoles()
         {
+            ejecutaSentencia();
             dgv_contenido.DataSource = _tsegUsuarioRolController.ListarUsuarioRol();
             dgv_contenido.Columns[0].ReadOnly = true;
             dgv_contenido.Columns[1].ReadOnly = true;
@@ -117,11 +99,11 @@ namespace UI.Windows.Forms.FormsAdministrador
             dgv_contenido.Columns[3].ReadOnly = true;
             dgv_contenido.Columns[4].ReadOnly = true;
             dgv_contenido.Columns[5].ReadOnly = true;
-            dgv_contenido.Columns[8].ReadOnly = true;
         }
 
         private void FrmUsuarioRol_Load(object sender, EventArgs e)
         {
+            ejecutaSentencia();
             ListarUsuarios();
             ListarRoles();
             ListarCompania();
@@ -130,8 +112,37 @@ namespace UI.Windows.Forms.FormsAdministrador
 
         private void btn_guardar_Click(object sender, EventArgs e)
         {
+            ejecutaSentencia();
+            var pkRol = new Dictionary<string, object>
+                {
+                    { "CCOMPANIA",  ccompaniaSeleccionado },
+                    { "CROL",  crolSeleccionado },
+                };
+
+            _TsegRolViewModel = _tsegRolController.ObtenerRegistroPorPk(pkRol);
+
+            if (_TsegRolViewModel == null)
+            {
+                MessageBox.Show("EL ROL SELECCIONADO NO EXISTE");
+                return;
+            }
+
+            var pkUsuarioRol = new Dictionary<string, object>
+                {
+                    { "CUSUARIO",  cusuarioSeleccionado },
+                    { "CCOMPANIA",  ccompaniaSeleccionado },
+                    { "CROL",  crolSeleccionado },
+                };
+
+            _TsegUsuarioRolViewModel = _tsegUsuarioRolController.ObtenerRegistroPorPk(pkUsuarioRol);
+
             if (esnuevo)
             {
+                if (_TsegUsuarioRolViewModel != null)
+                {
+                    MessageBox.Show("EL CÓDIGO DE REGISTRO YA EXISTE");
+                    return;
+                }
                 _TsegUsuarioRolViewModel = new TsegUsuarioRolViewModel();
                 _TsegUsuarioRolViewModel.CUSUARIO = cusuarioSeleccionado;
                 _TsegUsuarioRolViewModel.CCOMPANIA = ccompaniaSeleccionado;
@@ -141,14 +152,6 @@ namespace UI.Windows.Forms.FormsAdministrador
             }
             else
             {
-                var pkUsuarioRol = new Dictionary<string, object>
-                {
-                    { "CUSUARIO",  cusuarioSeleccionado },
-                    { "CCOMPANIA",  ccompaniaSeleccionado },
-                    { "CROL",  crolSeleccionado },
-                };
-
-                _TsegUsuarioRolViewModel = _tsegUsuarioRolController.ObtenerRegistroPorPk(pkUsuarioRol);
                 ActualizarUsuarioRol();
             }
             
@@ -200,19 +203,13 @@ namespace UI.Windows.Forms.FormsAdministrador
                 crolSeleccionado = (decimal)dgv_contenido.CurrentRow.Cells[2].Value;
 
                 // setea el item correspondiente en el combo
-                int indexCusuario = cb_usuario.FindStringExact(dgv_contenido.CurrentRow.Cells[0].Value.ToString());
-                if (indexCusuario != -1)
-                    cb_usuario.SelectedIndex = indexCusuario;
+                cb_usuario.SelectedValue = dgv_contenido.CurrentRow.Cells[0].Value.ToString();
 
                 // setea el item correspondiente en el combo
-                int indexCcomponia = cb_compania.FindStringExact(dgv_contenido.CurrentRow.Cells[1].Value.ToString());
-                if (indexCcomponia != -1)
-                    cb_compania.SelectedIndex = indexCcomponia;
+                cb_compania.SelectedValue = dgv_contenido.CurrentRow.Cells[1].Value.ToString();
 
                 // setea el item correspondiente en el combo
-                int indexCrol = cb_rol.FindStringExact(dgv_contenido.CurrentRow.Cells[2].Value.ToString());
-                if (indexCrol != -1)
-                    cb_rol.SelectedIndex = indexCrol;
+                cb_rol.SelectedValue = dgv_contenido.CurrentRow.Cells[2].Value.ToString();
 
             }
         }

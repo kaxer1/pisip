@@ -18,7 +18,7 @@ namespace UI.Windows.Forms
         private TgenCanalesController _canalesController;
         private TgenCanalesViewModel _canalesViewModel;
 
-        public FrmCanales() : base()
+        public FrmCanales(Timer timer) : base(timer)
         {
             base.formularioHijo = this;
             InitializeComponent();
@@ -26,9 +26,6 @@ namespace UI.Windows.Forms
         }
         public void InsertarCanal()
         {
-            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
-                return; // ASI NO PROCESDE A EJECUTAR
-
             if (_canalesController.InsertarCanal(_canalesViewModel))
             {
                 MessageBox.Show("Canal creado correctamente");
@@ -40,9 +37,6 @@ namespace UI.Windows.Forms
         }
         public void ActualizarCanal()
         {
-            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
-                return; // ASI NO PROCESDE A EJECUTAR
-
             if (_canalesController.ModificarCanal(_canalesViewModel))
             {
                 MessageBox.Show("Canal modificado correctamente");
@@ -55,6 +49,7 @@ namespace UI.Windows.Forms
 
         public void ListarCanales()
         {
+            ejecutaSentencia();
             dgv_canales.DataSource = _canalesController.ListarCanales();
             dgv_canales.Columns[0].ReadOnly = true;
             dgv_canales.Columns[1].Visible = false;
@@ -63,20 +58,27 @@ namespace UI.Windows.Forms
 
         private void btn_guardar_Click(object sender, EventArgs e)
         {
+            ejecutaSentencia();
+            var pkCanal = new Dictionary<string, object>
+            {
+                { "CCANAL",  txt_ccanal.Text }
+            };
+            _canalesViewModel = _canalesController.ObtenerRegistroPorPk(pkCanal);
+
             if (esnuevo)
             {
+                if (_canalesViewModel != null)
+                {
+                    MessageBox.Show("EL CÓDIGO DE REGISTRO YA EXISTE");
+                    return;
+                }
+
                 _canalesViewModel = new TgenCanalesViewModel();
                 _canalesViewModel.CCANAL = txt_ccanal.Text;
                 _canalesViewModel.NOMBRE = txt_nombre.Text;
                 InsertarCanal();
             }
             else {
-                var pkCanal = new Dictionary<string, object>
-                {
-                    { "CCANAL",  txt_ccanal.Text }
-                };
-
-                _canalesViewModel = _canalesController.ObtenerRegistroPorPk(pkCanal);
                 _canalesViewModel.NOMBRE = txt_nombre.Text;
                 ActualizarCanal();
             }

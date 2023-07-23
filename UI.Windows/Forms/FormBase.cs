@@ -19,7 +19,7 @@ namespace UI.Windows.Forms
 
         protected decimal tiemposession = 5;
 
-        private Timer sessionTimer;
+        protected Timer sessionTimer;
 
         private static MemoryCache cache = MemoryCache.Default;
 
@@ -32,9 +32,13 @@ namespace UI.Windows.Forms
 
         protected bool esnuevo = true;
 
-        public FormBase() {
+        public FormBase() { }
+
+        public FormBase(Timer timer) {
             serviceUsuarioSession = new TsegUsuarioSessionServices();
             controllerPolitica = new TsegPoliticaController();
+            // Configurar el temporizador de sesión
+            sessionTimer = timer;
         }
 
         /****************************************************************************
@@ -83,14 +87,12 @@ namespace UI.Windows.Forms
          * INICIO METODOS DEL CONTADOR
          * 
          ****************************************************************************/
-        public void IniciaContador(decimal minutos)
+        public Timer InstanciarContador(decimal minutos)
         {
-            // Configurar el temporizador de sesión
-            sessionTimer = new Timer();
             sessionTimer.Interval = Convert.ToInt32( TimeSpan.FromMinutes( Convert.ToDouble(minutos) ).TotalMilliseconds );
             sessionTimer.Tick += SessionAccionFinaliza;
 
-            IniciarTimer();
+            return sessionTimer;
         }
         private void IniciarTimer()
         {
@@ -103,14 +105,16 @@ namespace UI.Windows.Forms
             // Detener el temporizador
             sessionTimer.Stop();
             // Cerrar el formulario hijo
-            CerrarFormularioHijo();
-        }
-
-        protected virtual void CerrarFormularioHijo()
-        {
+            MessageBox.Show("SESIÓN FINALIZADA POR INACTIVIDAD");
             // Implementa la lógica para cerrar el formulario hijo en las clases derivadas
             formularioHijo.Close();
-            MessageBox.Show("SESION FINALIZADA");
+        }
+
+        private void ReiniciarTimer(decimal minutos)
+        {
+            sessionTimer.Stop();
+            sessionTimer.Interval = Convert.ToInt32(TimeSpan.FromMinutes(Convert.ToDouble(minutos)).TotalMilliseconds);
+            sessionTimer.Start();
         }
 
         /****************************************************************************
@@ -122,16 +126,14 @@ namespace UI.Windows.Forms
          * INICIO METODOS DEL CACHE DE SESSION
          * 
          ****************************************************************************/
-        protected bool ejecutaSentencia()
+        protected void ejecutaSentencia()
         {
             if (!ValidarSentencia())
             {
                 formularioHijo.Close();
-                MessageBox.Show("LA SESION A SIDO DESACTIVADA, EL PROGRAMA SE CERRARA");
+                MessageBox.Show("LA SESIÓN A SIDO DESACTIVADA, EL PROGRAMA SE CERRARA");
                 Application.Exit();
-                return false;
             }
-            return true;
         }
 
         private bool ValidarSentencia()
@@ -139,9 +141,10 @@ namespace UI.Windows.Forms
             MdatosSession mdatos = ObtenerObjetoMdatosSessionCache();
 
             if (mdatos == null)
-            {
                 return false;
-            }
+
+            ReiniciarTimer(mdatos.tiemposesion);
+            AgregarTiempoCacheSession(mdatos.tiemposesion);
 
             var pkUsuarioSession = new Dictionary<string, object>
                 {
@@ -152,14 +155,10 @@ namespace UI.Windows.Forms
             TSEGUSUARIOSESSION usuariosession = serviceUsuarioSession.ObtenerRegistroPorPk(pkUsuarioSession);
 
             if (usuariosession == null)
-            {
                 return false;
-            }
 
             if (usuariosession.ACTIVO == "0")
-            {
                 return false;
-            }
 
             return true;
         }
@@ -174,13 +173,23 @@ namespace UI.Windows.Forms
             cache.Add(CACHE_CLAVE_SESSION, mdatossession, politicaCache);
         }
 
+        protected void AgregarTiempoCacheSession(decimal tiemposession)
+        {
+            CacheItemPolicy politicaCache = new CacheItemPolicy
+            {
+                AbsoluteExpiration = DateTime.Now.AddMinutes(Convert.ToDouble(tiemposession))
+            };
+
+            cache.Set(CACHE_CLAVE_SESSION, cache.Get(CACHE_CLAVE_SESSION), politicaCache);
+        }
+
         private MdatosSession ObtenerObjetoMdatosSessionCache()
         {
             // Obtener un objeto de la caché
             MdatosSession valorObtenido = cache.Get(CACHE_CLAVE_SESSION) as MdatosSession;
             if (valorObtenido != null)
             {
-                Console.WriteLine("Valor obtenido: " + valorObtenido);
+                Console.WriteLine("Valor obtenido FormBase: " + valorObtenido);
             }
             return valorObtenido;
         }
@@ -199,6 +208,7 @@ namespace UI.Windows.Forms
             // 
             this.ClientSize = new System.Drawing.Size(345, 289);
             this.Name = "FormBase";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
 
         }

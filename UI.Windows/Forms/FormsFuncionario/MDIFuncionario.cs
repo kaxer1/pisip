@@ -18,11 +18,12 @@ namespace UI.Windows.Forms.FormsFuncionario
 
         private int childFormNumber = 0;
 
-        public MDIFuncionario() : base()
+        public MDIFuncionario(decimal tiemposession) : base(new Timer())
         {
             base.formularioHijo = this;
             InitializeComponent();
             usuarioController = new TsegUsuarioController();
+            sessionTimer = InstanciarContador(tiemposession);
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -113,7 +114,7 @@ namespace UI.Windows.Forms.FormsFuncionario
         private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MdatosSession mdatos = usuarioController.mdatosUsuario;
-            FrmCambiarClave frmCambiarClave = new FrmCambiarClave(mdatos.ccompania, mdatos.cusuario, mdatos.crol);
+            FrmCambiarClave frmCambiarClave = new FrmCambiarClave(mdatos.ccompania, mdatos.cusuario, mdatos.crol, sessionTimer);
             frmCambiarClave.MdiParent = this;
             frmCambiarClave.Show();
         }

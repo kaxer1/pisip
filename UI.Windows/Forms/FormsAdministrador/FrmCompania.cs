@@ -17,7 +17,7 @@ namespace UI.Windows
     {
         private TgenCompaniaController controllerCompania;
         private TgenCompaniaViewModel viewModelCompania;
-        public FrmCompania() : base()
+        public FrmCompania(Timer timer) : base(timer)
         {
             base.formularioHijo = this;
             InitializeComponent();
@@ -26,8 +26,7 @@ namespace UI.Windows
 
         public void InsertarCompania()
         {
-            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
-                return; // ASI NO PROCESDE A EJECUTAR
+            ejecutaSentencia();
 
             if (controllerCompania.InsertarCompania(viewModelCompania))
             {
@@ -41,8 +40,7 @@ namespace UI.Windows
 
         public void ActualizarCompania()
         {
-            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
-                return; // ASI NO PROCESDE A EJECUTAR
+            ejecutaSentencia();
 
             if (controllerCompania.ActualizarCompania(viewModelCompania))
             {
@@ -56,6 +54,7 @@ namespace UI.Windows
 
         private void ListarCompanias()
         {
+            ejecutaSentencia();
             dgvListaCompania.DataSource = controllerCompania.ListarCompania();
             dgvListaCompania.Columns[0].ReadOnly = true;
             dgvListaCompania.Columns[1].Visible = false;
@@ -74,6 +73,7 @@ namespace UI.Windows
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            ejecutaSentencia();
             if (esnuevo)
             {
                 viewModelCompania = new TgenCompaniaViewModel();

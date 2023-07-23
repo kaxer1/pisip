@@ -34,7 +34,7 @@ namespace UI.Windows.Forms
         private int intentosLogin = 0;
         private Guid sessionId;
 
-        public FrmLogin() : base()
+        public FrmLogin() : base(new Timer())
         {
             base.formularioHijo = this;
             InitializeComponent();
@@ -203,6 +203,7 @@ namespace UI.Windows.Forms
                 mdatos.ccompania = ccompaniaSeleccionado;
                 mdatos.crol = crolSeleccionado;
                 mdatos.cusuario = viewModelUsuarioDetalle.CUSUARIO;
+                mdatos.tiemposesion = tiemposession;
 
                 GuardarInicioSessionCache(tiemposession, mdatos);
                 
@@ -219,11 +220,10 @@ namespace UI.Windows.Forms
 
             this.Hide();
             this.limpiarFormularioLogin();
-
+            
             if (crolSeleccionado == 1) // ROL ADMINISTRADOR
             {
-                MDIAdministrador formAdministrador = new MDIAdministrador();
-                formAdministrador.IniciaContador(tiemposession);
+                MDIAdministrador formAdministrador = new MDIAdministrador(tiemposession);
                 DialogResult resultadoAdministrador = formAdministrador.ShowDialog();
 
                 if (resultadoAdministrador == DialogResult.Cancel)
@@ -234,8 +234,7 @@ namespace UI.Windows.Forms
 
             if (crolSeleccionado == 2) // ROL FUNCIONARIO
             {
-                MDIFuncionario formFuncionario = new MDIFuncionario();
-                formFuncionario.IniciaContador(tiemposession);
+                MDIFuncionario formFuncionario = new MDIFuncionario(tiemposession);
                 DialogResult resultadoAdministrador = formFuncionario.ShowDialog();
 
                 if (resultadoAdministrador == DialogResult.Cancel)
@@ -309,7 +308,7 @@ namespace UI.Windows.Forms
         private void MostrarFormularioCambioClave()
         {
             this.Hide();
-            FrmCambiarClave frmCambiarClave = new FrmCambiarClave(ccompaniaSeleccionado, txtUsuario.Text, crolSeleccionado);
+            FrmCambiarClave frmCambiarClave = new FrmCambiarClave(ccompaniaSeleccionado, txtUsuario.Text, crolSeleccionado, sessionTimer);
             DialogResult resultadoCambioClave = frmCambiarClave.ShowDialog();
 
             if (resultadoCambioClave == DialogResult.OK)

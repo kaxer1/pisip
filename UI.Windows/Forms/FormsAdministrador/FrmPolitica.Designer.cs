@@ -134,6 +134,7 @@ namespace UI.Windows.Forms.FormsAdministrador
             // 
             this.txt_repe.Location = new System.Drawing.Point(621, 186);
             this.txt_repe.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_repe.MaxLength = 3;
             this.txt_repe.Name = "txt_repe";
             this.txt_repe.Size = new System.Drawing.Size(190, 22);
             this.txt_repe.TabIndex = 21;
@@ -142,6 +143,7 @@ namespace UI.Windows.Forms.FormsAdministrador
             // 
             this.txt_tiempo.Location = new System.Drawing.Point(621, 148);
             this.txt_tiempo.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_tiempo.MaxLength = 3;
             this.txt_tiempo.Name = "txt_tiempo";
             this.txt_tiempo.Size = new System.Drawing.Size(190, 22);
             this.txt_tiempo.TabIndex = 20;
@@ -150,6 +152,7 @@ namespace UI.Windows.Forms.FormsAdministrador
             // 
             this.txt_especiales.Location = new System.Drawing.Point(208, 155);
             this.txt_especiales.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_especiales.MaxLength = 2;
             this.txt_especiales.Name = "txt_especiales";
             this.txt_especiales.Size = new System.Drawing.Size(241, 22);
             this.txt_especiales.TabIndex = 19;
@@ -158,6 +161,7 @@ namespace UI.Windows.Forms.FormsAdministrador
             // 
             this.txt_numeros.Location = new System.Drawing.Point(208, 193);
             this.txt_numeros.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_numeros.MaxLength = 2;
             this.txt_numeros.Name = "txt_numeros";
             this.txt_numeros.Size = new System.Drawing.Size(241, 22);
             this.txt_numeros.TabIndex = 18;
@@ -166,6 +170,7 @@ namespace UI.Windows.Forms.FormsAdministrador
             // 
             this.txt_diasVal.Location = new System.Drawing.Point(208, 231);
             this.txt_diasVal.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_diasVal.MaxLength = 4;
             this.txt_diasVal.Name = "txt_diasVal";
             this.txt_diasVal.Size = new System.Drawing.Size(241, 22);
             this.txt_diasVal.TabIndex = 17;
@@ -174,6 +179,7 @@ namespace UI.Windows.Forms.FormsAdministrador
             // 
             this.txt_mensajeInva.Location = new System.Drawing.Point(208, 266);
             this.txt_mensajeInva.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_mensajeInva.MaxLength = 2;
             this.txt_mensajeInva.Name = "txt_mensajeInva";
             this.txt_mensajeInva.Size = new System.Drawing.Size(241, 22);
             this.txt_mensajeInva.TabIndex = 16;
@@ -182,6 +188,7 @@ namespace UI.Windows.Forms.FormsAdministrador
             // 
             this.txt_intentos.Location = new System.Drawing.Point(621, 27);
             this.txt_intentos.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_intentos.MaxLength = 2;
             this.txt_intentos.Name = "txt_intentos";
             this.txt_intentos.Size = new System.Drawing.Size(190, 22);
             this.txt_intentos.TabIndex = 15;
@@ -190,6 +197,7 @@ namespace UI.Windows.Forms.FormsAdministrador
             // 
             this.txt_minus.Location = new System.Drawing.Point(621, 75);
             this.txt_minus.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_minus.MaxLength = 2;
             this.txt_minus.Name = "txt_minus";
             this.txt_minus.Size = new System.Drawing.Size(190, 22);
             this.txt_minus.TabIndex = 14;
@@ -198,6 +206,7 @@ namespace UI.Windows.Forms.FormsAdministrador
             // 
             this.txt_mayus.Location = new System.Drawing.Point(621, 116);
             this.txt_mayus.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_mayus.MaxLength = 2;
             this.txt_mayus.Name = "txt_mayus";
             this.txt_mayus.Size = new System.Drawing.Size(190, 22);
             this.txt_mayus.TabIndex = 13;
@@ -316,6 +325,7 @@ namespace UI.Windows.Forms.FormsAdministrador
             // 
             this.txt_longitud.Location = new System.Drawing.Point(208, 119);
             this.txt_longitud.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_longitud.MaxLength = 2;
             this.txt_longitud.Name = "txt_longitud";
             this.txt_longitud.Size = new System.Drawing.Size(241, 22);
             this.txt_longitud.TabIndex = 1;

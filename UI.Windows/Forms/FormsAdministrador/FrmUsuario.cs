@@ -28,7 +28,7 @@ namespace UI.Windows
         private decimal ccompaniaSeleccionado = 0;
         private string ccanalSeleccionado = "";
         
-        public FrmUsuario() : base()
+        public FrmUsuario(Timer timer) : base(timer)
         {
             base.formularioHijo = this;
             InitializeComponent();
@@ -40,8 +40,7 @@ namespace UI.Windows
 
         public void InsertarUsuario()
         {
-            if(!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
-                return; // ASI NO PROCESDE A EJECUTAR
+            ejecutaSentencia(); // Verifica si funciona le permite ejecutar sentencia
 
             if (controllerUsuario.InsertarUsuario(viewModelUsuario))
             {
@@ -63,8 +62,7 @@ namespace UI.Windows
 
         public void ActualizarUsuario()
         {
-            if (!ejecutaSentencia()) // Si no pasa la validacion que le permita ejecutar la sentencia
-                return; // ASI NO PROCESDE A EJECUTAR
+            ejecutaSentencia(); // Verifica si funciona le permite ejecutar sentencia
 
             if (controllerUsuario.ActualizarUsuario(viewModelUsuario))
             {
@@ -86,6 +84,7 @@ namespace UI.Windows
 
         private void ListarUsuarios()
         {
+            ejecutaSentencia();
             dgvListaUsuario.DataSource = controllerUsuarioDetalle.ListarUsuarioDetalle();
 
             dgvListaUsuario.Columns[0].ReadOnly = true;
@@ -113,6 +112,7 @@ namespace UI.Windows
 
         private void FrmUsuario_Load(object sender, EventArgs e)
         {
+            ejecutaSentencia();
             IEnumerable<TgenCompaniaViewModel> lcompanias = controllerCompania.ListarCompania();
             cbCompania.DataSource = controllerCompania.mapearComboBox(lcompanias, "CCOMPANIA", "NOMBRECOMPANIA");
             cbCompania.DisplayMember = "label";
@@ -128,6 +128,7 @@ namespace UI.Windows
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            ejecutaSentencia();
             viewModelUsuario = new TsegUsuarioViewModel();
             viewModelUsuario.CUSUARIO = txtCusuario.Text;
             viewModelUsuario.CCOMPANIA = ccompaniaSeleccionado;
@@ -202,6 +203,7 @@ namespace UI.Windows
         {
             if (dgvListaUsuario.SelectedRows.Count > 0)
             {
+                ejecutaSentencia();
                 txtCusuario.Enabled = false;
                 cbCompania.Enabled = false;
                 ccompaniaSeleccionado = (decimal)dgvListaUsuario.CurrentRow.Cells[1].Value;
@@ -216,18 +218,14 @@ namespace UI.Windows
                     chkEstatus.Checked = false;
 
                 // setea el item correspondiente en el combo
-                int indexCcomponia = cbCompania.FindStringExact(dgvListaUsuario.CurrentRow.Cells[1].Value.ToString());
-                if (indexCcomponia != -1)
-                    cbCompania.SelectedIndex = indexCcomponia;
+                cbCompania.SelectedValue = dgvListaUsuario.CurrentRow.Cells[1].Value.ToString();
 
                 // setea el item correspondiente en el combo
-                int indexCcanal = cbCanal.FindStringExact(dgvListaUsuario.CurrentRow.Cells[8].Value.ToString());
-                if (indexCcanal != -1)
-                    cbCanal.SelectedIndex = indexCcanal;
+                cbCanal.SelectedValue = dgvListaUsuario.CurrentRow.Cells[8].Value.ToString();
 
                 txtCusuario.Text = dgvListaUsuario.CurrentRow.Cells[0].Value.ToString();
                 txtSobreNombre.Text = dgvListaUsuario.CurrentRow.Cells[9].Value.ToString();
-                txtObservacion.Text = dgvListaUsuario.CurrentRow.Cells[12].Value.ToString();
+                txtObservacion.Text = (dgvListaUsuario.CurrentRow.Cells[12].Value == null) ? "" : dgvListaUsuario.CurrentRow.Cells[12].Value.ToString();
                 
                 var pkUsuario = new Dictionary<string, object>
                 {
